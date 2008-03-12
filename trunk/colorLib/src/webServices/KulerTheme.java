@@ -12,7 +12,8 @@ public class KulerTheme extends Palette {
 
 	private String[] themeTags;
 
-	private int themeRating, themeDownloadCount;
+	private float themeRating;
+	private int themeDownloadCount;
 
 	private Date themeCreatedAt, themeEditedAt;
 
@@ -80,12 +81,12 @@ public class KulerTheme extends Palette {
 		this.themeID = themeID;
 	}
 
-	public int getThemeRating() {
+	public float getThemeRating() {
 		return themeRating;
 	}
 
 	public void setThemeRating(String themeRating) {
-		this.themeRating = Integer.valueOf(themeRating).intValue();
+		this.themeRating = Float.valueOf(themeRating).intValue();
 	}
 
 	public String[] getThemeTags() {
