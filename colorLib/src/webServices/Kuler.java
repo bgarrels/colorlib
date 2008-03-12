@@ -1,6 +1,7 @@
 package webServices;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import processing.core.*;
 import processing.xml.*;
@@ -99,11 +100,13 @@ public class Kuler {
 			XMLElement[] themeSwatches = themeItem.getChildren("kuler:themeSwatches/kuler:swatch/kuler:swatchHexColor");
 			int[] colors = new int[themeSwatches.length];
 			for (int j = 0; j < themeSwatches.length; j++) {
-				colors[j] = PApplet.unhex(themeSwatches[j].getContent());
+				colors[j] = PApplet.unhex("FF"+themeSwatches[j].getContent());
+				System.out.println(themeSwatches[j].getContent());
 			}
 			kulerTheme.setColors(colors);
 			
 			kulerTheme.printSettings();
+			themes.add(kulerTheme);
 		}
 	}
 	
@@ -121,6 +124,20 @@ public class Kuler {
 	 */
 	public KulerTheme[] searchForTag(String tag) {
 		return new KulerTheme[0];
+	}
+	
+	public void draw(){
+		Iterator iter = themes.iterator();
+		int cnt=0;
+		while (iter.hasNext()) {
+			KulerTheme theme = (KulerTheme) iter.next();
+			parent.pushMatrix();
+			parent.translate(0, cnt*5);
+			theme.draw();
+			parent.popMatrix();
+			cnt++;
+		}
+		System.out.print(cnt);
 	}
 	
 

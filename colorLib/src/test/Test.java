@@ -15,20 +15,17 @@ public class Test extends PApplet {
 
 	public void setup() {
 		size(500, 500);
+		noStroke();
 //		p=new Palette(this);
 //		p.makeComplementary(color(6, 131, 189));
 		k = new Kuler(this);
 		k.getRandom();
-//		noStroke();
-//		background(0);
-
-		
-		background(0);
+		k.draw();
 	}
 
-//	public void draw() {
-//		p.draw();
-//	}
+	public void draw() {
+		
+	}
 //	
 //	public void keyPressed(){
 //		if(key=='+'){

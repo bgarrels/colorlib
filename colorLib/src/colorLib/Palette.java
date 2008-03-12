@@ -465,7 +465,8 @@ public class Palette {
 	public void draw(){
 		for (int i = 0; i < colors.length; i++) {
 			p.fill(colors[i]);
-			p.rect(i*20, 0, 20, 100);
+			p.rect(i*100, 0, 100, 5);
+			System.out.println(PApplet.hex(colors[i]));
 		}
 	}
 
