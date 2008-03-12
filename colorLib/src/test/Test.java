@@ -1,10 +1,10 @@
 package test;
 
-import kuler.Kuler;
 import processing.core.*;
 import processing.xml.XMLElement;
 import colorLib.*;
 import processing.xml.*;
+import webServices.Kuler;
 public class Test extends PApplet {
 	
 	Palette p;
@@ -15,28 +15,29 @@ public class Test extends PApplet {
 
 	public void setup() {
 		size(500, 500);
-		p=new Palette(this);
-		p.makeComplementary(color(6, 131, 189));
-		//k = new Kuler(this, "berlin");
-		noStroke();
-		background(0);
+//		p=new Palette(this);
+//		p.makeComplementary(color(6, 131, 189));
+		k = new Kuler(this);
+		k.getRandom();
+//		noStroke();
+//		background(0);
 
 		
 		background(0);
 	}
 
-	public void draw() {
-		p.draw();
-	}
-	
-	public void keyPressed(){
-		if(key=='+'){
-			p.saturate();
-		}else if(key=='-'){
-			p.desaturate();
-		}
-		println(p.getNearestHues());
-		saveFrame("german.tif");
-	}
+//	public void draw() {
+//		p.draw();
+//	}
+//	
+//	public void keyPressed(){
+//		if(key=='+'){
+//			p.saturate();
+//		}else if(key=='-'){
+//			p.desaturate();
+//		}
+//		println(p.getNearestHues());
+//		saveFrame("german.tif");
+//	}
 }
 

@@ -1,4 +1,4 @@
-package colr;
+package webServices;
 import colorLib.*;
 import processing.core.*;
 import processing.xml.*;
