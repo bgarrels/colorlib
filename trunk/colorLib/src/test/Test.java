@@ -3,8 +3,8 @@ package test;
 import processing.core.*;
 import processing.xml.XMLElement;
 import colorLib.*;
+import colorLib.webServices.Kuler;
 import processing.xml.*;
-import webServices.Kuler;
 public class Test extends PApplet {
 	
 	Palette p;
