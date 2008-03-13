@@ -1,14 +1,14 @@
 package test;
 
 import processing.core.*;
-import processing.xml.XMLElement;
 import colorLib.*;
-import colorLib.webServices.Kuler;
-import processing.xml.*;
+import colorLib.webServices.*;
+
 public class Test extends PApplet {
 	
 	Palette p;
 	Kuler k;
+	Colr c;
 	static public void main(String args[]) {
 		PApplet.main(new String[] { /* "--present", */"test.Test" });
 	}
@@ -18,9 +18,9 @@ public class Test extends PApplet {
 		noStroke();
 //		p=new Palette(this);
 //		p.makeComplementary(color(6, 131, 189));
-		k = new Kuler(this);
-		k.getRandom();
-		k.draw();
+		c = new Colr(this);
+//		k.getRandom();
+//		k.draw();
 	}
 
 	public void draw() {
