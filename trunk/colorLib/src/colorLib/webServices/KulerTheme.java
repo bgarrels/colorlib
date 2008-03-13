@@ -7,7 +7,7 @@ import java.util.Date;
 import processing.core.PApplet;
 import colorLib.Palette;
 
-public class KulerTheme extends Palette {
+public class KulerTheme extends ColrTheme {
 	private String themeID, themeTitle, authorLabel, authorID;
 
 	private String[] themeTags;
@@ -18,7 +18,7 @@ public class KulerTheme extends Palette {
 	private Date themeCreatedAt, themeEditedAt;
 
 	KulerTheme(PApplet i_p) {
-		super(i_p, 5);
+		super(i_p);
 	}
 
 	public String getAuthorId() {
@@ -89,15 +89,7 @@ public class KulerTheme extends Palette {
 		this.themeRating = Float.valueOf(themeRating).intValue();
 	}
 
-	public String[] getThemeTags() {
-		return themeTags;
-	}
-
-	public void setThemeTags(String themeTags) {
-		if (themeTags != null || !themeTags.equalsIgnoreCase("")){
-			this.themeTags = themeTags.split(",");
-	    }
-	}
+	
 
 	public String getThemeTitle() {
 		return themeTitle;
