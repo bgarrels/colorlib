@@ -1,4 +1,4 @@
-package webServices;
+package colorLib.webServices;
 
 import java.util.ArrayList;
 import java.util.Iterator;
