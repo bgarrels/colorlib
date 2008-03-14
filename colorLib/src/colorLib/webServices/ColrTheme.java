@@ -5,7 +5,7 @@ import colorLib.Palette;
 
 public class ColrTheme extends Palette {
 
-	private String[] themeTags;
+	protected String[] themeTags;
 	
 	ColrTheme(PApplet i_p) {
 		super(i_p);

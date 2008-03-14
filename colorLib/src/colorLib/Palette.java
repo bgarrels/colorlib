@@ -16,6 +16,8 @@ public class Palette {
 	protected int[] colors;
 
 	protected PApplet p;
+	
+	PImage dropShadow;
 
 	public Palette(PApplet i_p) {
 		this(i_p, 10);
@@ -463,11 +465,35 @@ public class Palette {
 	}
 	
 	public void draw(){
+		float paletteLength = 120f;
+		int paletteHeight = 35;
+		if(dropShadow==null){
+			dropShadow = p.loadImage("dropshadow.png");
+		}
+		p.image(dropShadow,-3, -2);
+		float swatchLength  = paletteLength/colors.length;
 		for (int i = 0; i < colors.length; i++) {
 			p.fill(colors[i]);
-			p.rect(i*100, 0, 100, 5);
-			System.out.println(PApplet.hex(colors[i]));
-		}
+			p.noStroke();
+			p.quad(swatchLength*i, 0, swatchLength*(i+1), 0, swatchLength*(i+1), paletteHeight, swatchLength*i, paletteHeight);
+			p.line(swatchLength*i, 0,swatchLength*i, paletteHeight);
+			for (int j =3, k=0; j > -1; j--, k++) {
+				p.stroke(setHSBColor(p.hue(colors[i]), p.saturation(colors[i]), p
+						.brightness(colors[i])+ 10*k));
+				
+				p.line(swatchLength*i,j,swatchLength*(i+1)-1,j);
+				
+				p.stroke(setHSBColor(p.hue(colors[i]), p.saturation(colors[i]), p
+						.brightness(colors[i])- 10*j));
+				
+				p.line(swatchLength*i,paletteHeight-k,swatchLength*(i+1)-1,paletteHeight-k);
+			}
+			
+			}
+
+		
+
+
 	}
 
 	static private final int max(int a, int b, int c) {
@@ -492,7 +518,6 @@ public class Palette {
 	}
 	
 	private int setHSBColor(float h, float s, float b){
-		System.out.println("h: "+h+"s: "+s+"b: "+b);
 		return setHSBColor(h,s,b,255);
 	}
 

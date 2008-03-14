@@ -10,8 +10,6 @@ import colorLib.Palette;
 public class KulerTheme extends ColrTheme {
 	private String themeID, themeTitle, authorLabel, authorID;
 
-	private String[] themeTags;
-
 	private float themeRating;
 	private int themeDownloadCount;
 

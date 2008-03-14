@@ -23,14 +23,14 @@ public class Kuler {
 	 * sets the url for getting the highest rated colors
 	 */
 	public void getHighestRated() {
-		makePalettes("&listtype=rating");
+		makePalettes("listtype=rating");
 	}
 
 	/**
 	 * sets the url for getting the popular colors from the last 30 days
 	 */
 	public void getPopular() {
-		makePalettes("&listtype=rating&timespan=30");
+		makePalettes("listtype=rating&timespan=30");
 	}
 
 	/**
@@ -38,21 +38,21 @@ public class Kuler {
 	 * days
 	 */
 	public void getPopular(int days) {
-		makePalettes("&listtype=rating&timespan=" + days);
+		makePalettes("listtype=rating&timespan=" + days);
 	}
 
 	/**
 	 * sets the url for getting the most recent colors
 	 */
 	public void getRecent() {
-		makePalettes("&listtype=recent");
+		makePalettes("listtype=recent");
 	}
 
 	/**
 	 * sets the url for getting random colors
 	 */
 	public void getRandom() {
-		makePalettes("&listtype=random");
+		makePalettes("listtype=random");
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class Kuler {
 	 * searches kuler for a string with a search filter
 	 */
 	public void search(String searchQuery, String searchFilter) {
-		makePalettes(searchFilter + ":" + searchQuery);
+		makePalettes("&searchQuery="+searchFilter + ":" + searchQuery);
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class Kuler {
 	public void makePalettes(String querry) {
 		themes = new ArrayList();
 		String url = "http://kuler.adobe.com/kuler/API/rss/search.cfm?itemsPerPage=100";
-		
+		PApplet.println(querry);
 		XMLElement xml = new XMLElement(parent, url + querry);
 		XMLElement[] themeItems = xml.getChildren("channel/item/kuler:themeItem");
 		
@@ -129,13 +129,15 @@ public class Kuler {
 	public void draw(){
 		Iterator iter = themes.iterator();
 		int cnt=0;
+		int y=0;
 		while (iter.hasNext()) {
 			KulerTheme theme = (KulerTheme) iter.next();
 			parent.pushMatrix();
-			parent.translate(0, cnt*5);
+			parent.translate(10+(cnt%10)*140, 10+y*48);
 			theme.draw();
 			parent.popMatrix();
 			cnt++;
+			if(cnt%10==0)y++;
 		}
 		System.out.print(cnt);
 	}
