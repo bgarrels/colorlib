@@ -14,15 +14,33 @@ public class Test extends PApplet {
 	}
 
 	public void setup() {
-		size(1400, 490);
+		size(1300, 490);
 		noStroke();
 		background(100);
 //		p=new Palette(this);
 //		p.makeComplementary(color(6, 131, 189));
 //		c = new Colr(this);
-		k = new Kuler(this);
-		k.search("coffee","tag");
-		k.draw();
+		smooth();
+		beginRecord(PDF, "output.pdf");
+		pushMatrix();
+		Kuler good = new Kuler(this);
+		good.search("good","tag");
+		translate(0, 250);
+		good .draw();
+		popMatrix();
+		pushMatrix();
+		Kuler bad = new Kuler(this);
+		translate(430, 250);
+		bad.search("bad","tag");
+		bad .draw();
+		popMatrix();
+		pushMatrix();
+		Kuler ugly = new Kuler(this);
+		translate(860, 250);
+		ugly.search("ugly","tag");
+		ugly .draw();
+		popMatrix();
+		endRecord();
 	}
 
 	public void draw() {

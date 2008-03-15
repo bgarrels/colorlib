@@ -79,7 +79,7 @@ public class Kuler {
 	 */
 	public void makePalettes(String querry) {
 		themes = new ArrayList();
-		String url = "http://kuler.adobe.com/kuler/API/rss/search.cfm?itemsPerPage=100";
+		String url = "http://kuler.adobe.com/kuler/API/rss/search.cfm?itemsPerPage=40";
 		PApplet.println(querry);
 		XMLElement xml = new XMLElement(parent, url + querry);
 		XMLElement[] themeItems = xml.getChildren("channel/item/kuler:themeItem");
@@ -133,11 +133,13 @@ public class Kuler {
 		while (iter.hasNext()) {
 			KulerTheme theme = (KulerTheme) iter.next();
 			parent.pushMatrix();
-			parent.translate(10+(cnt%10)*140, 10+y*48);
-			theme.draw();
+//			parent.translate(10+(cnt%10)*140, 10+y*48);
+			parent.translate(10+(cnt%5)*70, 10+y*70);
+			theme.drawWheel();
 			parent.popMatrix();
 			cnt++;
-			if(cnt%10==0)y++;
+//			if(cnt%10==0)y++;
+			if(cnt%5==0)y++;
 		}
 		System.out.print(cnt);
 	}

@@ -464,9 +464,9 @@ public class Palette {
 		}
 	}
 	
-	public void draw(){
+	public void drawSwatches(){
 		float paletteLength = 120f;
-		int paletteHeight = 35;
+		int paletteHeight = 16;
 		if(dropShadow==null){
 			dropShadow = p.loadImage("dropshadow.png");
 		}
@@ -488,12 +488,21 @@ public class Palette {
 				
 				p.line(swatchLength*i,paletteHeight-k,swatchLength*(i+1)-1,paletteHeight-k);
 			}
+
 			
 			}
-
-		
-
-
+	}
+	
+	public void drawWheel(){
+		float swatchLength  = PApplet.TWO_PI/colors.length;
+		for (int i = 0; i < colors.length; i++) {
+			p.smooth();
+			p.noFill();
+			p.strokeCap(PApplet.SQUARE);
+			p.strokeWeight(10);
+			p.stroke(colors[i]);
+			p.arc(50, 55, 50, 50, swatchLength*i, swatchLength*(i+1));
+		}
 	}
 
 	static private final int max(int a, int b, int c) {
