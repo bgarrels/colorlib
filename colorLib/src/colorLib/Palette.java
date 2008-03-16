@@ -4,11 +4,16 @@ import processing.core.*;
 
 import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 
-import com.apple.audio.jdirect.ArrayCopy;
+/**
+ * @author andreaskoberle
+ *
+ */
+/**
+ * @author andreaskoberle
+ *
+ */
 public class Palette {
 
 	private static final long serialVersionUID = 1L;
@@ -19,30 +24,48 @@ public class Palette {
 	
 	PImage dropShadow;
 
+	/**
+	 * Creates a new palette object which holds your colors. 
+	 * All color mainupaltion is done over this object.
+	 * By default it creates an empty palette with placeholder for 10 colors. 
+	 * You can also pass an array of color or an PImage object to create a new palette.
+	 * Ive you pass a PImage all duplicated colors will delete.
+	 * At least you use a given <a href="www.colorschemer.com">color shemer</a> .cs file or 
+	 * an .act file whic hyou can create in photoshop for example.
+	 * @param i_p a PApplet object, normally use 'this'
+	 */
 	public Palette(PApplet i_p) {
 		this(i_p, 10);
 	}
 
+	/**
+	 * @param i_length length of the created 
+	 */
 	public Palette(PApplet i_p, int i_length) {
 		this(i_p, new int[i_length]);
 	}
 
+	/**
+	 * @param i_colors an array of colors
+	 */
 	public Palette(PApplet i_p, int[] i_colors) {
 		p=i_p;
 		colors=new int[i_colors.length];
 		System.arraycopy(i_colors,0 ,colors, 0, i_colors.length);
 	}
 
-	public Palette(PApplet i_p, String[] i_colorNames) {
-		this(i_p);
-	}
-
+	/**
+	 * @param i_image an PImage object
+	 */
 	public Palette(PApplet i_p, PImage i_image) {
 		p = i_p;
 		colors = i_image.pixels;
 		deletedDuplicate();
 	}
 
+	/**
+	 * @param i_filename an .cs or .act file located in the data folder of your sketch
+	 */
 	public Palette(PApplet i_p, String i_filename) {
 		p=i_p;
 		byte[] b = p.loadBytes(i_filename);
@@ -77,12 +100,27 @@ public class Palette {
 		
 	}
 	
+	/**
+	 * Creates a 2 color palette with the passed color and it's complementar on the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
+	 * @param i_color
+	 * @related makeComplementary ()
+	 * @related makeSplittedComplementary ()
+	 * @related makeTriad ()
+	 * @related makeTetrad ()
+	 */
 	public void makeComplement(final int i_color){
 		colors=new int[2];
 		colors[0]=i_color;
 		colors[1]=rotateRYB(180, i_color);
 	}
 	
+	/**
+	 * @param i_color
+	 * @related makeComplement ()
+	 * @related makeSplittedComplementary ()
+	 * @related makeTriad ()
+	 * @related makeTetrad ()
+	 */
 	public void makeComplementary(int i_color){
 		colors=new int[6];
 		colors[0]=i_color;
@@ -105,36 +143,89 @@ public class Palette {
 		colors[5]=setHSBColor(p.hue(i_color), 25+p.saturation(i_color)*.25f, p.brightness(i_color)+76.5f);
 	}
 	
-	public void makeTriad(int i_color){
-		colors = new int[3];
-		float degree = 255 / 3f ;
-		colors[0] = i_color;
-		for (int i = 1; i < 3; i++) {
-			colors[i] = rotateRGB(degree*i, i_color);
-		}
+	/**
+	 * @param i_color
+	 * @related makeComplement ()
+	 * @related makeComplementary ()
+	 * @related makeTriad ()
+	 * @related makeTetrad ()
+	 */
+	public void makeSplittedComplementary(int i_color){
+		colors=new int[3];
+		colors[0]=i_color;
+		colors[1]=rotateRYB(30, i_color);
+		colors[1]=setHSBColor(p.hue(colors[1]), p.saturation(colors[1]),  p.brightness(colors[1])+25.5f);
+		colors[2]=rotateRYB(-30, i_color);
+		colors[2]=setHSBColor(p.hue(colors[2]), p.saturation(colors[2]),  p.brightness(colors[2])+25.5f);
 	}
 	
+	/**
+	 * @param i_color
+	 * @param i_angle
+	 * @related makeComplement ()
+	 * @related makeComplementary ()
+	 * @related makeSplittedComplementary ()
+	 * @related makeTetrad ()
+	 */
+	public void makeTriad(int i_color, int i_angle){
+		colors = new int[3];
+		colors[0] = i_color;
+		colors[1] = rotateRYB(i_angle, i_color);
+		colors[2] = rotateRYB(-i_angle, i_color);
+	}
+	
+	/**
+	 * @param i_color
+	 */
+	public void makeTriad(int i_color){
+		makeTriad(i_color, 120);
+	}
+	
+	/**
+	 * @param i_color
+	 * @related makeComplement ()
+	 * @related makeComplementary ()
+	 * @related makeSplittedComplementary ()
+	 * @related makeTriad ()
+	 */
 	public void makeTetrad(int i_color){
 		colors = new int[4];
-		float degree = 255 / 4f ;
 		colors[0] = i_color;
 		for (int i = 1; i < 4; i++) {
-			colors[i] = rotateRGB(degree*i, i_color);
+			colors[i] = rotateRYB(90*i, i_color);
 		}
 	}
 	
+	/**
+	 * Decrease the brighness of all colors in the palette by the passed value. By default its 10.
+	 * @related saturate ()
+	 * @related lighten ()
+	 * @related desaturate ()
+	 */
 	public void darken() {
 		lighten(-10);
 	}
 
+	/**
+	 * @param i_step
+	 */
 	public void darken(int i_step) {
 			lighten(-i_step);
 	}
 	
+	/**
+	 * Increase the brighness of all colors in the palette by the passed value. By default its 10.
+	 * @related saturate ()
+	 * @related darken ()
+	 * @related desaturate ()
+	 */
 	public void lighten() {
 		lighten(10);
 	}
 
+	/**
+	 * @param i_step
+	 */
 	public void lighten(int i_step) {
 		for (int i = 0; i < colors.length; i++) {
 			colors[i] = setHSBColor(p.hue(colors[i]), p.saturation(colors[i]), p
@@ -144,10 +235,19 @@ public class Palette {
 		}
 	}
 
+	/**
+	 * Increase the saturation of all colors in the palette by the passed value. By default its 10.
+	 */
 	public void saturate() {
 		saturate(10);
 	}
 
+	/**
+	 * @param i_step
+	 * @related lighten ()
+	 * @related darken ()
+	 * @related desaturate ()
+	 */
 	public void saturate(int i_step) {
 		for (int i = 0; i < colors.length; i++) {
 			colors[i] = setHSBColor(p.hue(colors[i]), p.saturation(colors[i])
@@ -155,14 +255,28 @@ public class Palette {
 		}
 	}
 
+	/**
+	 * Increase the saturation of all colors in the palette by the passed value. By default its 10.
+	 * @related saturate ()
+	 * @related lighten ()
+	 * @related darken ()
+	 */
 	public void desaturate() {
 		saturate(-10);
 	}
 
+	/**
+	 * @param i_step
+	 */
 	public void desaturate(int i_step) {
 		saturate(-i_step);
 	}
 
+	/**
+	 * Rotates all colors by the passed angle on the RGB color wheel.
+	 * @param i_angle
+	 * @related rotateRYB ()
+	 */
 	public void rotateRGB(int i_angle) {
 		for (int i = 0; i < colors.length; i++) {
 			rotateRGB(i_angle, colors[i]);
@@ -173,14 +287,24 @@ public class Palette {
 		return setHSBColor((p.hue(i_color) + i_angle) % 256, p.saturation(i_color), p.brightness(i_color));
 	}
 
+	/**
+	 * Rotates all colors by the passed angle on the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
+	 * @param i_angle
+	 * @related rotateRGB () 
+	 */
 	public void  rotateRYB(float i_angle){
 		for (int i = 0; i < colors.length; i++) {
 			colors[i]=rotateRYB(i_angle, colors[i]);
 		}
 	}
 	
-	 private int rotateRYB(float i_angle, int i_color){
-		 float hue = (p.hue(i_color)/255f)*360;
+	 /**
+	 * @param i_angle
+	 * @param i_color
+	 * @return
+	 */
+	private int rotateRYB(float i_angle, int i_color){
+		 float hue = ((p.hue(i_color))/256f)*360;
 	     i_angle %= 360;
 	     float angle = 0;
 	     int [][]  wheel = {
@@ -229,7 +353,7 @@ public class Palette {
 	        }
 	    
 	        hue %= 360;
-	        return setHSBColor(hue*255/360, p.saturation(i_color), p.brightness(i_color), p.alpha(i_color));
+	        return setHSBColor(hue*256/360, p.saturation(i_color), p.brightness(i_color), p.alpha(i_color));
 	 }
 	 
 	public void sortByHue() {
@@ -237,8 +361,10 @@ public class Palette {
 	}
 
 	/**
-	 * sorts a given colour palette by saturation with element at last index
+	 * sorts the  palette by saturation with element at last index
 	 * containing the most saturated item of the palette
+	 * @related sortByLuminance ()
+	 * @related sortByProximity ()
 	 */
 	public void sortBySaturation() {
 		int[] sorted = new int[colors.length];
@@ -262,8 +388,10 @@ public class Palette {
 	}
 
 	/**
-	 * sorts a given colour palette by luminance with element at last index
+	 * Sorts the palette by luminance with element at last index
 	 * containing the "brightest" item of the palette
+	 * @related sortBySaturation () 
+	 * @related sortByProximity ()
 	 */
 	public void sortByLuminance() {
 		int[] sorted = new int[colors.length];
@@ -281,10 +409,12 @@ public class Palette {
 	}
 
 	/**
-	 * sorts a given colour palette by proximity to a colour with element at
+	 * Sorts the palette by proximity to a colour with element at
 	 * first index containing the "closest" item of the palette
 	 * 
-	 * @param basecol
+	 * @param i_color
+	 * @related sortByLuminance ()
+	 * @related sortBySaturation () 
 	 */
 
 	public void sortByProximity(int i_color) {
@@ -308,6 +438,11 @@ public class Palette {
 
 	}
 
+	/**
+	 * Interpolates all colors of the palette with passed color.
+	 * @param i_color
+	 * @param distance
+	 */
 	public void interpolate(int i_color, float distance) {
 		distance = constrain(distance, 0, 1);
 		for (int i = 0; i < colors.length; i++) {
@@ -327,27 +462,42 @@ public class Palette {
 					| (int) (b1 * (1f - distance) + b2 * distance);
 		}
 	}
-
+	/**
+	 * Returns the darkest color of the palette
+	 * @return color
+	 */
 	public int getDarkest() {
 		int darkest = colors[0];
+		float brightness  = p.brightness(darkest);
 		for (int i = 1; i < colors.length; i++) {
-			if (p.brightness(darkest) > p.brightness(colors[i])) {
+			if (brightness > p.brightness(colors[i])) {
 				darkest = colors[i];
+				brightness  = p.brightness(darkest);
 			}
 		}
 		return darkest;
 	}
 
+	/**
+	 * Returns the lightest color of the palette
+	 * @return color
+	 */
 	public int getLightest() {
 		int lightest = colors[0];
+		float brightness  = p.brightness(lightest);
 		for (int i = 1; i < colors.length; i++) {
-			if (p.brightness(lightest) < p.brightness(colors[i])) {
+			if (brightness < p.brightness(colors[i])) {
 				lightest = colors[i];
+				brightness = p.brightness(lightest);
 			}
 		}
 		return lightest;
 	}
 
+	/**
+	 * Returns the average color of the palette
+	 * @return color
+	 */
 	public int getAverage() {
 		int a = 0;
 		int r = 0;
@@ -365,16 +515,30 @@ public class Palette {
 				| (int) (b / colors.length);
 	}
 
-	public int getColor(int i) {
-		return colors[i];
+	/**
+	 * Returns the color at the given position in the color array of the palette.
+	 * @param position
+	 * @return color
+	 */
+	public int getColor(int position) {
+		return colors[position];
 	}
 
+	/**
+	 * Returns an array holding all the color of the palette.
+	 * @return color Array
+	 */
 	public int[] getColors() {
 		int[] i_colors = new int[colors.length];
 		System.arraycopy(colors, 0, i_colors, 0, colors.length);
 		return i_colors;
 	}
 
+	/**
+	 * Returns an array with the nearest hue to the palettes color as an array of the following strings:
+	 * "red", "orange", "yellow", "lime", "green","teal", "cyan", "azure", "blue", "indigo", "purple", "pink"
+	 * @return String Array
+	 */
 	public String[] getNearestHues(){
 		String[] nearestHues = new String[colors.length];
 		for (int i = 0; i < colors.length; i++) {
@@ -414,18 +578,25 @@ public class Palette {
 		return nearest;
 	}
 
-	public void save(String i_fileTyp) {
+	/**
+	 * Save the palette as an or .act file in your sketch folder
+	 * @param i_name
+	 */
+	public void save(String i_name) {
 
 	}
 
+	/**
+	 * Adds one or more colors at the end of your palette.
+	 * @param i_color
+	 */
 	public void addColor(int i_color) {
 		colors = PApplet.append(colors, i_color);
 	}
 
-	public void addColor(String i_colorName) {
-
-	}
-
+	/**
+	 * @param i_colors
+	 */
 	public void addColors(int[] i_colors) {
 		colors = PApplet.concat(colors, i_colors);
 	}
@@ -434,6 +605,11 @@ public class Palette {
 
 	}
 	
+	/**
+	 * Sets the color on the passed position on palette. Or 
+	 * @param i_color
+	 * @param i_position
+	 */
 	public void setColor(int i_color, int i_position) {
 		colors = PApplet.append(colors, i_color);
 	}
@@ -442,6 +618,9 @@ public class Palette {
 
 	}
 
+	/**
+	 * @param i_colors
+	 */
 	public void setColors(int[] i_colors) {
 		colors = i_colors;
 	}
@@ -450,6 +629,9 @@ public class Palette {
 			
 	}
 	
+	/**
+	 * Delete all duplicate colors on the palette.
+	 */
 	public void deletedDuplicate(){
 		HashSet h = new HashSet();
 		for (int i = 0; i < colors.length; i++) {
@@ -464,9 +646,12 @@ public class Palette {
 		}
 	}
 	
+	/**
+	 * Draw all colors
+	 */
 	public void drawSwatches(){
 		float paletteLength = 120f;
-		int paletteHeight = 16;
+		int paletteHeight = 38;
 		if(dropShadow==null){
 			dropShadow = p.loadImage("dropshadow.png");
 		}
@@ -493,6 +678,9 @@ public class Palette {
 			}
 	}
 	
+	/**
+	 * Draws a color wheel with all colors of the palette.
+	 */
 	public void drawWheel(){
 		float swatchLength  = PApplet.TWO_PI/colors.length;
 		for (int i = 0; i < colors.length; i++) {
