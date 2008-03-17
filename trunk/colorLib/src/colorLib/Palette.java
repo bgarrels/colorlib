@@ -35,7 +35,8 @@ public class Palette {
 	 * @param i_p a PApplet object, normally use 'this'
 	 */
 	public Palette(PApplet i_p) {
-		this(i_p, 10);
+		p=i_p;
+		colors=new int[0];
 	}
 
 	/**
