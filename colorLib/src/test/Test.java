@@ -41,9 +41,12 @@ public class Test extends PApplet {
 //		ugly .draw();
 //		popMatrix();
 //		endRecord();
-		p=new Palette(this);
-		p.makeComplementary(color(6, 131, 189));
-		p.drawSwatches();
+//		p=new Palette(this);
+//		p.makeComplementary(color(6, 131, 189));
+//		p.drawSwatches();
+		c=new Colr(this);
+		c.getColorsForTag("eskimo");
+		c.draw();
 	}
 
 	public void draw() {
