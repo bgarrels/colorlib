@@ -15,7 +15,7 @@ public class KulerTheme extends ColrTheme {
 
 	private Date themeCreatedAt, themeEditedAt;
 
-	KulerTheme(PApplet i_p) {
+	KulerTheme(final PApplet i_p) {
 		super(i_p);
 	}
 
@@ -23,7 +23,7 @@ public class KulerTheme extends ColrTheme {
 		return authorID;
 	}
 
-	public void setAuthorID(String authorID) {
+	public void setAuthorID(final String authorID) {
 		this.authorID = authorID;
 	}
 
@@ -31,7 +31,7 @@ public class KulerTheme extends ColrTheme {
 		return authorLabel;
 	}
 
-	public void setAuthorLabel(String authorLabel) {
+	public void setAuthorLabel(final String authorLabel) {
 		this.authorLabel = authorLabel;
 	}
 
@@ -39,7 +39,7 @@ public class KulerTheme extends ColrTheme {
 		return themeCreatedAt;
 	}
 
-	public void setThemeCreatedAt(String themeCreatedAt) {
+	public void setThemeCreatedAt(final String themeCreatedAt) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		try {
 			this.themeCreatedAt = format.parse(themeCreatedAt);
@@ -54,7 +54,7 @@ public class KulerTheme extends ColrTheme {
 		return themeDownloadCount;
 	}
 
-	public void setThemeDownloadCount(String themeDownloadCount) {
+	public void setThemeDownloadCount(final String themeDownloadCount) {
 		this.themeDownloadCount = Integer.valueOf(themeDownloadCount).intValue();
 	}
 
@@ -62,7 +62,7 @@ public class KulerTheme extends ColrTheme {
 		return themeEditedAt;
 	}
 
-	public void setThemeEditedAt(String themeEditedAt) {
+	public void setThemeEditedAt(final String themeEditedAt) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		try {
 			this.themeEditedAt = format.parse(themeEditedAt);
@@ -75,7 +75,7 @@ public class KulerTheme extends ColrTheme {
 		return themeID;
 	}
 
-	public void setThemeID(String themeID) {
+	public void setThemeID(final String themeID) {
 		this.themeID = themeID;
 	}
 
@@ -83,7 +83,7 @@ public class KulerTheme extends ColrTheme {
 		return themeRating;
 	}
 
-	public void setThemeRating(String themeRating) {
+	public void setThemeRating(final String themeRating) {
 		this.themeRating = Float.valueOf(themeRating).intValue();
 	}
 
@@ -93,7 +93,7 @@ public class KulerTheme extends ColrTheme {
 		return themeTitle;
 	}
 
-	public void setThemeTitle(String themeTitle) {
+	public void setThemeTitle(final String themeTitle) {
 		this.themeTitle = themeTitle;
 	}
 	

@@ -9,11 +9,13 @@ import processing.xml.*;
 public class Kuler {
 
 	private PApplet parent;
-
+	private int maxItems=100;
 	ArrayList themes;
 
 	/**
-	 * @param parent
+	 * The Kuler object is an container to query adobes <a href="kuler.adobe.com">kuler</a> service and get the response at an colorLib palette object.
+	 * Take a look at the <a href="http://labs.adobe.com/wiki/index.php/Kule">API</a> to see the possibilities.
+	 * @param parent typically use "this"
 	 */
 	public Kuler(PApplet parent) {
 		this.parent = parent;
@@ -37,7 +39,7 @@ public class Kuler {
 	 * sets the url for getting the popular colors for the specified number of
 	 * days
 	 */
-	public void getPopular(int days) {
+	public void getPopular(final int days) {
 		makePalettes("listtype=rating&timespan=" + days);
 	}
 
@@ -58,7 +60,7 @@ public class Kuler {
 	/**
 	 * setting the url for searching kuler
 	 */
-	public void search(String searchQuery) {
+	public void search(final String searchQuery) {
 		makePalettes(searchQuery);
 	}
 
@@ -68,7 +70,11 @@ public class Kuler {
 	 * 
 	 * searches kuler for a string with a search filter
 	 */
-	public void search(String searchQuery, String searchFilter) {
+	/**
+	 * @param searchQuery a querString that is use with a searchFilter
+	 * @param searchFilter one of the followong filters: "themeID", "userID", "email", "tag", "hex" and "title"
+	 */
+	public void search(final String searchQuery, final String searchFilter) {
 		makePalettes("&searchQuery="+searchFilter + ":" + searchQuery);
 	}
 
@@ -77,9 +83,9 @@ public class Kuler {
 	 * 
 	 * @param querry
 	 */
-	public void makePalettes(String querry) {
+	public void makePalettes(final String querry) {
 		themes = new ArrayList();
-		String url = "http://kuler.adobe.com/kuler/API/rss/search.cfm?itemsPerPage=40";
+		String url = "http://kuler.adobe.com/kuler/API/rss/search.cfm?itemsPerPage="+maxItems;
 		PApplet.println(querry);
 		XMLElement xml = new XMLElement(parent, url + querry);
 		XMLElement[] themeItems = xml.getChildren("channel/item/kuler:themeItem");
@@ -122,7 +128,7 @@ public class Kuler {
 	 * @param tag
 	 * @return an array of kulerThemes that matches the search tag
 	 */
-	public KulerTheme[] searchForTag(String tag) {
+	public KulerTheme[] searchForTag(final String tag) {
 		return new KulerTheme[0];
 	}
 	
