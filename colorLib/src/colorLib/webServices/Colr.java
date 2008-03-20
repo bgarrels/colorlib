@@ -3,38 +3,53 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import colorLib.*;
-import processing.core.*;
-import processing.xml.*;
-import processing.core.*;
+import processing.core.PApplet;
+import processing.xml.XMLElement;
+import colorLib.Palette;
 public class Colr {
 	
-	PApplet p;
+	final PApplet p;
 	ArrayList themes;
+	Hashtable colorTags;
 	
-	public Colr(PApplet i_p){
+	public Colr(final PApplet i_p){
 		p=i_p;
-		String lines[] = p.loadStrings("http://www.colr.org/rss/tag/spring");
+		String lines[] = p.loadStrings("http://www.colr.org/rss/color/ffffff");
 		for (int i=0; i < lines.length; i++) {
 			  PApplet.println(lines[i]);
 			}
 		themes = new ArrayList();
+		colorTags = new Hashtable();
 	}
 	
-	public void getTagsForColor(String hex){
+	public void getTagsForColor(final String hex){
 		String url = "http://www.colr.org/rss/color/";
 		XMLElement xml = new XMLElement(p, url + hex);
-		String tags = (xml.getChildren("channel/item/description/tags"))[0].getContent();
+		String tags = (xml.getChildren("channel/items/item/description/tags"))[0].getContent();
 		if (tags != null || !tags.equalsIgnoreCase("")){
-			//colorTags.put(new Integer(PApplet.unhex("FF"+hex)), tags.split(","));
+			colorTags.put(new Integer(PApplet.unhex("FF"+hex)), tags.split(","));
 	    }
 	}
 	
-	public void getTagsForColor(int color){
-		getTagsForColor(PApplet.hex(color, 6));
+	public void getTagsForColor(final int i_color){
+		getTagsForColor(PApplet.hex(i_color, 6));
 	}
 	
-	public void getColorsForTag(String tag){
+	public void getTagsForColor(final int[] i_colors){
+		for (int i = 0; i < i_colors.length; i++) {
+			getTagsForColor(PApplet.hex(i_colors[i], 6));
+		}
+	}
+	
+	public void getTagsForColor(final Palette i_palette){
+		getTagsForColor(i_palette.getColors());
+	}
+	
+	public String[] getColorTags(final int i_color){
+		return (String[]) colorTags.get(new Integer(i_color));
+	}
+	
+	public void getColorsForTag(final String tag){
 		String url = "http://www.colr.org/rss/tag/";
 		XMLElement xml = new XMLElement(p, url + tag);
 		XMLElement[] item = xml.getChildren("channel/items/item");
@@ -47,7 +62,7 @@ public class Colr {
 		}
 	}
 	
-	private void addColor(String colorString, ColrTheme theme) {
+	private void addColor(final String colorString, ColrTheme theme) {
 		if (colorString != null || !colorString.equalsIgnoreCase("")){
 			String[] colors = colorString.split(" ");
 			for (int i = 0; i < colors.length; i++) {
@@ -57,14 +72,14 @@ public class Colr {
 		}
 	}
 
-	private void addTheme(XMLElement item) {
+	private void addTheme(final XMLElement item) {
 		ColrTheme theme = new ColrTheme(p);
 		theme.setThemeTags(item.getChildren("description/tags")[0].getContent());
 		addColor(item.getChildren("description/colors")[0].getContent(), theme);
 		themes.add(theme);
 	}
 
-	private boolean containsString( String s, String subString ) {
+	private static boolean containsString( final String s, final String subString ) {
 		return s.indexOf( subString ) > -1 ? true : false;
 	}
 	

@@ -45,8 +45,13 @@ public class Test extends PApplet {
 //		p.makeComplementary(color(6, 131, 189));
 //		p.drawSwatches();
 		c=new Colr(this);
-		c.getColorsForTag("eskimo");
-		c.draw();
+		c.getTagsForColor("ffffff");
+		String[] s =c.getColorTags(color(255));
+		for (int i = 0; i < s.length; i++) {
+			println(s[i]);
+		}
+//		c.getColorsForTag("eskimo");
+//		c.draw();
 	}
 
 	public void draw() {
