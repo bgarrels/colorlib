@@ -26,12 +26,12 @@ public class Palette {
 
 	/**
 	 * Creates a new palette object which holds your colors. 
-	 * All color mainupaltion is done over this object.
-	 * By default it creates an empty palette with placeholder for 10 colors. 
-	 * You can also pass an array of color or an PImage object to create a new palette.
-	 * Ive you pass a PImage all duplicated colors will delete.
+	 * All color manipulation is done over this object.
+	 * By default it creates an empty palette with a placeholder for 10 colors. 
+	 * You can also pass an array of colors or an PImage object to create a new palette.
+	 * If you pass a PImage, all duplicate colors will be deleted.
 	 * At least you use a given <a href="www.colorschemer.com">color shemer</a> .cs file or 
-	 * an .act file whic hyou can create in photoshop for example.
+	 * an .act file which you can create in Photoshop for example.
 	 * @param i_p a PApplet object, normally use 'this'
 	 */
 	public Palette(PApplet i_p) {
@@ -102,7 +102,7 @@ public class Palette {
 	}
 	
 	/**
-	 * Creates a 2 color palette with the passed color and it's complementar on the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
+	 * Creates a 2 color palette with the passed color and it's complementary on the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
 	 * @param i_color
 	 * @related makeComplementary ()
 	 * @related makeSplittedComplementary ()
