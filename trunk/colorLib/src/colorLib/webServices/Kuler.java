@@ -3,7 +3,7 @@ package colorLib.webServices;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import processing.core.*;
+import processing.core.PApplet;
 import processing.xml.*;
 
 public class Kuler {

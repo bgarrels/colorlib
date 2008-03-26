@@ -9,7 +9,7 @@ public class Test extends PApplet {
 	Palette p;
 	Kuler   k;
 	Colr    c;
-	Swatch  s;
+	SwatchXXX  s;
 	
 	static public void main(String args[]) {
 		PApplet.main(new String[] { /* "--present", */"test.Test" });
@@ -21,7 +21,7 @@ public class Test extends PApplet {
 		smooth();
 		
 		// red
-		s = new Swatch(this, color(255, 0, 0));
+		s = new SwatchXXX(this, color(255, 0, 0));
 		fill(s.c);
 		rect(0, 0, width/4, height/4);
 		
@@ -34,7 +34,7 @@ public class Test extends PApplet {
 		println(" ");
 
 		// green
-		s = new Swatch(this, color(0, 255, 0));
+		s = new SwatchXXX(this, color(0, 255, 0));
 		fill(s.c);
 		rect(width/4, 0, width/4, height/4);
 		
@@ -47,7 +47,7 @@ public class Test extends PApplet {
 		println(" ");
 
 		// blue
-		s = new Swatch(this, color(0, 0, 255));
+		s = new SwatchXXX(this, color(0, 0, 255));
 		fill(s.c);
 		rect(width/2, 0, width/4, height/4);
 		
@@ -60,7 +60,7 @@ public class Test extends PApplet {
 		println(" ");
 
 		// blue
-		s = new Swatch(this, color(255, 255, 255));
+		s = new SwatchXXX(this, color(255, 255, 255));
 		fill(s.c);
 		rect((float) (width*0.75), 0, width/4, height/4);
 
@@ -73,7 +73,7 @@ public class Test extends PApplet {
 		println(" ");
 
 		// cyan
-		s = new Swatch(this, color(0, 255, 255));
+		s = new SwatchXXX(this, color(0, 255, 255));
 		fill(s.c);
 		rect(0, height/4, width/4, height/4);
 		
@@ -86,7 +86,7 @@ public class Test extends PApplet {
 		println(" ");
 
 		// magenta
-		s = new Swatch(this, color(255, 0, 255));
+		s = new SwatchXXX(this, color(255, 0, 255));
 		fill(s.c);
 		rect(width/4, height/4, width/4, height/4);
 		
@@ -99,7 +99,7 @@ public class Test extends PApplet {
 		println(" ");
 
 		// yellow
-		s = new Swatch(this, color(255, 255, 0));
+		s = new SwatchXXX(this, color(255, 255, 0));
 		fill(s.c);
 		rect(width/2, height/4, width/4, height/4);
 		
@@ -112,7 +112,7 @@ public class Test extends PApplet {
 		println(" ");
 
 		// black
-		s = new Swatch(this, color(0, 0, 0));
+		s = new SwatchXXX(this, color(0, 0, 0));
 		fill(s.c);
 		rect((float) (height*0.75), width/4, width/4, height/4);
 
