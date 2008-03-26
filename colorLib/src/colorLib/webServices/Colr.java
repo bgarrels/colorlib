@@ -6,6 +6,7 @@ import java.util.Iterator;
 import processing.core.PApplet;
 import processing.xml.XMLElement;
 import colorLib.Palette;
+import colorLib.Swatch;
 public class Colr {
 	
 	final PApplet p;
@@ -35,9 +36,9 @@ public class Colr {
 		getTagsForColor(PApplet.hex(i_color, 6));
 	}
 	
-	public void getTagsForColor(final int[] i_colors){
+	public void getTagsForColor(final Swatch[] i_colors){
 		for (int i = 0; i < i_colors.length; i++) {
-			getTagsForColor(PApplet.hex(i_colors[i], 6));
+			getTagsForColor(PApplet.hex(i_colors[i].getColor(), 6));
 		}
 	}
 	
