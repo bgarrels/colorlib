@@ -7,65 +7,124 @@ import colorLib.webServices.*;
 public class Test extends PApplet {
 	
 	Palette p;
-	Kuler k;
-	Colr c;
+	Kuler   k;
+	Colr    c;
+	Swatch  s;
+	
 	static public void main(String args[]) {
 		PApplet.main(new String[] { /* "--present", */"test.Test" });
 	}
 
 	public void setup() {
-		size(1300, 490);
+		size(400, 400);
 		noStroke();
-		background(100);
-//		p=new Palette(this);
-//		p.makeComplementary(color(6, 131, 189));
-//		c = new Colr(this);
-//		smooth();
-//		beginRecord(PDF, "output.pdf");
-//		pushMatrix();
-//		Kuler good = new Kuler(this);
-//		good.search("good","tag");
-//		translate(0, 0);
-//		good .draw();
-//		popMatrix();
-//		pushMatrix();
-//		Kuler bad = new Kuler(this);
-//		translate(430, 0);
-//		bad.search("bad","tag");
-//		bad .draw();
-//		popMatrix();
-//		pushMatrix();
-//		Kuler ugly = new Kuler(this);
-//		translate(860, 0);
-//		ugly.search("ugly","tag");
-//		ugly .draw();
-//		popMatrix();
-//		endRecord();
-//		p=new Palette(this);
-//		p.makeComplementary(color(6, 131, 189));
-//		p.drawSwatches();
-		c=new Colr(this);
-		c.getTagsForColor("ffffff");
-		String[] s =c.getColorTags(color(255));
-		for (int i = 0; i < s.length; i++) {
-			println(s[i]);
-		}
-//		c.getColorsForTag("eskimo");
-//		c.draw();
-	}
+		smooth();
+		
+		// red
+		s = new Swatch(this, color(255, 0, 0));
+		fill(s.c);
+		rect(0, 0, width/4, height/4);
+		
+		println("RGB RED");
+		println("-----------------------");
+		println("Black:   " + s.black());
+		println("Yellow:  " + s.yellow());
+		println("Magenta: " + s.magenta());
+		println("Cyan:    " + s.cyan());
+		println(" ");
 
-	public void draw() {
+		// green
+		s = new Swatch(this, color(0, 255, 0));
+		fill(s.c);
+		rect(width/4, 0, width/4, height/4);
+		
+		println("RGB GREEN");
+		println("-----------------------");
+		println("Black:   " + s.black());
+		println("Yellow:  " + s.yellow());
+		println("Magenta: " + s.magenta());
+		println("Cyan:    " + s.cyan());
+		println(" ");
+
+		// blue
+		s = new Swatch(this, color(0, 0, 255));
+		fill(s.c);
+		rect(width/2, 0, width/4, height/4);
+		
+		println("RGB BLUE");
+		println("-----------------------");
+		println("Black:   " + s.black());
+		println("Yellow:  " + s.yellow());
+		println("Magenta: " + s.magenta());
+		println("Cyan:    " + s.cyan());		
+		println(" ");
+
+		// blue
+		s = new Swatch(this, color(255, 255, 255));
+		fill(s.c);
+		rect((float) (width*0.75), 0, width/4, height/4);
+
+		println("RGB WHITE");
+		println("-----------------------");
+		println("Black:   " + s.black());
+		println("Yellow:  " + s.yellow());
+		println("Magenta: " + s.magenta());
+		println("Cyan:    " + s.cyan());		
+		println(" ");
+
+		// cyan
+		s = new Swatch(this, color(0, 255, 255));
+		fill(s.c);
+		rect(0, height/4, width/4, height/4);
+		
+		println("RGB RED");
+		println("-----------------------");
+		println("Black:   " + s.black());
+		println("Yellow:  " + s.yellow());
+		println("Magenta: " + s.magenta());
+		println("Cyan:    " + s.cyan());
+		println(" ");
+
+		// magenta
+		s = new Swatch(this, color(255, 0, 255));
+		fill(s.c);
+		rect(width/4, height/4, width/4, height/4);
+		
+		println("RGB MAGENTA");
+		println("-----------------------");
+		println("Black:   " + s.black());
+		println("Yellow:  " + s.yellow());
+		println("Magenta: " + s.magenta());
+		println("Cyan:    " + s.cyan());
+		println(" ");
+
+		// yellow
+		s = new Swatch(this, color(255, 255, 0));
+		fill(s.c);
+		rect(width/2, height/4, width/4, height/4);
+		
+		println("RGB YELLOW");
+		println("-----------------------");
+		println("Black:   " + s.black());
+		println("Yellow:  " + s.yellow());
+		println("Magenta: " + s.magenta());
+		println("Cyan:    " + s.cyan());		
+		println(" ");
+
+		// black
+		s = new Swatch(this, color(0, 0, 0));
+		fill(s.c);
+		rect((float) (height*0.75), width/4, width/4, height/4);
+
+		println("RGB BLACK");
+		println("-----------------------");
+		println("Black:   " + s.black());
+		println("Yellow:  " + s.yellow());
+		println("Magenta: " + s.magenta());
+		println("Cyan:    " + s.cyan());		
+		println(" ");
+		
 		
 	}
-//	
-	public void keyPressed(){
-//		if(key=='+'){
-//			p.saturate();
-//		}else if(key=='-'){
-//			p.desaturate();
-//		}
-//		println(p.getNearestHues());
-		saveFrame("german.tif");
-	}
-}
 
+}
