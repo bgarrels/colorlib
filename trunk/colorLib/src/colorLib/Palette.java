@@ -14,7 +14,7 @@ public class Palette {
 
 	private static final long serialVersionUID = 1L;
 
-	protected Swatch[] colors;
+	protected Swatch[] swatches;
 
 	protected PApplet p;
 	
@@ -32,7 +32,7 @@ public class Palette {
 	 */
 	public Palette(PApplet i_p) {
 		p=i_p;
-		colors=new Swatch[0];
+		swatches=new Swatch[0];
 	}
 
 	/**
@@ -47,8 +47,8 @@ public class Palette {
 	 */
 	public Palette(PApplet i_p, int[] i_colors) {
 		p=i_p;
-		colors=new Swatch[i_colors.length];
-		System.arraycopy(i_colors,0 ,colors, 0, i_colors.length);
+		swatches=new Swatch[i_colors.length];
+		System.arraycopy(i_colors,0 ,swatches, 0, i_colors.length);
 	}
 
 	/**
@@ -56,9 +56,9 @@ public class Palette {
 	 */
 	public Palette(PApplet i_p, PImage i_image) {
 		p = i_p;
-		colors = new Swatch[i_image.pixels.length];
-		for (int i = 0; i < colors.length; i++) {
-			colors[i] = new Swatch(p, i_image.pixels[i]);
+		swatches = new Swatch[i_image.pixels.length];
+		for (int i = 0; i < swatches.length; i++) {
+			swatches[i] = new Swatch(p, i_image.pixels[i]);
 		}
 		deletedDuplicate();
 	}
@@ -86,11 +86,11 @@ public class Palette {
 				cnt++;
 			}
 		}
-		colors=new Swatch[cnt];
+		swatches=new Swatch[cnt];
 		cnt = 0;
 		for (int i = 0; i < length; i++) {
 			if (b[start  + i * steps] != -1 && b[start  + i * steps +1] != -1 && b[start  + i * steps+2] != -1){
-				colors[cnt] = new Swatch(p,  (0xff<<24)
+				swatches[cnt] = new Swatch(p,  (0xff<<24)
 							+ ((b[start  + i * steps] & 0xff) << 16)
 							+ ((b[start + i * steps+1] & 0xff) << 8)
 							+ (b[start + i * steps+2] & 0xff));
@@ -109,10 +109,10 @@ public class Palette {
 	 * @related makeTetrad ()
 	 */
 	public void makeComplement(final int i_color){
-		colors=new Swatch[2];
-		colors[0]= new Swatch(p,i_color);
-		colors[1]=new Swatch(p, i_color);
-		colors[1].rotateRYB(180);
+		swatches=new Swatch[2];
+		swatches[0]= new Swatch(p,i_color);
+		swatches[1]=new Swatch(p, i_color);
+		swatches[1].rotateRYB(180);
 	}
 	
 	/**
@@ -123,26 +123,26 @@ public class Palette {
 	 * @related makeTetrad ()
 	 */
 	public void makeComplementary(int i_color){
-		colors=new Swatch[6];
-		colors[0]= new Swatch(p,i_color);
+		swatches=new Swatch[6];
+		swatches[0]= new Swatch(p,i_color);
 		float brightness=0;
 		if (p.brightness(i_color) >102){
 			brightness = 25 + p.brightness(i_color)*0.25f;
 		}else{
 			brightness = 255 - p.brightness(i_color)*0.25f;
 		}
-		colors[1]=new Swatch(p,setHSBColor(p.hue(i_color), p.saturation(i_color), brightness));
-		colors[2]=new Swatch(p,setHSBColor(p.hue(i_color), 25+p.saturation(i_color)*.3f, p.brightness(i_color)+76.5f));
-		colors[3]=new Swatch(p, i_color);
-		colors[3].rotateRYB(180);
-		i_color = colors[3].getColor();
+		swatches[1]=new Swatch(p,setHSBColor(p.hue(i_color), p.saturation(i_color), brightness));
+		swatches[2]=new Swatch(p,setHSBColor(p.hue(i_color), 25+p.saturation(i_color)*.3f, p.brightness(i_color)+76.5f));
+		swatches[3]=new Swatch(p, i_color);
+		swatches[3].rotateRYB(180);
+		i_color = swatches[3].getColor();
 		if (p.brightness(i_color) >102){
 			brightness = 25 + p.brightness(i_color)*0.25f;
 		}else{
 			brightness = 255 - p.brightness(i_color)*0.25f;
 		}
-		colors[4]= new Swatch(p,setHSBColor(p.hue(i_color), p.saturation(i_color), brightness));
-		colors[5]= new Swatch(p,setHSBColor(p.hue(i_color), 25+p.saturation(i_color)*.25f, p.brightness(i_color)+76.5f));
+		swatches[4]= new Swatch(p,setHSBColor(p.hue(i_color), p.saturation(i_color), brightness));
+		swatches[5]= new Swatch(p,setHSBColor(p.hue(i_color), 25+p.saturation(i_color)*.25f, p.brightness(i_color)+76.5f));
 	}
 	
 	/**
@@ -153,14 +153,14 @@ public class Palette {
 	 * @related makeTetrad ()
 	 */
 	public void makeSplittedComplementary(int i_color){
-		colors=new Swatch[3];
-		colors[0]=new Swatch(p,i_color);
-		colors[1]=new Swatch(p,i_color);
-		colors[1].rotateRYB(30);
-		colors[1].lighten(25.5f);
-		colors[2]=new Swatch(p,i_color);
-		colors[2].rotateRYB(-30);
-		colors[2].lighten(25.5f);
+		swatches=new Swatch[3];
+		swatches[0]=new Swatch(p,i_color);
+		swatches[1]=new Swatch(p,i_color);
+		swatches[1].rotateRYB(30);
+		swatches[1].lighten(25.5f);
+		swatches[2]=new Swatch(p,i_color);
+		swatches[2].rotateRYB(-30);
+		swatches[2].lighten(25.5f);
 	}
 	
 	/**
@@ -172,12 +172,12 @@ public class Palette {
 	 * @related makeTetrad ()
 	 */
 	public void makeTriad(int i_color, int i_angle){
-		colors = new Swatch[3];
-		colors[0] = new Swatch(p,i_color);
-		colors[1] = new Swatch(p,i_color);
-		colors[1].rotateRYB(i_angle);
-		colors[2] = new Swatch(p,i_color);
-		colors[2].rotateRYB(-i_angle);
+		swatches = new Swatch[3];
+		swatches[0] = new Swatch(p,i_color);
+		swatches[1] = new Swatch(p,i_color);
+		swatches[1].rotateRYB(i_angle);
+		swatches[2] = new Swatch(p,i_color);
+		swatches[2].rotateRYB(-i_angle);
 	}
 	
 	/**
@@ -195,11 +195,11 @@ public class Palette {
 	 * @related makeTriad ()
 	 */
 	public void makeTetrad(int i_color){
-		colors = new Swatch[4];
-		colors[0] = new Swatch(p,i_color);
+		swatches = new Swatch[4];
+		swatches[0] = new Swatch(p,i_color);
 		for (int i = 1; i < 4; i++) {
-			colors[i] = new Swatch(p,i_color);
-			colors[i].rotateRYB(90*i);
+			swatches[i] = new Swatch(p,i_color);
+			swatches[i].rotateRYB(90*i);
 		}
 	}
 	
@@ -234,8 +234,8 @@ public class Palette {
 	 * @param i_step
 	 */
 	public void lighten(int i_step) {
-		for (int i = 0; i < colors.length; i++) {
-			colors[i].lighten(i_step);
+		for (int i = 0; i < swatches.length; i++) {
+			swatches[i].lighten(i_step);
 		}
 	}
 
@@ -253,8 +253,8 @@ public class Palette {
 	 * @related desaturate ()
 	 */
 	public void saturate(int i_step) {
-		for (int i = 0; i < colors.length; i++) {
-			colors[i].saturate( i_step);
+		for (int i = 0; i < swatches.length; i++) {
+			swatches[i].saturate( i_step);
 		}
 	}
 
@@ -281,8 +281,8 @@ public class Palette {
 	 * @related rotateRYB ()
 	 */
 	public void rotateRGB(int i_angle) {
-		for (int i = 0; i < colors.length; i++) {
-			colors[i].rotateRGB(i_angle);
+		for (int i = 0; i < swatches.length; i++) {
+			swatches[i].rotateRGB(i_angle);
 		}
 	}
 	
@@ -294,8 +294,8 @@ public class Palette {
 	 * @related rotateRGB () 
 	 */
 	public void  rotateRYB(float i_angle){
-		for (int i = 0; i < colors.length; i++) {
-			colors[i].rotateRYB(i_angle);
+		for (int i = 0; i < swatches.length; i++) {
+			swatches[i].rotateRYB(i_angle);
 		}
 	}
 
@@ -310,10 +310,10 @@ public class Palette {
 	 * @related sortByProximity ()
 	 */
 	public void sortBySaturation() {
-		int[] sorted = new int[colors.length];
+		int[] sorted = new int[swatches.length];
 		Hashtable ht = new Hashtable();
-		for (int i = 0; i < colors.length; i++) {
-			int c = colors[i].getColor();
+		for (int i = 0; i < swatches.length; i++) {
+			int c = swatches[i].getColor();
 			int r = (c >> 16) & 0xff;
 			int g = (c >> 8) & 0xff;
 			int b = c & 0xff;
@@ -323,11 +323,11 @@ public class Palette {
 			} else {
 				sorted[i] = 0;
 			}
-			ht.put(new Integer(sorted[i]), colors[i]);
+			ht.put(new Integer(sorted[i]), swatches[i]);
 		}
 		sorted = PApplet.sort(sorted);
 		for (int i = 0; i < sorted.length; i++) {
-			colors[i]=(Swatch) ht.get(new Integer(sorted[i]));
+			swatches[i]=(Swatch) ht.get(new Integer(sorted[i]));
 		}
 	}
 
@@ -338,17 +338,17 @@ public class Palette {
 	 * @related sortByProximity ()
 	 */
 	public void sortByLuminance() {
-		int[] sorted = new int[colors.length];
+		int[] sorted = new int[swatches.length];
 		Hashtable ht = new Hashtable();
-		for (int i = 0; i < colors.length; i++) {
-			int c = colors[i].getColor();
+		for (int i = 0; i < swatches.length; i++) {
+			int c = swatches[i].getColor();
 			sorted[i] = (77 * (c >> 16 & 0xff) + 151
 					* (c >> 8 & 0xff) + 28 * (c & 0xff));
-			ht.put(new Integer(sorted[i]), colors[i]);
+			ht.put(new Integer(sorted[i]), swatches[i]);
 		}
 		sorted = PApplet.sort(sorted);
 		for (int i = 0; i < sorted.length; i++) {
-			 colors[i] =  (Swatch) ht.get(new Integer(sorted[i]));
+			 swatches[i] =  (Swatch) ht.get(new Integer(sorted[i]));
 		}
 
 	}
@@ -363,23 +363,23 @@ public class Palette {
 	 */
 
 	public void sortByProximity(int i_color) {
-		int[] sorted = new int[colors.length];
+		int[] sorted = new int[swatches.length];
 		Hashtable ht = new Hashtable();
 		int br = (i_color >> 16) & 0xff;
 		int bg = (i_color >> 8) & 0xff;
 		int bb = i_color & 0xff;
-		for (int i = 0; i < colors.length; i++) {
-			int c = colors[i].getColor();
+		for (int i = 0; i < swatches.length; i++) {
+			int c = swatches[i].getColor();
 			int r = (c >> 16) & 0xff;
 			int g = (c >> 8) & 0xff;
 			int b = c & 0xff;
 			sorted[i] = (br - r) * (br - r) + (bg - g) * (bg - g) + (bb - b)
 					* (bb - b);
-			ht.put(new Integer(sorted[i]), (colors[i]));
+			ht.put(new Integer(sorted[i]), (swatches[i]));
 		}
 		sorted = PApplet.sort(sorted);
 		for (int i = 0; i < sorted.length; i++) {
-			colors[i] = ((Swatch) ht.get(new Integer(sorted[i])));
+			swatches[i] = ((Swatch) ht.get(new Integer(sorted[i])));
 		}
 
 	}
@@ -391,8 +391,8 @@ public class Palette {
 	 */
 	public void interpolate(int i_color, float distance) {
 		distance = PApplet.constrain(distance, 0, 1);
-		for (int i = 0; i < colors.length; i++) {
-			int c = colors[i].getColor();
+		for (int i = 0; i < swatches.length; i++) {
+			int c = swatches[i].getColor();
 			int a1 = (c >> 24) & 0xff;
 			int r1 = (c >> 16) & 0xff;
 			int g1 = (c >> 8) & 0xff;
@@ -403,7 +403,7 @@ public class Palette {
 			int g2 = (i_color >> 8) & 0xff;
 			int b2 = i_color & 0xff;
 
-			colors[i].setColor( ((int) (a1 * (1f - distance) + a2 * distance) << 24)
+			swatches[i].setColor( ((int) (a1 * (1f - distance) + a2 * distance) << 24)
 					| ((int) (r1 * (1f - distance) + r2 * distance) << 16)
 					| ((int) (g1 * (1f - distance) + g2 * distance) << 8)
 					| (int) (b1 * (1f - distance) + b2 * distance));
@@ -414,10 +414,10 @@ public class Palette {
 	 * @return color
 	 */
 	public int getDarkest() {
-		int darkest = colors[0].getColor();
+		int darkest = swatches[0].getColor();
 		float brightness  = p.brightness(darkest);
-		for (int i = 1; i < colors.length; i++) {
-			int c = colors[i].getColor();
+		for (int i = 1; i < swatches.length; i++) {
+			int c = swatches[i].getColor();
 			if (brightness > p.brightness(c)) {
 				darkest = c;
 				brightness  = p.brightness(darkest);
@@ -431,10 +431,10 @@ public class Palette {
 	 * @return color
 	 */
 	public int getLightest() {
-		int lightest = colors[0].getColor();
+		int lightest = swatches[0].getColor();
 		float brightness  = p.brightness(lightest);
-		for (int i = 1; i < colors.length; i++) {
-			int c = colors[i].getColor();
+		for (int i = 1; i < swatches.length; i++) {
+			int c = swatches[i].getColor();
 			if (brightness < p.brightness(c)) {
 				lightest =c;
 				brightness = p.brightness(lightest);
@@ -452,35 +452,56 @@ public class Palette {
 		int r = 0;
 		int g = 0;
 		int b = 0;
-		for (int i = 0; i < colors.length; i++) {
-			int c = colors[i].getColor();
+		for (int i = 0; i < swatches.length; i++) {
+			int c = swatches[i].getColor();
 			a += c >> 24 & 0xff;
 			r += c >> 16 & 0xff;
 			g += c >> 8 & 0xff;
 			b += c & 0xff;
 		}
-		return ((int) (a / colors.length) << 24)
-				| ((int) (r / colors.length) << 16)
-				| ((int) (g / colors.length) << 8) 
-				| (int) (b / colors.length);
+		return ((int) (a / swatches.length) << 24)
+				| ((int) (r / swatches.length) << 16)
+				| ((int) (g / swatches.length) << 8) 
+				| (int) (b / swatches.length);
 	}
 
+	/**
+	 * Returns the swatch at the given position in the color array of the palette.
+	 * @param position
+	 * @return color
+	 */
+	public Swatch getSwatch(int position) {
+		return swatches[position];
+	}
+	
 	/**
 	 * Returns the color at the given position in the color array of the palette.
 	 * @param position
 	 * @return color
 	 */
-	public Swatch getColor(int position) {
-		return colors[position];
+	public int getColor(int position) {
+		return swatches[position].getColor();
 	}
 
+	/**
+	 * Returns an array holding all the swatches of the palette.
+	 * @return color Array
+	 */
+	public Swatch[] getSwatches() {
+		Swatch[] i_colors = new Swatch[swatches.length];
+		System.arraycopy(swatches, 0, i_colors, 0, swatches.length);
+		return i_colors;
+	}
+	
 	/**
 	 * Returns an array holding all the color of the palette.
 	 * @return color Array
 	 */
-	public Swatch[] getColors() {
-		Swatch[] i_colors = new Swatch[colors.length];
-		System.arraycopy(colors, 0, i_colors, 0, colors.length);
+	public int[] getColors() {
+		int[] i_colors = new int[swatches.length];
+		for (int i = 0; i < i_colors.length; i++) {
+			i_colors[i]=swatches[i].getColor();
+		}
 		return i_colors;
 	}
 
@@ -490,9 +511,9 @@ public class Palette {
 	 * @return String Array
 	 */
 	public String[] getNearestHues(){
-		String[] nearestHues = new String[colors.length];
-		for (int i = 0; i < colors.length; i++) {
-			nearestHues[i]=getNearestHue(colors[i].getColor());
+		String[] nearestHues = new String[swatches.length];
+		for (int i = 0; i < swatches.length; i++) {
+			nearestHues[i]=getNearestHue(swatches[i].getColor());
 		}
 		return nearestHues;
 	}
@@ -541,7 +562,7 @@ public class Palette {
 	 * @param i_color
 	 */
 	public void addColor(int i_color) {
-		colors = (Swatch[]) PApplet.append(colors, new Swatch(p,i_color));
+		swatches = (Swatch[]) PApplet.append(swatches, new Swatch(p,i_color));
 	}
 
 	/**
@@ -574,7 +595,7 @@ public class Palette {
 	 * @param i_colors
 	 */
 	public void setColors(int[] i_colors) {
-		colors = new Swatch[i_colors.length];
+		swatches = new Swatch[i_colors.length];
 		for (int i = 0; i < i_colors.length; i++) {
 			addColor(i_colors[i]);
 		}
@@ -589,14 +610,14 @@ public class Palette {
 	 */
 	public void deletedDuplicate(){
 		HashSet h = new HashSet();
-		for (int i = 0; i < colors.length; i++) {
-			h.add(new Integer(colors[i].getColor()));
+		for (int i = 0; i < swatches.length; i++) {
+			h.add(new Integer(swatches[i].getColor()));
 		}
-		colors = new Swatch[h.size()];
+		swatches = new Swatch[h.size()];
 		Iterator iter = h.iterator();
 		int cnt=0;
 		while (iter.hasNext()) {
-			colors[cnt] = new Swatch(p, ((Integer) iter.next()).intValue());
+			swatches[cnt] = new Swatch(p, ((Integer) iter.next()).intValue());
 			cnt++;
 		}
 	}
@@ -611,14 +632,14 @@ public class Palette {
 			dropShadow = p.loadImage("dropshadow.png");
 		}
 		p.image(dropShadow,-3, -2);
-		float swatchLength  = paletteLength/colors.length;
-		for (int i = 0; i < colors.length; i++) {
-			p.fill(colors[i].getColor());
+		float swatchLength  = paletteLength/swatches.length;
+		for (int i = 0; i < swatches.length; i++) {
+			p.fill(swatches[i].getColor());
 			p.noStroke();
 			p.quad(swatchLength*i, 0, swatchLength*(i+1), 0, swatchLength*(i+1), paletteHeight, swatchLength*i, paletteHeight);
 			p.line(swatchLength*i, 0,swatchLength*i, paletteHeight);
 			for (int j =3, k=0; j > -1; j--, k++) {
-				int c = colors[i].getColor();
+				int c = swatches[i].getColor();
 				p.stroke(setHSBColor(p.hue(c), p.saturation(c), p
 						.brightness(c)+ 10*k));
 				
@@ -638,13 +659,13 @@ public class Palette {
 	 * Draws a color wheel with all colors of the palette.
 	 */
 	public void drawWheel(){
-		float swatchLength  = PApplet.TWO_PI/colors.length;
-		for (int i = 0; i < colors.length; i++) {
+		float swatchLength  = PApplet.TWO_PI/swatches.length;
+		for (int i = 0; i < swatches.length; i++) {
 			p.smooth();
 			p.noFill();
 			p.strokeCap(PApplet.SQUARE);
 			p.strokeWeight(10);
-			p.stroke(colors[i].getColor());
+			p.stroke(swatches[i].getColor());
 			p.arc(50, 55, 50, 50, swatchLength*i, swatchLength*(i+1));
 		}
 	}
