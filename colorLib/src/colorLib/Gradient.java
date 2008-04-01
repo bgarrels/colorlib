@@ -35,7 +35,7 @@ public class Gradient extends Palette {
 
 	private void createGradient(int[] i_colors, int i_stepSize, boolean wrap) {
 		for (int i = 0; i < i_stepSize; i++) {
-			colors[i] = colorsBetween(i_colors, (float) i / i_stepSize, wrap);
+			swatches[i] = new Swatch(p,(int) colorsBetween(i_colors, (float) i / i_stepSize, wrap));
 		}
 	}
 
