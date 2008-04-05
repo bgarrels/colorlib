@@ -18,6 +18,11 @@ public class Palette {
 
 	protected PApplet p;
 	
+	/**
+	 * Total number of swatches in the palette
+	 */
+	public int totalSwatches;
+	
 	PImage dropShadow;
 
 	/**
@@ -49,6 +54,7 @@ public class Palette {
 		p=i_p;
 		swatches=new Swatch[i_colors.length];
 		System.arraycopy(i_colors,0 ,swatches, 0, i_colors.length);
+		totalSwatches = swatches.length;
 	}
 
 	/**
@@ -61,6 +67,7 @@ public class Palette {
 			swatches[i] = new Swatch(p, i_image.pixels[i]);
 		}
 		deletedDuplicate();
+		totalSwatches = swatches.length;
 	}
 
 	/**
@@ -74,11 +81,31 @@ public class Palette {
 			createPaletteFromFile(b, 8, 26, b[2] & 0xff);
 		} else if (i_filename.endsWith(".act")) {
 			createPaletteFromFile(b, 0, 3, 255);
-		}else {
+		} else if (i_filename.endsWith(".aco")) {
+			createPaletteFromFile(b, 0, 0, 0); // TODO: find right arguments to parse the file
+		} else if (i_filename.endsWith(".ase")) {
+			createPaletteFromFile(b, 0, 0, 0); // TODO: find right arguments to parse the file
+		} else {
 			throw new IllegalArgumentException( "Only .cs and .act files are supported" ); 
 		}
 	}
 	
+	/**
+	 * TODO: Write documentation for this function.
+	 * TODO: Implement parsing/creating ACO files
+	 * http://javastruct.googlecode.com/svn/trunk/javastruct/samples/photoshop/
+	 * http://magnetiq.com/2006/04/18/the-unofficial-photoshop-color-book-file-format-specification/
+	 * http://www.nomodes.com/aco.html
+	 * TODO: Implement parsing/creating ASE files
+	 * http://www.colourlovers.com/ase.phps
+	 * http://www.colourlovers.com/blog/2007/11/08/color-palettes-in-adobe-swatch-exchange-ase/
+	 * http://www.adobeforums.com/webx?14@@.3bc3d68f/5
+	 * 
+	 * @param b
+	 * @param start
+	 * @param steps
+	 * @param length
+	 */
 	private void createPaletteFromFile(byte[] b, int start, int steps, int length) {
 		int cnt = 0;
 		for (int i = 0; i < length; i++) {
@@ -97,7 +124,7 @@ public class Palette {
 				cnt++;	
 			}
 		}
-		
+		totalSwatches = swatches.length;
 	}
 	
 	/**
@@ -113,6 +140,7 @@ public class Palette {
 		swatches[0]= new Swatch(p,i_color);
 		swatches[1]=new Swatch(p, i_color);
 		swatches[1].rotateRYB(180);
+		totalSwatches = swatches.length;
 	}
 	
 	/**
@@ -143,6 +171,7 @@ public class Palette {
 		}
 		swatches[4]= new Swatch(p,setHSBColor(p.hue(i_color), p.saturation(i_color), brightness));
 		swatches[5]= new Swatch(p,setHSBColor(p.hue(i_color), 25+p.saturation(i_color)*.25f, p.brightness(i_color)+76.5f));
+		totalSwatches = swatches.length;
 	}
 	
 	/**
@@ -285,8 +314,6 @@ public class Palette {
 			swatches[i].rotateRGB(i_angle);
 		}
 	}
-	
-
 
 	/**
 	 * Rotates all colors by the passed angle on the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
@@ -650,9 +677,7 @@ public class Palette {
 				
 				p.line(swatchLength*i,paletteHeight-k,swatchLength*(i+1)-1,paletteHeight-k);
 			}
-
-			
-			}
+		}
 	}
 	
 	/**
@@ -670,7 +695,14 @@ public class Palette {
 		}
 	}
 
-	
+	/**
+	 * 
+	 * @param h Hue value of the color to be set
+	 * @param s Saturation value of the color to be set
+	 * @param b Brightness value of the color to be set
+	 * @param a Alpha value of the color to be set
+	 * @return A new color
+	 */
 	private int setHSBColor(float h, float s, float b, float a){
 		int color;
 		int colorMode = p.g.colorMode;
@@ -680,6 +712,13 @@ public class Palette {
 		return color;
 	}
 	
+	/**
+	 * 
+	 * @param h Hue value of the color to be set
+	 * @param s Saturation value of the color to be set
+	 * @param b Brightness value of the color to be set
+	 * @return A new color
+	 */
 	private int setHSBColor(float h, float s, float b){
 		return setHSBColor(h,s,b,255);
 	}
