@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="Jan Vantomme, Andreas Köberle" />
+	<meta name="copyright" content="2008 Jan Vantomme, Andreas Köberle" />
+	<meta name="description" content="Documentation for colorlib, a color library for Processing." />
+	
+	<link rel="stylesheet" href="css/colorlib.css" type="text/css" media="screen" charset="utf-8" />
+	<title>Colorlib | colorLib.calculation : : Swatch</title>
+	<script type="text/javascript" src="js/shCore.js"></script>	
+	<script type="text/javascript" src="js/shBrushJava.js"></script>	
+</head>
+<body>
+<div id="container">
+	<div id="header">
+		<h1>colorLib.calculation</h1>
+	</div>
+	<div id="contentwrapper">
+		<div class="unit12">
+			<div class="unit3m">
+				<h3>Name</h3>
+			</div>
+			<div class="unit9">
+				Swatch
+			</div>
+		</div>
+		<div class="unit12">
+			<div class="unit3m">
+				<h3>Examples</h3>
+			</div>
+			<div class="unit9">
+				None available
+			</div>
+		</div>
+		<div class="unit12">
+			<div class="unit3m">
+				<h3>Description</h3>
+			</div>
+			<div class="unit9">
+				
+			</div>
+		</div>
+		<div class="unit12">
+			<div class="unit3m">
+				<h3>Syntax</h3>
+			</div>
+			<div class="unit9">
+				<pre name="code" class="java">Swatch(i_p);
+Swatch(i_p, color);
+</pre>
+			</div>
+		</div>
+		
+<!-- start memberparameters.htm -->
+<div class="unit12">
+	<div class="unit3m">
+		<h3>Parameters</h3>
+	</div>
+	<div class="unit9">
+		
+<!-- start memberparameter.htm -->
+	<div class="unit3m">
+		i_p
+	</div>
+	<div class="unit6">
+		PApplet object, normally you will use 'this'.
+	</div>
+<!-- end memberparameter.htm -->
+
+	</div>
+</div>
+<!-- end memberparameters.htm -->
+
+		
+<!-- start classmembers.htm -->
+<div class="unit12">
+	<div class="unit3m">
+		fields
+	</div>
+	<div class="unit9">
+		
+<!-- start classmember.htm -->
+	<div class="unit3m">
+		<a href="swatch_field_c.htm">c</a>
+	</div>
+	<div class="unit6">
+		color variable of the Swatch object.
+	</div>
+<!-- end classmember.htm -->
+
+	</div>
+</div>
+<!-- end classmembers.htm -->
+
+		
+<!-- start classmembers.htm -->
+<div class="unit12">
+	<div class="unit3m">
+		methods
+	</div>
+	<div class="unit9">
+		
+<!-- start classmember.htm -->
+	<div class="unit3m">
+		<a href="swatch_method_black.htm">black ( )</a>
+	</div>
+	<div class="unit6">
+		Gets the black value for the color of this swatch. Based on the generic
+ RGB to CMYK formula: black = minimum(1 - red, 1 - green, 1 - blue)
+	</div>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<div class="unit3m">
+		<a href="swatch_method_brightnessdiff.htm">brightnessDiff ( )</a>
+	</div>
+	<div class="unit6">
+		Calculated the brightness difference between the swatch and the given
+ color. The brightness is calculated by the following formular <a
+ href="http://www.w3.org/TR/AERT#color-contrast">suggest by the W3C</a>:
+ <code>((Red value * 299) + (Green value * 587) + (Blue value * 114)) / 1000</code>
+ The result should be higher then 125 for a good readability.
+	</div>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<div class="unit3m">
+		<a href="swatch_method_colordifferenz.htm">colorDifferenz ( )</a>
+	</div>
+	<div class="unit6">
+		Calculated the color difference between the swatch and the given
+ color the following formular <a
+ href="http://www.w3.org/TR/AERT#color-contrast">suggest by the W3C</a>:
+ <code>(maximum (Red value 1, Red value 2) - minimum (Red value 1, Red value 2)) + (maximum (Green value 1, Green value 2) - minimum (Green value 1, Green value 2)) + (maximum (Blue value 1, Blue value 2) - minimum (Blue value 1, Blue value 2))</code>
+ The result should be higher then 500 for a good readability.
+	</div>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<div class="unit3m">
+		<a href="swatch_method_cyan.htm">cyan ( )</a>
+	</div>
+	<div class="unit6">
+		Gets the cyan value for a given RGB color. Based on the generic RGB to
+ CMYK formula: cyan = (1 - red - black) / (1 - black)
+	</div>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<div class="unit3m">
+		<a href="swatch_method_darken.htm">darken ( )</a>
+	</div>
+	<div class="unit6">
+		Darkens the color by a given number
+	</div>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<div class="unit3m">
+		<a href="swatch_method_desaturate.htm">desaturate ( )</a>
+	</div>
+	<div class="unit6">
+		Desaturates the color by a given number
+	</div>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<div class="unit3m">
+		<a href="swatch_method_getcolor.htm">getColor ( )</a>
+	</div>
+	<div class="unit6">
+		Returns the color of the swatch.
+	</div>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<div class="unit3m">
+		<a href="swatch_method_lighten.htm">lighten ( )</a>
+	</div>
+	<div class="unit6">
+		Lightens the color by a given number
+	</div>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<div class="unit3m">
+		<a href="swatch_method_magenta.htm">magenta ( )</a>
+	</div>
+	<div class="unit6">
+		Gets the magenta value for a given RGB color. Based on the generic RGB to
+ CMYK formula: magenta = (1 - green - black) / (1 - black)
+	</div>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<div class="unit3m">
+		<a href="swatch_method_rotatergb.htm">rotateRGB ( )</a>
+	</div>
+	<div class="unit6">
+		Rotates a color around the RGB (Red-Green-Blue) color wheel.
+	</div>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<div class="unit3m">
+		<a href="swatch_method_rotateryb.htm">rotateRYB ( )</a>
+	</div>
+	<div class="unit6">
+		Rotates a color around the RYB (Red-Yellow-Blue) color wheel. More
+ information about the RYB color wheel can be found at <a
+ href="http://en.wikipedia.org/wiki/RYB_color_model">Wikipedia</a>.
+	</div>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<div class="unit3m">
+		<a href="swatch_method_saturate.htm">saturate ( )</a>
+	</div>
+	<div class="unit6">
+		Saturates the color by a given number
+	</div>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<div class="unit3m">
+		<a href="swatch_method_setcolor.htm">setColor ( )</a>
+	</div>
+	<div class="unit6">
+		Sets the color of the swatch
+	</div>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<div class="unit3m">
+		<a href="swatch_method_yellow.htm">yellow ( )</a>
+	</div>
+	<div class="unit6">
+		Gets the yellow value for a given RGB color. Based on the generic RGB to
+ CMYK formula: yellow = (1 - blue - black) / (1 - black)
+	</div>
+<!-- end classmember.htm -->
+
+	</div>
+</div>
+<!-- end classmembers.htm -->
+
+		<div class="unit12">
+			<div class="unit3m">
+				<h3>Usage</h3>
+			</div>
+			<div class="unit9">
+				Web &amp; Application
+			</div>
+		</div>
+		<div class="unit12">
+			<div class="unit3m">
+				<h3>Related</h3>
+			</div>
+			<div class="unit9">
+				&nbsp;
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		colorlib. &copy; 2008 Andreas Köberle, Jan Vantomme. Released under the MIT License.
+	</div>
+</div>
+<script type="text/javascript">
+	dp.SyntaxHighlighter.ClipboardSwf = 'flash/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</body>
+</html>

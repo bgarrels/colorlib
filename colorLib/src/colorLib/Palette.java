@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 
+import colorLib.calculation.MedianCut;
+
 /**
  * @author andreaskoberle
  *
@@ -53,7 +55,9 @@ public class Palette {
 	public Palette(PApplet i_p, int[] i_colors) {
 		p=i_p;
 		swatches=new Swatch[i_colors.length];
-		System.arraycopy(i_colors,0 ,swatches, 0, i_colors.length);
+		for (int i = 0; i < i_colors.length; i++) {
+			swatches[i]=new Swatch(p, i_colors[i]);
+		}
 		totalSwatches = swatches.length;
 	}
 
@@ -68,6 +72,24 @@ public class Palette {
 		}
 		deletedDuplicate();
 		totalSwatches = swatches.length;
+	}
+	
+	/**
+	 * @param i_image PImage, 
+	 */
+	public Palette(PApplet i_p, PImage i_image, int cnt) {
+		this(i_p, i_image.pixels, cnt);
+	}
+	
+	public Palette(PApplet i_p, int[] i_colors, int cnt) {
+		p = i_p;
+		MedianCut mc = new MedianCut(p);
+		int[] colors= mc.calc(i_colors, cnt);
+		swatches = new Swatch[colors.length];
+		for (int i = 0; i < colors.length; i++) {
+			PApplet.println( colors[i]);
+			swatches[i] = new Swatch(p, colors[i]);
+		}
 	}
 
 	/**
@@ -479,17 +501,18 @@ public class Palette {
 		int r = 0;
 		int g = 0;
 		int b = 0;
-		for (int i = 0; i < swatches.length; i++) {
+		int l = swatches.length;
+		for (int i = 0; i < l; i++) {
 			int c = swatches[i].getColor();
 			a += c >> 24 & 0xff;
 			r += c >> 16 & 0xff;
 			g += c >> 8 & 0xff;
 			b += c & 0xff;
 		}
-		return ((int) (a / swatches.length) << 24)
-				| ((int) (r / swatches.length) << 16)
-				| ((int) (g / swatches.length) << 8) 
-				| (int) (b / swatches.length);
+		return ((int) (a / l) << 24)
+				| ((int) (r / l) << 16)
+				| ((int) (g / l) << 8) 
+				| (int) (b / l);
 	}
 
 	/**

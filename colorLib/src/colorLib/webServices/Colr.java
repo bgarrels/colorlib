@@ -43,7 +43,10 @@ public class Colr {
 	}
 	
 	public void getTagsForColor(final Palette i_palette){
-		getTagsForColor(i_palette.getColors());
+		int[] i_colors = i_palette.getColors();
+		for (int i = 0; i < i_colors.length; i++) {
+			getTagsForColor(i_colors[i]);
+		}
 	}
 	
 	public String[] getColorTags(final int i_color){
