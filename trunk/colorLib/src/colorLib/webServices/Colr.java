@@ -7,6 +7,10 @@ import processing.core.PApplet;
 import processing.xml.XMLElement;
 import colorLib.Palette;
 import colorLib.Swatch;
+/**
+ * @author Andreas Kšberle
+ * @author Jan Vantomme
+ */
 public class Colr {
 	
 	final PApplet p;
