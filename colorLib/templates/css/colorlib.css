@@ -63,6 +63,20 @@ body {
 	padding: 1.5em 1em;
 }
 
+dt{
+	border-top: solid 2px;
+	clear: left;
+	
+}
+
+dd{
+	border-top: solid 1px;	
+}
+
+#overview dd {
+	float: right;
+}
+
 #footer {
 	padding: 1.5em 1em;
 	height: 3em;

@@ -3,6 +3,10 @@ package colorLib.webServices;
 import processing.core.PApplet;
 import colorLib.Palette;
 
+/**
+ * @author Andreas Kšberle
+ * @nosuperclasses
+ */
 public class ColrTheme extends Palette {
 
 	protected String[] themeTags;

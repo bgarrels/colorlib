@@ -3,34 +3,42 @@ package colorLib;
 import processing.core.*;
 
 /**
- * @author andreaskoberle
- * 
+ * You can create an palette with gradient colors
+ * The class extends palette class, so all methods of the palette class can access here.
+ * @author Andreas Kšberle
+ * @author Jan Vantomme
+ * @nosuperclasses
  */
 public class Gradient extends Palette {
 
 	/**
-	 * @param i_colors
-	 *            an int array which holds the colors in the processing way
-	 * @param stepSize
-	 *            the size of the gradient
+	 * @param i_p
+	 * @param i_colors int[], an int array which holds the colors in the processing way
+	 * @param stepSize int, the size of the gradient
 	 */
-	public Gradient(PApplet i_p, final int[] i_colors, final int i_stepSize) {
-		this(i_p,  i_colors,  i_stepSize, false);
+	public Gradient(PApplet i_p, final int[] i_colors, final int i_size) {
+		this(i_p,  i_colors,  i_size, false);
 	}
 
+	/**
+	 * @param i_palette Palette, creates the gradient from the colors of palette swatches
+	 */
 	public Gradient(Palette i_palette, int i_stepSize) {
 		this(i_palette, i_stepSize, false);
 	}
 
 	
-	public Gradient(PApplet i_p, final int[] i_colors, final int i_stepSize, boolean i_wrap) {
-		super(i_p, i_stepSize);
-		createGradient(i_colors, i_stepSize, i_wrap);
+	/**
+	 * @param i_wrap boolean, if its true the gradient ends with the same colors as its begin (default is false)
+	 */
+	public Gradient(PApplet i_p, final int[] i_colors, final int i_size, boolean i_wrap) {
+		super(i_p, i_size);
+		createGradient(i_colors, i_size, i_wrap);
 	}
 
-	public Gradient(Palette i_palette, int i_stepSize, boolean i_wrap) {
-		super(i_palette.p, i_stepSize);
-		createGradient(i_palette.getColors(), i_stepSize, i_wrap);
+	public Gradient(Palette i_palette, int i_size, boolean i_wrap) {
+		super(i_palette.p, i_size);
+		createGradient(i_palette.getColors(), i_size, i_wrap);
 	}
 
 	private void createGradient(int[] i_colors, int i_stepSize, boolean wrap) {
