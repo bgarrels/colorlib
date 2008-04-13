@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:dc="http://purl.org/dc/elements/1.1/"
+		xmlns:cc="http://creativecommons.org/ns#">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="Jan Vantomme, Andreas K&ouml;berle" />
+	<meta name="copyright" content="2008 Jan Vantomme,Andreas K&ouml;berle" />
+	<meta name="description" content="Documentation for colorlib, a color library for Processing." />
+	<link rel="stylesheet" href="css/colorlib.css" type="text/css" media="screen" charset="utf-8" />
+	<title>Colorlib | colorLib.webServices : : Kuler</title>
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+			<h1>colorLib.webServices</h1>
+			<a  href="index.htm">index</a>
+		</div>
+		<dl class="unit12">
+			<dt class="unit3m">Name</dt>
+			<dd class="unit9 name">Kuler</dd>
+			<dt class="unit3m">Examples</dt>
+			<dd class="unit9">None available</dd>
+			<dt class="unit3m">Description</dt>
+			<dd class="unit9">The Kuler object is an container to query adobes <a
+ href="kuler.adobe.com">kuler</a> service and get the response as an
+ KulerTheme object. Take a look at the <a
+ href="http://labs.adobe.com/wiki/index.php/Kule">API</a> to see the
+ possibilities of the kuler service.<br/> At kuler the palette a maximal
+ count of 5 colors per theme. The default size of the themes per query is 20,
+ but you can increase the count up 100. To query more then 100 you have to
+ increase the startIndex. So a query with maxItems=100 and startIndex=1 will
+ give you themes fromm count 100 to 200.</dd>
+			<dt class="unit3m">Syntax</dt>
+			<dd class="unit9">
+				<pre name="code" class="java">Kuler(parent);
+</pre>
+			</dd>
+			
+<!-- start memberparameters.htm -->
+	<dt class="unit3m">Parameters</dt>
+	<dd class="unit9">
+		<dl>
+		
+<!-- start memberparameter.htm -->
+	<dt class="unit2m">parent</dt>
+	<dd class="unit7">PApplet: typically use "this"</dd>
+<!-- end memberparameter.htm -->
+
+		</dl>
+	</dd>
+<!-- end memberparameters.htm -->
+
+			
+			
+<!-- start classmembers.htm -->
+
+	<dt class="unit3m">
+		Methods
+	</dt>
+	<dd class="unit9">
+		<dl class="unit9">
+			
+<!-- start classmember.htm -->
+	<dt class="unit2m">
+		<a href="kuler_method_gethighestrated.htm">getHighestRated ( )</a>
+	</dt>
+	<dd class="unit7">
+		Get the highest rated colors. Use getThemes() to get the result as an
+ array of kulerThemes.
+	</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<dt class="unit2m">
+		<a href="kuler_method_getmaxitems.htm">getMaxItems ( )</a>
+	</dt>
+	<dd class="unit7">
+		Get the maximum number of items to display on a page, in the range
+ [1..100]. Default is 20.
+	</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<dt class="unit2m">
+		<a href="kuler_method_getpopular.htm">getPopular ( )</a>
+	</dt>
+	<dd class="unit7">
+		Get the popular colors for the specified number of days (default is 30
+ days). Use getThemes() to get the result as an array of kulerThemes.
+	</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<dt class="unit2m">
+		<a href="kuler_method_getrandom.htm">getRandom ( )</a>
+	</dt>
+	<dd class="unit7">
+		Gets random colors. Use getThemes() to get the result as an array of
+ kulerThemes.
+	</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<dt class="unit2m">
+		<a href="kuler_method_getrecent.htm">getRecent ( )</a>
+	</dt>
+	<dd class="unit7">
+		Get the most recent colors. Use getThemes() to get the result as an array
+ of kulerThemes.
+	</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<dt class="unit2m">
+		<a href="kuler_method_getstartindex.htm">getStartIndex ( )</a>
+	</dt>
+	<dd class="unit7">
+		A 0-based index into the list that specifies the first item to display.
+ Default is 0, which displays the first item in the list.
+	</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<dt class="unit2m">
+		<a href="kuler_method_getthemes.htm">getThemes ( )</a>
+	</dt>
+	<dd class="unit7">
+		Returns all themes of the Kuler object. Every query result is stored in
+ the object. So calling first getRecent() and then getRandom() will give
+ you an array with 40 max items.
+	</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<dt class="unit2m">
+		<a href="kuler_method_search.htm">search ( )</a>
+	</dt>
+	<dd class="unit7">
+		Use your own query string or creates one by a given filter name and a
+ query. Possible filters are "themeID", "userID", "email", "tag", "hex"
+ and "title". Take a look at the <a
+ href="http://labs.adobe.com/wiki/index.php/Kule">API</a> to see the
+ possibilities of the kuler service.<br/> Use makePalettes() to get the
+ result as an array of kulerThemes.
+	</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<dt class="unit2m">
+		<a href="kuler_method_setmaxitems.htm">setMaxItems ( )</a>
+	</dt>
+	<dd class="unit7">
+		Set the maximum number of items to display on a page, in the range
+ [1..100]. Default is 20.
+	</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+	<dt class="unit2m">
+		<a href="kuler_method_setstartindex.htm">setStartIndex ( )</a>
+	</dt>
+	<dd class="unit7">
+		A 0-based index into the list that specifies the first item to display.
+ Default is 0, which displays the first item in the list.
+	</dd>
+<!-- end classmember.htm -->
+
+		</dl>
+	</dd>
+
+<!-- end classmembers.htm -->
+
+			<dt class="unit3m">Usage</dt>
+			<dd class="unit9">Web &amp; Application</dd>
+			<dt class="unit3m">Related</dt>
+			<dd class="unit9">&nbsp;</dd>
+		</dl>
+		<p id="footer" about="http://code.google.com/p/colorlib/">
+			<span property="dc:title">colorLib.<span> 
+			&copy; 2008 
+			<a href="http://eskimoblood.de" property="dc:creator">Andreas K&ouml;berle</a>, 
+			<a href="http://pixelplayground.eu" property="dc:creator">Jan Vantomme</a>. 
+			Released under the 
+			<a rel="cc:license" href="http://creativecommons.org/licenses/MIT/">MIT License</a>.
+		</p>
+	</div>
+	<script type="text/javascript" src="js/shCore.js"></script>	
+	<script type="text/javascript" src="js/shBrushJava.js"></script>
+	<script type="text/javascript">
+		dp.SyntaxHighlighter.ClipboardSwf = 'flash/clipboard.swf';
+		dp.SyntaxHighlighter.HighlightAll('code');
+	</script>
+</body>
+</html>
