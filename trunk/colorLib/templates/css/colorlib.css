@@ -30,6 +30,8 @@ abbr,acronym {border:0;}
 .unit4m { width: 23em; margin-right: 1em; }
 .unit6 { width: 35em; }
 .unit6m { width: 35em; margin-right: 1em; }
+.unit7 { width: 41em; }
+.unit7m { width: 41em; margin-right: 1em; }
 .unit8 { width: 47em; }
 .unit8m { width: 47em; margin-right: 1em; }
 .unit9 { width: 53em; }
@@ -65,16 +67,17 @@ body {
 
 dt{
 	border-top: solid 2px;
-	clear: left;
-	
+	clear: both;
 }
 
 dd{
 	border-top: solid 1px;	
+	float: right;
 }
 
-#overview dd {
-	float: right;
+dd dt,
+dd dd{
+	border-top: solid 1px;	
 }
 
 #footer {
