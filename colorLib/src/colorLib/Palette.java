@@ -11,14 +11,6 @@ import colorLib.calculation.MedianCut;
 /**
  * @author Andreas Kšberle
  * @author Jan Vantomme
- * 
- * Creates a new palette object which holds your colors. All color manipulation
- * is done over this object. By default it creates an empty palette with a
- * placeholder for 10 colors. You can also pass an array of colors or an PImage
- * object to create a new palette. If you pass a PImage, all duplicate colors
- * will be deleted. At least you can use a given <a
- * href="www.colorschemer.com">color shemer</a> .cs file or an .act file which
- * you can create in Photoshop for example.
  */
 public class Palette {
 
@@ -31,8 +23,15 @@ public class Palette {
 	PImage dropShadow;
 
 	/**
-	 * @param i_p
-	 *            PApplet, normally use 'this'
+	 * Creates a new palette object which holds your colors. All color
+	 * manipulation is done over this object. By default it creates an empty
+	 * palette with a placeholder for 10 colors. You can also pass an array of
+	 * colors or an PImage object to create a new palette. If you pass a PImage,
+	 * all duplicate colors will be deleted. At least you can use a given <a
+	 * href="www.colorschemer.com">color shemer</a> .cs file or an .act file
+	 * which you can create in Photoshop for example.
+	 * 
+	 * @param i_p PApplet, normally use 'this'
 	 */
 	public Palette(PApplet i_p) {
 		p = i_p;
@@ -40,16 +39,14 @@ public class Palette {
 	}
 
 	/**
-	 * @param i_length
-	 *            int, length of the created
+	 * @param i_length int: length of the created
 	 */
 	public Palette(PApplet i_p, int i_length) {
 		this(i_p, new int[i_length]);
 	}
 
 	/**
-	 * @param i_colors
-	 *            int[], an array of colors
+	 * @param i_colors   color[]: an array of colors
 	 */
 	public Palette(PApplet i_p, int[] i_colors) {
 		p = i_p;
@@ -61,7 +58,7 @@ public class Palette {
 
 	/**
 	 * @param i_image
-	 *            PImage,
+	 *            PImage: 
 	 */
 	public Palette(PApplet i_p, PImage i_image) {
 		p = i_p;
@@ -74,7 +71,7 @@ public class Palette {
 
 	/**
 	 * @param cnt
-	 *            int, the count of colors that will be extracted from the pic
+	 *            int: the count of colors that will be extracted from the pic
 	 *            using the medain cut algorithm
 	 */
 	public Palette(PApplet i_p, PImage i_image, int cnt) {
@@ -94,7 +91,7 @@ public class Palette {
 
 	/**
 	 * @param i_filename
-	 *            String, an .cs or .act file located in the data folder of your
+	 *            String: an .cs or .act file located in the data folder of your
 	 *            sketch
 	 */
 	public Palette(PApplet i_p, String i_filename) {
@@ -107,10 +104,10 @@ public class Palette {
 			createPaletteFromFile(b, 0, 3, 255);
 		} else if (i_filename.endsWith(".aco")) {
 			createPaletteFromFile(b, 0, 0, 0); // TODO: find right arguments to
-												// parse the file
+			// parse the file
 		} else if (i_filename.endsWith(".ase")) {
 			createPaletteFromFile(b, 0, 0, 0); // TODO: find right arguments to
-												// parse the file
+			// parse the file
 		} else {
 			throw new IllegalArgumentException(
 					"Only .cs and .act files are supported");

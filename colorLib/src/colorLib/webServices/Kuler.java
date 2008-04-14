@@ -19,6 +19,7 @@ import processing.xml.*;
  * 
  * @author Andreas Kšberle
  * @author Jan Vantomme
+ * @nosuperclasses
  */
 public class Kuler {
 
@@ -31,74 +32,99 @@ public class Kuler {
 	ArrayList themes;
 
 	/**
-	 * @param parent
-	 *            PApplet, typically use "this"
+	 * @param parent PApplet: typically use "this"
 	 */
 	public Kuler(PApplet parent) {
 		p = parent;
 	}
 
 	/**
-	 * Get the highest rated colors. Use makePalettes() to get the result as an
+	 * Get the highest rated colors. Use getThemes() to get the result as an
 	 * array of kulerThemes.
+	 * 
+	 * @related getPopular ( )
+	 * @related getPopular ( )
+	 * @related getRecent ( )
+	 * @related getRandom ( )
+	 * @related search ( )
+	 * @related getThemes ( )
 	 */
 	public void getHighestRated() {
 		makePalettes("listtype=rating");
 	}
 
 	/**
-	 * Get the popular colors from the last 30 days. Use makePalettes() to get
-	 * the result as an array of kulerThemes.
+	 * Get the popular colors for the specified number of days (default is 30
+	 * days). Use getThemes() to get the result as an array of kulerThemes.
+	 * 
+	 * @related getHighestRated ( )
+	 * @related getRecent ( )
+	 * @related getRandom ( )
+	 * @related search ( )
+	 * @related getThemes ( )
 	 */
 	public void getPopular() {
 		makePalettes("listtype=rating&timespan=30");
 	}
 
 	/**
-	 * Get the popular colors for the specified number of days Use
-	 * makePalettes() to get the result as an array of kulerThemes.
-	 * 
 	 * @param days
-	 *            int, Days
+	 *            int: Days
 	 */
 	public void getPopular(final int days) {
 		makePalettes("listtype=rating&timespan=" + days);
 	}
 
 	/**
-	 * Get the most recent colors. Use makePalettes() to get the result as an
-	 * array of kulerThemes.
+	 * Get the most recent colors. Use getThemes() to get the result as an array
+	 * of kulerThemes.
+	 * 
+	 * @related getHighestRated ( )
+	 * @related getPopular ( )
+	 * @related getRandom ( )
+	 * @related search ( )
+	 * @related getThemes ( )
 	 */
 	public void getRecent() {
 		makePalettes("listtype=recent");
 	}
 
 	/**
-	 * Gets random colors. Use makePalettes() to get the result as an array of
+	 * Gets random colors. Use getThemes() to get the result as an array of
 	 * kulerThemes.
+	 * 
+	 * @related getHighestRated ( )
+	 * @related getPopular ( )
+	 * @related getRecent ( )
+	 * @related search ( )
+	 * @related getThemes ( )
 	 */
 	public void getRandom() {
 		makePalettes("listtype=random");
 	}
 
 	/**
-	 * Use your own query string or creates one by a given filter name and a query. 
-	 * Possible filters are "themeID", "userID", "email", "tag", "hex" and "title".
-	 * Take a look at the <a
+	 * Use your own query string or creates one by a given filter name and a
+	 * query. Possible filters are "themeID", "userID", "email", "tag", "hex"
+	 * and "title". Take a look at the <a
 	 * href="http://labs.adobe.com/wiki/index.php/Kule">API</a> to see the
-	 * possibilities of the kuler service.<br/> 
-	 * Use makePalettes() to get the result as an array of kulerThemes.
+	 * possibilities of the kuler service.<br/> Use makePalettes() to get the
+	 * result as an array of kulerThemes.
 	 * 
-	 * @param searchQuery String, your query
+	 * @param searchQuery  String: your query
+	 * @related getHighestRated ( )
+	 * @related getPopular ( )
+	 * @related getRecent ( )
+	 * @related getRandom ( )
+	 * @related getThemes ( )
 	 */
 	public void search(final String searchQuery) {
 		makePalettes(searchQuery);
 	}
 
 	/**
-	 * @param searchQuery String, query that is use with a searchFilter
-	 * @param searchFilter String, one of the following filters: "themeID", "userID", "email",
-	 *            "tag", "hex" and "title"
+	 * @param searchQuery  String: query that is use with a searchFilter
+	 * @param searchFilter String: one of the following filters: "themeID", "userID", "email", "tag", "hex" and "title"
 	 */
 	public void search(final String searchQuery, final String searchFilter) {
 		makePalettes("&searchQuery=" + searchFilter + ":" + searchQuery);
@@ -106,10 +132,12 @@ public class Kuler {
 
 	private void makePalettes(final String querry) {
 		themes = new ArrayList();
-		String url = "http://kuler.adobe.com/kuler/API/rss/search.cfm?itemsPerPage="
-				+ maxItems + "startIndex=" + startIndex;
-		PApplet.println(querry);
-		XMLElement xml = new XMLElement(p, url + querry);
+		StringBuffer url = new StringBuffer("http://kuler.adobe.com/kuler/API/rss/search.cfm?itemsPerPage=").
+				append(maxItems).
+				append("startIndex=").
+				append(startIndex).
+				append(querry);
+		XMLElement xml = new XMLElement(p, url.toString());
 		XMLElement[] themeItems = xml
 				.getChildren("channel/item/kuler:themeItem");
 
@@ -153,52 +181,33 @@ public class Kuler {
 	}
 
 	/**
-	 * Returns all themes of the Kuler object. Every query result is stored in the object. 
-	 * So calling first getRecent() and then getRandom() will give you an array with 40 max items.
-	 * @return KulerTheme[], an array of all kulerthemes 
+	 * Returns all themes of the Kuler object. Every query result is stored in
+	 * the object. So calling first getRecent() and then getRandom() will give
+	 * you an array with 40 max items.
+	 * 
+	 * @return KulerTheme[]: an array of all kulerthemes
+	 * @related getHighestRated ( )
+	 * @related getPopular ( )
+	 * @related getRecent ( )
+	 * @related getRandom ( )
+	 * @related search ( )
 	 */
 	public KulerTheme[] getThemes() {
 		return (KulerTheme[]) themes.toArray(new KulerTheme[themes.size()]);
 	}
-	
 
 	public KulerTheme getTheme(int cnt) {
 		return ((KulerTheme[]) themes.toArray(new KulerTheme[themes.size()]))[cnt];
 	}
 
-	// TODO Search for tag in all kulerThemes
-//	/**
-//	 * @param tag
-//	 * @return an array of kulerThemes that matches the search tag
-//	 */
-//	public KulerTheme[] searchForTag(final String tag) {
-//		return new KulerTheme[0];
-//	}
-
-//	public void draw() {
-//		Iterator iter = themes.iterator();
-//		int cnt = 0;
-//		int y = 0;
-//		while (iter.hasNext()) {
-//			KulerTheme theme = (KulerTheme) iter.next();
-//			p.pushMatrix();
-//			// parent.translate(10+(cnt%10)*140, 10+y*48);
-//			p.translate(10 + (cnt % 5) * 70, 10 + y * 70);
-//			theme.drawWheel();
-//			p.popMatrix();
-//			cnt++;
-//			// if(cnt%10==0)y++;
-//			if (cnt % 5 == 0)
-//				y++;
-//		}
-//		System.out.print(cnt);
-//	}
-
 	/**
 	 * Get the maximum number of items to display on a page, in the range
 	 * [1..100]. Default is 20.
 	 * 
-	 * @return int maximum number
+	 * @return int: maximum items per query
+	 * @related setMaxItems ( )
+	 * @related getStartIndex ( )
+	 * @related setStartIndex ( )
 	 */
 	public int getMaxItems() {
 		return maxItems;
@@ -209,7 +218,10 @@ public class Kuler {
 	 * [1..100]. Default is 20.
 	 * 
 	 * @param maxItems
-	 *            maximum number
+	 *            int: maximum items per query
+	 * @related getMaxItems ( )
+	 * @related getStartIndex ( )
+	 * @related setStartIndex ( )
 	 */
 	public void setMaxItems(int maxItems) {
 		this.maxItems = maxItems;
@@ -219,7 +231,10 @@ public class Kuler {
 	 * A 0-based index into the list that specifies the first item to display.
 	 * Default is 0, which displays the first item in the list.
 	 * 
-	 * @return
+	 * @return int: start index
+	 * @related getMaxItems ( )
+	 * @related setMaxItems ( )
+	 * @related setStartIndex ( )
 	 */
 	public int getStartIndex() {
 		return startIndex;
@@ -229,7 +244,10 @@ public class Kuler {
 	 * A 0-based index into the list that specifies the first item to display.
 	 * Default is 0, which displays the first item in the list.
 	 * 
-	 * @param startIndex
+	 * @param startIndex int: start index
+	 * @related getMaxItems ( )
+	 * @related setMaxItems ( )
+	 * @related getStartIndex ( )
 	 */
 	public void setStartIndex(int startIndex) {
 		this.startIndex = startIndex;
