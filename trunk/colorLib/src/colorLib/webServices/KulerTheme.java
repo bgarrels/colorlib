@@ -10,6 +10,7 @@ import colorLib.Palette;
 /**
  * @author Andreas Kšberle
  * @author Jan Vantomme
+ * @nosuperclasses
  */
 public class KulerTheme extends ColrTheme {
 	private String themeID, themeTitle, authorLabel, authorID;
@@ -25,7 +26,7 @@ public class KulerTheme extends ColrTheme {
 
 	/**
 	 * Returns the id of the author, which can be used for another query against the kuler service.
-	 * @return String, authorID
+	 * @return String: authorID
 	 * @related getAuthorLabel ( ) 
 	 * @related getThemeCreatedAt ( ) 
 	 * @related getThemeDownloadCount ( ) 
@@ -44,7 +45,7 @@ public class KulerTheme extends ColrTheme {
 
 	/**
 	 * Returns the name of the author.
-	 * @return String, authorLabel
+	 * @return String: authorLabel
 	 * @related getAuthorId ( )
 	 * @related getThemeCreatedAt ( ) 
 	 * @related getThemeDownloadCount ( ) 
@@ -63,7 +64,7 @@ public class KulerTheme extends ColrTheme {
 
 	/**
 	 * Returns the date the theme was created.
-	 * @return Date, date
+	 * @return Date: date
 	 * @related getAuthorId ( )
 	 * @related getAuthorLabel ( ) 
 	 * @related getThemeDownloadCount ( ) 
@@ -89,7 +90,7 @@ public class KulerTheme extends ColrTheme {
 
 	/**
 	 * Returns how often the themes was downloaded. 
-	 * @return int, download count
+	 * @return int: download count
 	 * @related getAuthorId ( )
 	 * @related getAuthorLabel ( ) 
 	 * @related getThemeCreatedAt ( ) 
@@ -108,7 +109,7 @@ public class KulerTheme extends ColrTheme {
 
 	/**
 	 * Returns the date the theme was last modified.
-	 * @return Date, date
+	 * @return Date: date
 	 * @related getAuthorId ( )
 	 * @related getAuthorLabel ( ) 
 	 * @related getThemeCreatedAt ( ) 
@@ -132,7 +133,7 @@ public class KulerTheme extends ColrTheme {
 
 	/**
 	 * Returns the id of the theme, which can be used for another query against the kuler service.
-	 * @return String, ID
+	 * @return String: ID
 	 * @related getAuthorId ( )
 	 * @related getAuthorLabel ( ) 
 	 * @related getThemeCreatedAt ( ) 
@@ -145,13 +146,19 @@ public class KulerTheme extends ColrTheme {
 		return themeID;
 	}
 
+	protected void setThemeTags(String i_themeTags) {
+		if (themeTags != null || !i_themeTags.equalsIgnoreCase("")){
+			themeTags=PApplet.concat(themeTags, i_themeTags.split(","));
+	    }
+	}
+	
 	protected void setThemeID(final String themeID) {
 		this.themeID = themeID;
 	}
 
 	/**
 	 * Return the rating of the theme
-	 * @return int, rating
+	 * @return int: rating
 	 * @related getAuthorId ( )
 	 * @related getAuthorLabel ( ) 
 	 * @related getThemeCreatedAt ( ) 
@@ -170,7 +177,7 @@ public class KulerTheme extends ColrTheme {
 
 	/**
 	 * Return the title of the theme.
-	 * @return String, title
+	 * @return String: title
 	 * @related getAuthorId ( )
 	 * @related getAuthorLabel ( ) 
 	 * @related getThemeCreatedAt ( ) 
@@ -200,5 +207,7 @@ public class KulerTheme extends ColrTheme {
 		}
 		System.out.println("---------------------------------------");
 	}
+
+
 
 }
