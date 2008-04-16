@@ -14,7 +14,7 @@ public class ColrTheme extends Palette {
 	/**
 	 * @param i_p
 	 */
-	ColrTheme(final PApplet i_p) {
+	protected ColrTheme(final PApplet i_p) {
 		super(i_p);
 		themeTags = new String[0];
 	}

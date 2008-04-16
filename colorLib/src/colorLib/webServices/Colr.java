@@ -8,24 +8,22 @@ import processing.xml.XMLElement;
 import colorLib.Palette;
 import colorLib.Swatch;
 /**
+ * Colr is a container to query the <a href="http://www.colr.org">Colr service</a>. 
+ * As the <a href="http://www.colr.org/api.html">API of Colr</a> is very limited there are only three methods to use.
  * @author Andreas Kšberle
  * @author Jan Vantomme
+ * @example Colr
  */
 public class Colr {
 	
 	final PApplet p;
+	public boolean printXML = false;
 	
 	/**
-	 * Colr is a container to query the <a href="http://www.colr.org">Colr service</a>. 
-	 * As the <a href="http://www.colr.org/api.html">API of Colr</a> is very limited there are only three methods to use.
 	 * @param i_p
 	 */
 	public Colr(final PApplet i_p){
 		p=i_p;
-		String lines[] = p.loadStrings("http://www.colr.org/rss/tag/apple");
-		for (int i=0; i < lines.length; i++) {
-			  PApplet.println(lines[i]);
-			}
 	}
 	
 	/**
@@ -34,6 +32,7 @@ public class Colr {
 	 * @return String[]: string array with all tags associated  with this color
 	 * @related searchThemes ( )
 	 * @related searchColors ( )
+	 * @example Colr_searchTags
 	 */
 	public String[] searchTags(final String hex){
 		String url = "http://www.colr.org/rss/color/";
@@ -45,20 +44,21 @@ public class Colr {
 	    }else{
 	    	PApplet.println("There are no tags for the color");
 	    }
+		if(printXML)printXML(url + hex);
 		return tagArray;
 	}
 	
 	/**
 	 * @param i_color color: color 
 	 */
-	public String[] getTagsForColor(final int i_color){
+	public String[] searchTags(final int i_color){
 		return searchTags(PApplet.hex(i_color, 6));
 	}
 	
 	/**
 	 * @param i_color Swatch: swatch
 	 */
-	public String[] getTagsForColor(final Swatch i_color){
+	public String[] searchTags(final Swatch i_color){
 		return searchTags(PApplet.hex(i_color.getColor(), 6));
 	}
 	
@@ -69,6 +69,7 @@ public class Colr {
 	 * @return ColrTheme: a ColrTheme holding all colors and all tags associated with this colors
 	 * @related searchTags ( )
 	 * @related searchThemes ( )
+	 * @example Colr
 	 */
 	public ColrTheme searchColors(String tag){
 		String url = "http://www.colr.org/rss/tag/";
@@ -79,11 +80,13 @@ public class Colr {
 			XMLElement item= colors[i];
 			String title = item.getChildren("title")[0].getContent();
 			PApplet.println(title);
-			if(!title.startsWith("scheme")){
+			if(title.matches("[0-9A-Fa-f]{6}")){
+				PApplet.println(title);
 				theme.addColor(PApplet.unhex("FF"+title));
 				theme.addThemeTags(item.getChildren("description/tags")[0].getContent());
 			}
 		}
+		if(printXML)printXML(url + tag);
 		return theme;
 	}
 	
@@ -95,6 +98,7 @@ public class Colr {
 	 * @return ColrTheme[]: array contains all theme matching the query
 	 * @related searchTags ( )
 	 * @related searchColors ( )
+	 * @example Colr_searchThemes
 	 */
 	public ColrTheme[] searchThemes(String tag){
 		String url = "http://www.colr.org/rss/tag/";
@@ -108,13 +112,24 @@ public class Colr {
 				ColrTheme theme = new ColrTheme(p);
 				String[] colors = item.getChildren("description/colors")[0].getContent().split(" ");
 				for (int j = 0; j < colors.length; j++) {
-					theme.addColor(PApplet.unhex("FF"+colors[j]));
+					String cl = colors[j];
+					if(cl.matches("[0-9A-Fa-f]{6}")){
+						theme.addColor(PApplet.unhex("FF"+cl));
+					}
 				}
 				theme.addThemeTags(item.getChildren("description/tags")[0].getContent());
 				themes.add(theme);
 			}
 		}
+		if(printXML)printXML(url + tag);
 		return ((ColrTheme[]) themes.toArray(new ColrTheme[themes.size()]));
+	}
+	
+	private void printXML(String url){
+		String lines[] = p.loadStrings(url);
+		for (int i=0; i < lines.length; i++) {
+			  PApplet.println(lines[i]);
+		}
 	}
 	
 }
