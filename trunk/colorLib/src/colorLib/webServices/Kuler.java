@@ -49,8 +49,8 @@ public class Kuler {
 	 * @related search ( )
 	 * @related getThemes ( )
 	 */
-	public void getHighestRated() {
-		makePalettes("listtype=rating");
+	public KulerTheme[] getHighestRated() {
+		return makePalettes("listtype=rating");
 	}
 
 	/**
@@ -63,16 +63,16 @@ public class Kuler {
 	 * @related search ( )
 	 * @related getThemes ( )
 	 */
-	public void getPopular() {
-		makePalettes("listtype=rating&timespan=30");
+	public KulerTheme[] getPopular() {
+		return makePalettes("listtype=rating&timespan=30");
 	}
 
 	/**
 	 * @param days
 	 *            int: Days
 	 */
-	public void getPopular(final int days) {
-		makePalettes("listtype=rating&timespan=" + days);
+	public KulerTheme[] getPopular(final int days) {
+		return makePalettes("listtype=rating&timespan=" + days);
 	}
 
 	/**
@@ -85,8 +85,8 @@ public class Kuler {
 	 * @related search ( )
 	 * @related getThemes ( )
 	 */
-	public void getRecent() {
-		makePalettes("listtype=recent");
+	public KulerTheme[] getRecent() {
+		return makePalettes("listtype=recent");
 	}
 
 	/**
@@ -99,8 +99,8 @@ public class Kuler {
 	 * @related search ( )
 	 * @related getThemes ( )
 	 */
-	public void getRandom() {
-		makePalettes("listtype=random");
+	public KulerTheme[] getRandom() {
+		return makePalettes("listtype=random");
 	}
 
 	/**
@@ -118,8 +118,8 @@ public class Kuler {
 	 * @related getRandom ( )
 	 * @related getThemes ( )
 	 */
-	public void search(final String searchQuery) {
-		makePalettes(searchQuery);
+	public KulerTheme[] search(final String searchQuery) {
+		return makePalettes(searchQuery);
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class Kuler {
 		makePalettes("&searchQuery=" + searchFilter + ":" + searchQuery);
 	}
 
-	private void makePalettes(final String querry) {
+	private KulerTheme[] makePalettes(final String querry) {
 		themes = new ArrayList();
 		StringBuffer url = new StringBuffer("http://kuler.adobe.com/kuler/API/rss/search.cfm?itemsPerPage=").
 				append(maxItems).
@@ -178,6 +178,7 @@ public class Kuler {
 			kulerTheme.printSettings();
 			themes.add(kulerTheme);
 		}
+		return (KulerTheme[]) themes.toArray(new KulerTheme[themes.size()]);
 	}
 
 	/**

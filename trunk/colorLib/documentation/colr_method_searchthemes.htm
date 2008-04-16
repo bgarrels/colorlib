@@ -22,7 +22,26 @@
 				<dt class="unit3m">Name</dt>
 				<dd class="unit9">searchThemes ( )</dd>
 				<dt class="unit3m">Examples</dt>
-				<dd class="unit9">None available</dd>
+				<dd class="unit9">
+					<pre name="code" class="java">import colorLib.*;
+import colorLib.webServices.*;
+
+void setup(){
+  size(400, 400);
+  background(70);
+  smooth();
+  Colr colr = new Colr(this);
+  ColrTheme[] colrThemes = colr.searchThemes("apple");
+  for(int i=0; i&lt;colrThemes.length; i++){
+    pushMatrix();
+    translate(10+(i%3)*130 , 10+floor(i/3)* 50);
+    colrThemes[i].drawSwatches();
+    popMatrix();
+  }
+}
+
+</pre>
+				</dd>
 				<dt class="unit3m">Description</dt>
 				<dd class="unit9">Query the Colr service with the given tag. 
  Returns an array with all returned shemes as ColrThemes which stores the colors and 
