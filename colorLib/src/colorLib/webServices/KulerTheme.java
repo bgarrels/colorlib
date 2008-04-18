@@ -15,7 +15,7 @@ import colorLib.Palette;
 public class KulerTheme extends ColrTheme {
 	private String themeID, themeTitle, authorLabel, authorID;
 
-	private float themeRating;
+	private int themeRating;
 	private int themeDownloadCount;
 
 	private Date themeCreatedAt, themeEditedAt;
@@ -64,7 +64,9 @@ public class KulerTheme extends ColrTheme {
 
 	/**
 	 * Returns the date the theme was created.
-	 * @return Date: date
+	 * @return 	String: date, return the date formated with the passed dateFormat, default is "yyyy MM dd HH:mm",
+	 * 		   	see <a href="http://java.sun.com/docs/books/tutorial/i18n/format/simpleDateFormat.html">suns java tutorial</a> for 
+	 * 			posibble formats
 	 * @related getAuthorId ( )
 	 * @related getAuthorLabel ( ) 
 	 * @related getThemeDownloadCount ( ) 
@@ -73,8 +75,14 @@ public class KulerTheme extends ColrTheme {
 	 * @related getThemeRating ( ) 
 	 * @related getThemeTitle ( ) 
 	 */
-	public Date getThemeCreatedAt() {
-		return themeCreatedAt;
+	public String getThemeCreatedAt(String dateFormat) {
+		SimpleDateFormat df = new SimpleDateFormat(dateFormat);
+		return df.format(themeCreatedAt);
+	}
+	
+	public String getThemeCreatedAt() {
+		return getThemeCreatedAt("yyyy-MM-dd HH:mm:ss.S");
+		
 	}
 
 	protected void setThemeCreatedAt(final String themeCreatedAt) {
@@ -194,20 +202,6 @@ public class KulerTheme extends ColrTheme {
 		this.themeTitle = themeTitle;
 	}
 	
-	protected void printSettings(){
-		System.out.println("themeID :" + themeID);
-		System.out.println("themeTitle :" + themeTitle);
-		System.out.println("authorLabel :" + authorLabel);
-		System.out.println("authorID :" + authorID);
-		System.out.println("themeRating :" + themeRating);
-		System.out.println("themeRating :" + themeRating);
-		System.out.println("themeTags :");
-		for (int i = 0; i < themeTags.length; i++) {
-			System.out.print(themeTags[i]);
-		}
-		System.out.println("---------------------------------------");
-	}
-
-
+	
 
 }
