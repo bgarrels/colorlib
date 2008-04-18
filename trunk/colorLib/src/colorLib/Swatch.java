@@ -20,7 +20,7 @@ public class Swatch {
 	/**
 	 * @param i_p PApplet, normally you will use 'this'.
 	 */
-	public Swatch(PApplet i_p) {
+	public Swatch(final PApplet i_p) {
 		p = i_p;
 		c = p.g.color(p.random(p.g.colorModeX), p.random(p.g.colorModeY), p
 				.random(p.g.colorModeZ));
@@ -29,7 +29,7 @@ public class Swatch {
 	/**
 	 * @param color color, color
 	 */
-	public Swatch(PApplet i_p, int color) {
+	public Swatch(final PApplet i_p, final int color) {
 		p = i_p;
 		c = color;
 	}
@@ -120,7 +120,7 @@ public class Swatch {
 	 * @param i_step
 	 *            float, number to increase the brightness of the swatch
 	 */
-	public void lighten(float i_step) {
+	public void lighten(final float i_step) {
 		c = setHSBColor(p.hue(c), p.saturation(c), p.brightness(c) + i_step, p
 				.alpha(c));
 	}
@@ -138,7 +138,7 @@ public class Swatch {
 	 * @param i_step
 	 *            i_step float, number to increase the saturation of the swatch
 	 */
-	public void desaturate(int i_step) {
+	public void desaturate(final int i_step) {
 		saturate(-i_step);
 	}
 
@@ -155,7 +155,7 @@ public class Swatch {
 	 * @param i_step
 	 *            float, number to decrease the saturation of the swatch
 	 */
-	public void saturate(int i_step) {
+	public void saturate(final int i_step) {
 		c = setHSBColor(p.hue(c), p.saturation(c) + i_step, p.brightness(c));
 	}
 
@@ -174,7 +174,7 @@ public class Swatch {
 	 *            alpha value for the color that will be set by the function
 	 * @return a new color
 	 */
-	private int setHSBColor(float h, float s, float b, float a) {
+	private int setHSBColor(final float h, final float s, final float b, final float a) {
 		int color;
 		int colorMode = p.g.colorMode;
 		p.colorMode(PApplet.HSB);
@@ -196,7 +196,7 @@ public class Swatch {
 	 *            function
 	 * @return a new color
 	 */
-	private int setHSBColor(float h, float s, float b) {
+	private int setHSBColor(final float h, final float s, final float b) {
 		return setHSBColor(h, s, b, 255);
 	}
 
@@ -217,7 +217,7 @@ public class Swatch {
 	 *            color, color
 	 * @related getColor ( )
 	 */
-	public void setColor(int i_c) {
+	public void setColor(final int i_c) {
 		c = i_c;
 	}
 
@@ -228,7 +228,7 @@ public class Swatch {
 	 *            float, value between 0 and 255
 	 * @related rotateRYB ( )
 	 */
-	public void rotateRGB(float i_angle) {
+	public void rotateRGB(final float i_angle) {
 		c = setHSBColor((p.hue(c) + i_angle) % 256, p.saturation(c), p
 				.brightness(c));
 	}
@@ -298,7 +298,7 @@ public class Swatch {
 	 * @return float, difference
 	 * @related colorDiff ( )
 	 */
-	public float brightnessDiff(int i_color) {
+	public float brightnessDiff(final int i_color) {
 		return Math
 				.abs(((c >> 16 & 0xFF) * 299 + (c >> 8 & 0xFF) * 587 + (c & 0xFF) * 114)
 						/ 1000
@@ -309,7 +309,7 @@ public class Swatch {
 	/**
 	 * @param i_swatch
 	 */
-	public float brightnessDiff(Swatch i_swatch) {
+	public float brightnessDiff(final Swatch i_swatch) {
 		return brightnessDiff(i_swatch.getColor());
 	}
 
@@ -325,7 +325,7 @@ public class Swatch {
 	 * @return float, difference
 	 * @related brightnessDiff ( )
 	 */
-	public float colorDiff(int i_color) {
+	public float colorDiff(final int i_color) {
 		return (Math.max(c >> 16 & 0xFF, i_color >> 16 & 0xFF) - Math.min(
 				c >> 16 & 0xFF, i_color >> 16 & 0xFF))
 				+ (Math.max(c >> 8 & 0xFF, i_color >> 8 & 0xFF) - Math.min(
@@ -338,7 +338,7 @@ public class Swatch {
 	 * @param i_swatch
 	 *            Swatch, swatch
 	 */
-	public float colorDiff(Swatch i_swatch) {
+	public float colorDiff(final Swatch i_swatch) {
 		return colorDiff(i_swatch.getColor());
 	}
 

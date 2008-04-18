@@ -20,6 +20,7 @@ import processing.xml.*;
  * @author Andreas Kšberle
  * @author Jan Vantomme
  * @nosuperclasses
+ * @exmaple Kuler_search
  */
 public class Kuler {
 
@@ -29,18 +30,20 @@ public class Kuler {
 
 	private int startIndex = 0;
 
-	ArrayList themes;
+	private ArrayList themes;
+	
+	private String typ;
 
+	public boolean printXML = false;
 	/**
 	 * @param parent PApplet: typically use "this"
 	 */
-	public Kuler(PApplet parent) {
+	public Kuler(final PApplet parent) {
 		p = parent;
 	}
 
 	/**
-	 * Get the highest rated colors. Use getThemes() to get the result as an
-	 * array of kulerThemes.
+	 * Get the highest rated colors as an array of <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
 	 * 
 	 * @related getPopular ( )
 	 * @related getPopular ( )
@@ -48,23 +51,28 @@ public class Kuler {
 	 * @related getRandom ( )
 	 * @related search ( )
 	 * @related getThemes ( )
+	 * @return KulerTheme[], an array of all themes which match the query
 	 */
 	public KulerTheme[] getHighestRated() {
-		return makePalettes("listtype=rating");
+		typ= "get";
+		return makePalettes("&listtype=rating");
 	}
 
 	/**
 	 * Get the popular colors for the specified number of days (default is 30
-	 * days). Use getThemes() to get the result as an array of kulerThemes.
+	 * days) as an array of <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
 	 * 
 	 * @related getHighestRated ( )
 	 * @related getRecent ( )
 	 * @related getRandom ( )
 	 * @related search ( )
 	 * @related getThemes ( )
+	 * @return KulerTheme[], an array of all themes which match the query
+	 * @example Kuler_popular
 	 */
 	public KulerTheme[] getPopular() {
-		return makePalettes("listtype=rating&timespan=30");
+		typ= "get";
+		return makePalettes("&listtype=rating&timespan=30");
 	}
 
 	/**
@@ -72,35 +80,41 @@ public class Kuler {
 	 *            int: Days
 	 */
 	public KulerTheme[] getPopular(final int days) {
-		return makePalettes("listtype=rating&timespan=" + days);
+		typ= "get";
+		return makePalettes("&listtype=rating&timespan=" + days);
 	}
 
 	/**
-	 * Get the most recent colors. Use getThemes() to get the result as an array
-	 * of kulerThemes.
+	 * Get the most recent colors as an array of <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
 	 * 
 	 * @related getHighestRated ( )
 	 * @related getPopular ( )
 	 * @related getRandom ( )
 	 * @related search ( )
 	 * @related getThemes ( )
+	 * @return KulerTheme[], an array of all themes which match the query
+	 * @example Kuler_recent
 	 */
 	public KulerTheme[] getRecent() {
-		return makePalettes("listtype=recent");
+		typ= "get";
+		return makePalettes("&listtype=recent");
 	}
 
 	/**
 	 * Gets random colors. Use getThemes() to get the result as an array of
-	 * kulerThemes.
+	 * <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
 	 * 
 	 * @related getHighestRated ( )
 	 * @related getPopular ( )
 	 * @related getRecent ( )
 	 * @related search ( )
 	 * @related getThemes ( )
+	 * @return KulerTheme[], an array of all themes which match the query
+	 * @example Kuler_random
 	 */
 	public KulerTheme[] getRandom() {
-		return makePalettes("listtype=random");
+		typ= "get";
+		return makePalettes("&listtype=random");
 	}
 
 	/**
@@ -108,8 +122,8 @@ public class Kuler {
 	 * query. Possible filters are "themeID", "userID", "email", "tag", "hex"
 	 * and "title". Take a look at the <a
 	 * href="http://labs.adobe.com/wiki/index.php/Kule">API</a> to see the
-	 * possibilities of the kuler service.<br/> Use makePalettes() to get the
-	 * result as an array of kulerThemes.
+	 * possibilities of the kuler service.<br/> The result is an array of 
+	 * <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
 	 * 
 	 * @param searchQuery  String: your query
 	 * @related getHighestRated ( )
@@ -117,8 +131,11 @@ public class Kuler {
 	 * @related getRecent ( )
 	 * @related getRandom ( )
 	 * @related getThemes ( )
+	 * @return KulerTheme[], an array of all themes which match the query
+	 * @example Kuler_search
 	 */
 	public KulerTheme[] search(final String searchQuery) {
+		typ= "search";
 		return makePalettes(searchQuery);
 	}
 
@@ -126,17 +143,21 @@ public class Kuler {
 	 * @param searchQuery  String: query that is use with a searchFilter
 	 * @param searchFilter String: one of the following filters: "themeID", "userID", "email", "tag", "hex" and "title"
 	 */
-	public void search(final String searchQuery, final String searchFilter) {
-		makePalettes("&searchQuery=" + searchFilter + ":" + searchQuery);
+	public KulerTheme[] search(final String searchQuery, final String searchFilter) {
+		typ= "search";
+		return makePalettes("&searchQuery=" + searchQuery + ":" + searchFilter);
 	}
 
 	private KulerTheme[] makePalettes(final String querry) {
 		themes = new ArrayList();
-		StringBuffer url = new StringBuffer("http://kuler.adobe.com/kuler/API/rss/search.cfm?itemsPerPage=").
+		StringBuffer url = new StringBuffer("http://kuler.adobe.com/kuler/API/rss/").
+				append(typ).
+				append(".cfm?itemsPerPage=").
 				append(maxItems).
-				append("startIndex=").
+				append("&startIndex=").
 				append(startIndex).
 				append(querry);
+		PApplet.println(url.toString());
 		XMLElement xml = new XMLElement(p, url.toString());
 		XMLElement[] themeItems = xml
 				.getChildren("channel/item/kuler:themeItem");
@@ -144,61 +165,26 @@ public class Kuler {
 		for (int i = 0; i < themeItems.length; i++) {
 			KulerTheme kulerTheme = new KulerTheme(p);
 			XMLElement themeItem = themeItems[i];
-			kulerTheme.setThemeID(themeItem.getChildren("kuler:themeID")[0]
-					.getContent());
-			kulerTheme
-					.setThemeTitle(themeItem.getChildren("kuler:themeTitle")[0]
-							.getContent());
-			kulerTheme.setAuthorID(themeItem
-					.getChildren("kuler:themeAuthor/kuler:authorID")[0]
-					.getContent());
-			kulerTheme.setAuthorLabel(themeItem
-					.getChildren("kuler:themeAuthor/kuler:authorLabel")[0]
-					.getContent());
-			kulerTheme.setThemeTags(themeItem.getChildren("kuler:themeTags")[0]
-					.getContent());
-			kulerTheme.setThemeRating(themeItem
-					.getChildren("kuler:themeRating")[0].getContent());
-			kulerTheme.setThemeDownloadCount(themeItem
-					.getChildren("kuler:themeDownloadCount")[0].getContent());
-			kulerTheme.setThemeCreatedAt(themeItem
-					.getChildren("kuler:themeCreatedAt")[0].getContent());
-			kulerTheme.setThemeEditedAt(themeItem
-					.getChildren("kuler:themeEditedAt")[0].getContent());
+			kulerTheme.setThemeID(themeItem.getChildren("kuler:themeID")[0].getContent());
+			kulerTheme.setThemeTitle(themeItem.getChildren("kuler:themeTitle")[0].getContent());
+			kulerTheme.setAuthorID(themeItem.getChildren("kuler:themeAuthor/kuler:authorID")[0].getContent());
+			kulerTheme.setAuthorLabel(themeItem.getChildren("kuler:themeAuthor/kuler:authorLabel")[0].getContent());
+			kulerTheme.setThemeTags(themeItem.getChildren("kuler:themeTags")[0].getContent());
+			kulerTheme.setThemeRating(themeItem.getChildren("kuler:themeRating")[0].getContent());
+			kulerTheme.setThemeDownloadCount(themeItem.getChildren("kuler:themeDownloadCount")[0].getContent());
+			kulerTheme.setThemeCreatedAt(themeItem.getChildren("kuler:themeCreatedAt")[0].getContent());
+			kulerTheme.setThemeEditedAt(themeItem.getChildren("kuler:themeEditedAt")[0].getContent());
 
-			XMLElement[] themeSwatches = themeItem
-					.getChildren("kuler:themeSwatches/kuler:swatch/kuler:swatchHexColor");
+			XMLElement[] themeSwatches = themeItem.getChildren("kuler:themeSwatches/kuler:swatch/kuler:swatchHexColor");
 			int[] colors = new int[themeSwatches.length];
 			for (int j = 0; j < themeSwatches.length; j++) {
 				colors[j] = PApplet.unhex("FF" + themeSwatches[j].getContent());
-				System.out.println(themeSwatches[j].getContent());
 			}
 			kulerTheme.setColors(colors);
-
-			kulerTheme.printSettings();
 			themes.add(kulerTheme);
 		}
+		if(printXML)printXML(url.toString());
 		return (KulerTheme[]) themes.toArray(new KulerTheme[themes.size()]);
-	}
-
-	/**
-	 * Returns all themes of the Kuler object. Every query result is stored in
-	 * the object. So calling first getRecent() and then getRandom() will give
-	 * you an array with 40 max items.
-	 * 
-	 * @return KulerTheme[]: an array of all kulerthemes
-	 * @related getHighestRated ( )
-	 * @related getPopular ( )
-	 * @related getRecent ( )
-	 * @related getRandom ( )
-	 * @related search ( )
-	 */
-	public KulerTheme[] getThemes() {
-		return (KulerTheme[]) themes.toArray(new KulerTheme[themes.size()]);
-	}
-
-	public KulerTheme getTheme(int cnt) {
-		return ((KulerTheme[]) themes.toArray(new KulerTheme[themes.size()]))[cnt];
 	}
 
 	/**
@@ -218,8 +204,7 @@ public class Kuler {
 	 * Set the maximum number of items to display on a page, in the range
 	 * [1..100]. Default is 20.
 	 * 
-	 * @param maxItems
-	 *            int: maximum items per query
+	 * @param maxItems int: maximum items per query
 	 * @related getMaxItems ( )
 	 * @related getStartIndex ( )
 	 * @related setStartIndex ( )
@@ -252,6 +237,14 @@ public class Kuler {
 	 */
 	public void setStartIndex(int startIndex) {
 		this.startIndex = startIndex;
+	}
+	
+	private void printXML(String url){
+		String lines[] = p.loadStrings(url);
+		PApplet.println("test");
+		for (int i=0; i < lines.length; i++) {
+			  PApplet.println(lines[i]);
+		}
 	}
 
 }

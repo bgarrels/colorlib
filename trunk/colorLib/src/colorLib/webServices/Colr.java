@@ -72,8 +72,9 @@ public class Colr {
 	 * @example Colr
 	 */
 	public ColrTheme searchColors(String tag){
-		String url = "http://www.colr.org/rss/tag/";
-		XMLElement xml = new XMLElement(p, url + tag);
+		String url = "http://www.colr.org/rss/tag/"+ tag;
+		PApplet.println(url);
+		XMLElement xml = new XMLElement(p, url);
 		ColrTheme theme = new ColrTheme(p);
 		XMLElement[] colors = (xml.getChildren("channel/items/item"));	
 		for (int i = 0; i < colors.length; i++) {
@@ -86,7 +87,7 @@ public class Colr {
 				theme.addThemeTags(item.getChildren("description/tags")[0].getContent());
 			}
 		}
-		if(printXML)printXML(url + tag);
+		if(printXML)printXML(url);
 		return theme;
 	}
 	
@@ -101,8 +102,9 @@ public class Colr {
 	 * @example Colr_searchThemes
 	 */
 	public ColrTheme[] searchThemes(String tag){
-		String url = "http://www.colr.org/rss/tag/";
-		XMLElement xml = new XMLElement(p, url + tag);
+		String url = "http://www.colr.org/rss/tag/"+ tag;
+		PApplet.println(url);
+		XMLElement xml = new XMLElement(p, url);
 		ArrayList themes = new ArrayList();
 		XMLElement[] items = (xml.getChildren("channel/items/item"));
 		for (int i = 0; i < items.length; i++) {

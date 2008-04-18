@@ -691,7 +691,7 @@ public class Palette {
 	 * @param i_colors
 	 */
 	public void setColors(int[] i_colors) {
-		swatches = new Swatch[i_colors.length];
+		swatches = new Swatch[0];
 		for (int i = 0; i < i_colors.length; i++) {
 			addColor(i_colors[i]);
 		}

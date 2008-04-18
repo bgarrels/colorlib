@@ -6,8 +6,8 @@ void setup(){
   background(255);
   smooth();
   noFill();
-  Colr colr = new Colr(this);
-  ColrTheme colrTheme = colr.searchColors("spring");
+  Kuler kuler = new Colr(this);
+  KulerTheme kulerTheme = kuler.search("tag", "spring");
   int[] clrs = colrTheme.getColors();
   for(int i = 0; i < clrs.length; i++){
     fill(clrs[i]);
