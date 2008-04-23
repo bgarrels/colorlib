@@ -30,11 +30,8 @@ public class Kuler {
 
 	private int startIndex = 0;
 
-	private ArrayList themes;
+	private boolean printXML = false;
 	
-	private String typ;
-
-	public boolean printXML = false;
 	/**
 	 * @param parent PApplet: typically use "this"
 	 */
@@ -50,12 +47,10 @@ public class Kuler {
 	 * @related getRecent ( )
 	 * @related getRandom ( )
 	 * @related search ( )
-	 * @related getThemes ( )
 	 * @return KulerTheme[], an array of all themes which match the query
 	 */
 	public KulerTheme[] getHighestRated() {
-		typ= "get";
-		return makePalettes("&listtype=rating");
+		return makePalettes("&listtype=rating", "get");
 	}
 
 	/**
@@ -66,13 +61,11 @@ public class Kuler {
 	 * @related getRecent ( )
 	 * @related getRandom ( )
 	 * @related search ( )
-	 * @related getThemes ( )
 	 * @return KulerTheme[], an array of all themes which match the query
 	 * @example Kuler_popular
 	 */
 	public KulerTheme[] getPopular() {
-		typ= "get";
-		return makePalettes("&listtype=rating&timespan=30");
+		return makePalettes("&listtype=rating&timespan=30", "get");
 	}
 
 	/**
@@ -80,8 +73,7 @@ public class Kuler {
 	 *            int: Days
 	 */
 	public KulerTheme[] getPopular(final int days) {
-		typ= "get";
-		return makePalettes("&listtype=rating&timespan=" + days);
+		return makePalettes("&listtype=rating&timespan=" + days, "get");
 	}
 
 	/**
@@ -91,30 +83,25 @@ public class Kuler {
 	 * @related getPopular ( )
 	 * @related getRandom ( )
 	 * @related search ( )
-	 * @related getThemes ( )
 	 * @return KulerTheme[], an array of all themes which match the query
 	 * @example Kuler_recent
 	 */
 	public KulerTheme[] getRecent() {
-		typ= "get";
-		return makePalettes("&listtype=recent");
+		return makePalettes("&listtype=recent", "get");
 	}
 
 	/**
-	 * Gets random colors. Use getThemes() to get the result as an array of
-	 * <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
+	 * Gets random colorsas an array of <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
 	 * 
 	 * @related getHighestRated ( )
 	 * @related getPopular ( )
 	 * @related getRecent ( )
 	 * @related search ( )
-	 * @related getThemes ( )
 	 * @return KulerTheme[], an array of all themes which match the query
 	 * @example Kuler_random
 	 */
 	public KulerTheme[] getRandom() {
-		typ= "get";
-		return makePalettes("&listtype=random");
+		return makePalettes("&listtype=random", "get");
 	}
 
 	/**
@@ -130,13 +117,11 @@ public class Kuler {
 	 * @related getPopular ( )
 	 * @related getRecent ( )
 	 * @related getRandom ( )
-	 * @related getThemes ( )
 	 * @return KulerTheme[], an array of all themes which match the query
 	 * @example Kuler_search
 	 */
 	public KulerTheme[] search(final String searchQuery) {
-		typ= "search";
-		return makePalettes(searchQuery);
+		return makePalettes(searchQuery, "search");
 	}
 
 	/**
@@ -144,12 +129,11 @@ public class Kuler {
 	 * @param searchFilter String: one of the following filters: "themeID", "userID", "email", "tag", "hex" and "title"
 	 */
 	public KulerTheme[] search(final String searchQuery, final String searchFilter) {
-		typ= "search";
-		return makePalettes("&searchQuery=" + searchQuery + ":" + searchFilter);
+		return makePalettes("&searchQuery=" + searchQuery + ":" + searchFilter, "search");
 	}
 
-	private KulerTheme[] makePalettes(final String querry) {
-		themes = new ArrayList();
+	private KulerTheme[] makePalettes(final String querry, final String typ) {
+		ArrayList themes = new ArrayList();
 		StringBuffer url = new StringBuffer("http://kuler.adobe.com/kuler/API/rss/").
 				append(typ).
 				append(".cfm?itemsPerPage=").
@@ -159,9 +143,7 @@ public class Kuler {
 				append(querry);
 		PApplet.println(url.toString());
 		XMLElement xml = new XMLElement(p, url.toString());
-		XMLElement[] themeItems = xml
-				.getChildren("channel/item/kuler:themeItem");
-
+		XMLElement[] themeItems = xml.getChildren("channel/item/kuler:themeItem");
 		for (int i = 0; i < themeItems.length; i++) {
 			KulerTheme kulerTheme = new KulerTheme(p);
 			XMLElement themeItem = themeItems[i];
@@ -195,6 +177,7 @@ public class Kuler {
 	 * @related setMaxItems ( )
 	 * @related getStartIndex ( )
 	 * @related setStartIndex ( )
+	 * @example Kuler_maxItems
 	 */
 	public int getMaxItems() {
 		return maxItems;
@@ -221,6 +204,7 @@ public class Kuler {
 	 * @related getMaxItems ( )
 	 * @related setMaxItems ( )
 	 * @related setStartIndex ( )
+	 * @example Kuler_maxItems
 	 */
 	public int getStartIndex() {
 		return startIndex;
@@ -245,6 +229,14 @@ public class Kuler {
 		for (int i=0; i < lines.length; i++) {
 			  PApplet.println(lines[i]);
 		}
+	}
+	
+	/**
+	 * Use this methode to print the result xml in the console. 
+	 * @param b boolean: set true if you want the result xml printed in the console 
+	 */
+	public void printXML(boolean b){
+		printXML=b;
 	}
 
 }

@@ -23,11 +23,31 @@
 				<dd class="unit9">getPopular ( )</dd>
 				<dt class="unit3m">Examples</dt>
 				<dd class="unit9">
-					<pre name="code" class="java">None available</pre>
+					<pre name="code" class="java">import colorLib.*;
+import colorLib.webServices.*;
+
+void setup(){
+  size(400, 500);
+  background(255);
+  smooth();
+  fill(0);
+  textFont(loadFont("myFont.vlw"));
+  Kuler kuler = new Kuler(this);;
+  KulerTheme[] kulerThemes = kuler.getPopular();
+  for(int i=0; i&lt;kulerThemes.length; i++){
+    pushMatrix();
+    translate(10+(i%4)*85 , 10+floor(i/4)* 85);
+    kulerThemes[i].drawWheel();
+    fill(kulerThemes[i].getAverage());
+    text(int( kulerThemes[i].getThemeRating()), 40, 65);
+    popMatrix();
+  }
+}
+</pre>
 				</dd>
 				<dt class="unit3m">Description</dt>
 				<dd class="unit9">Get the popular colors for the specified number of days (default is 30
- days). Use getThemes() to get the result as an array of kulerThemes.</dd>
+ days) as an array of <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.</dd>
 				<dt class="unit3m">Syntax</dt>
 				<dd class="unit9">
 					<pre name="code" class="java">getPopular();
@@ -52,13 +72,13 @@ getPopular(days);
 				
 <!-- start memberreturn.htm -->
 	<dt class="unit3m">Returns</dt>
-	<dd class="unit9">None</dd>
+	<dd class="unit9">KulerTheme[], an array of all themes which match the query</dd>
 <!-- end memberreturn.htm -->
 
 				<dt class="unit3m">Usage</dt>
 				<dd class="unit9">Web &amp; Application</dd>
 				<dt class="unit3m">Related</dt>
-				<dd class="unit9"><a href="kuler_method_gethighestrated.htm">getHighestRated ( )</a></dd><dd class="unit9"><a href="kuler_method_getrecent.htm">getRecent ( )</a></dd><dd class="unit9"><a href="kuler_method_getrandom.htm">getRandom ( )</a></dd><dd class="unit9"><a href="kuler_method_search.htm">search ( )</a></dd><dd class="unit9"><a href="kuler_method_getthemes.htm">getThemes ( )</a></dd>
+				<dd class="unit9"><a href="kuler_method_gethighestrated.htm">getHighestRated ( )</a></dd><dd class="unit9"><a href="kuler_method_getrecent.htm">getRecent ( )</a></dd><dd class="unit9"><a href="kuler_method_getrandom.htm">getRandom ( )</a></dd><dd class="unit9"><a href="kuler_method_search.htm">search ( )</a></dd>
 			</dl>	
 		</div>
 		<p id="footer" about="http://code.google.com/p/colorlib/">

@@ -2,11 +2,15 @@ package colorLib;
 
 import processing.core.PApplet;
 import processing.core.PImage;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Vector;
 
-// import colorLib.calculation.MedianCut;
+import colorLib.calculation.MedianCut;
 
 /**
  * @author Andreas Kšberle
@@ -31,7 +35,8 @@ public class Palette {
 	 * href="www.colorschemer.com">color shemer</a> .cs file or an .act file
 	 * which you can create in Photoshop for example.
 	 * 
-	 * @param i_p PApplet, normally use 'this'
+	 * @param i_p
+	 *            PApplet, normally use 'this'
 	 */
 	public Palette(PApplet i_p) {
 		p = i_p;
@@ -39,14 +44,16 @@ public class Palette {
 	}
 
 	/**
-	 * @param i_length int: length of the created
+	 * @param i_length
+	 *            int: length of the created
 	 */
 	public Palette(PApplet i_p, int i_length) {
 		this(i_p, new int[i_length]);
 	}
 
 	/**
-	 * @param i_colors   color[]: an array of colors
+	 * @param i_colors
+	 *            color[]: an array of colors
 	 */
 	public Palette(PApplet i_p, int[] i_colors) {
 		p = i_p;
@@ -58,7 +65,7 @@ public class Palette {
 
 	/**
 	 * @param i_image
-	 *            PImage: 
+	 *            PImage:
 	 */
 	public Palette(PApplet i_p, PImage i_image) {
 		p = i_p;
@@ -374,19 +381,39 @@ public class Palette {
 		}
 	}
 
+	/**
+	 * Sorts the palette by hue starting with red end ends blue.
+	 * @related sortByLuminance ( )
+	 * @related sortByProximity ( )
+	 * @related sortBySaturation ( )
+	 * @example Palette_sort
+	 */
 	public void sortByHue() {
-
+		Hashtable ht = new Hashtable();
+		for (int i = 0; i < swatches.length; i++) {
+			Integer key = new Integer((int) p.hue(swatches[i].getColor()));
+			if (ht.containsKey(key)) {
+				((ArrayList) ht.get(key)).add(swatches[i]);
+			} else {
+				ArrayList al = new ArrayList();
+				al.add(swatches[i]);
+				ht.put(key, al);
+			}
+		}
+		sort(ht);
 	}
 
 	/**
-	 * sorts the palette by saturation with element at last index containing the
-	 * most saturated item of the palette
+	 * Sorts the palette by saturation with element at last index containing the
+	 * most saturated item of the palette. This method based on toxis 
+	 * <a href="http://www.toxi.co.uk/blog/2006/04/colour-code-snippets.htm">color code snippets</a>.
 	 * 
 	 * @related sortByLuminance ( )
 	 * @related sortByProximity ( )
+	 * @related sortByHue ( )
+	 * @example Palette_sort
 	 */
 	public void sortBySaturation() {
-		int[] sorted = new int[swatches.length];
 		Hashtable ht = new Hashtable();
 		for (int i = 0; i < swatches.length; i++) {
 			int c = swatches[i].getColor();
@@ -394,53 +421,60 @@ public class Palette {
 			int g = (c >> 8) & 0xff;
 			int b = c & 0xff;
 			int maxComp = PApplet.max(r, g, b);
+			Integer key = new Integer(0);
 			if (maxComp > 0) {
-				sorted[i] = (int) ((maxComp - PApplet.min(r, g, b))
-						/ (float) maxComp * 0x7fffffff);
+				key = new Integer((int) ((maxComp - PApplet.min(r, g, b))/ (float) maxComp * 0x7fffffff));
+			} 
+			if (ht.containsKey(key)) {
+				((ArrayList) ht.get(key)).add(swatches[i]);
 			} else {
-				sorted[i] = 0;
+				ArrayList al = new ArrayList();
+				al.add(swatches[i]);
+				ht.put(key, al);
 			}
-			ht.put(new Integer(sorted[i]), swatches[i]);
 		}
-		sorted = PApplet.sort(sorted);
-		for (int i = 0; i < sorted.length; i++) {
-			swatches[i] = (Swatch) ht.get(new Integer(sorted[i]));
-		}
+		sort(ht);
 	}
+
 
 	/**
 	 * Sorts the palette by luminance with element at last index containing the
-	 * "brightest" item of the palette
+	 * "brightest" item of the palette.This method based on toxis 
+	 * <a href="http://www.toxi.co.uk/blog/2006/04/colour-code-snippets.htm">color code snippets</a>.
 	 * 
 	 * @related sortBySaturation ( )
 	 * @related sortByProximity ( )
+	 * @related sortByHue ( )
+	 * @example Palette_sort
 	 */
 	public void sortByLuminance() {
-		int[] sorted = new int[swatches.length];
 		Hashtable ht = new Hashtable();
 		for (int i = 0; i < swatches.length; i++) {
 			int c = swatches[i].getColor();
-			sorted[i] = (77 * (c >> 16 & 0xff) + 151 * (c >> 8 & 0xff) + 28 * (c & 0xff));
-			ht.put(new Integer(sorted[i]), swatches[i]);
+			Integer key = new Integer((77 * (c >> 16 & 0xff) + 151 * (c >> 8 & 0xff) + 28 * (c & 0xff)));
+			if (ht.containsKey(key)) {
+				((ArrayList) ht.get(key)).add(swatches[i]);
+			} else {
+				ArrayList al = new ArrayList();
+				al.add(swatches[i]);
+				ht.put(key, al);
+			}
 		}
-		sorted = PApplet.sort(sorted);
-		for (int i = 0; i < sorted.length; i++) {
-			swatches[i] = (Swatch) ht.get(new Integer(sorted[i]));
-		}
-
+		sort(ht);
 	}
 
 	/**
 	 * Sorts the palette by proximity to a colour with element at first index
-	 * containing the "closest" item of the palette
+	 * containing the "closest" item of the palette.This method based on toxis 
+	 * <a href="http://www.toxi.co.uk/blog/2006/04/colour-code-snippets.htm">color code snippets</a>.
 	 * 
 	 * @param i_color
 	 * @related sortByLuminance ( )
 	 * @related sortBySaturation ( )
+	 * @related sortByHue ( )
 	 */
 
 	public void sortByProximity(int i_color) {
-		int[] sorted = new int[swatches.length];
 		Hashtable ht = new Hashtable();
 		int br = (i_color >> 16) & 0xff;
 		int bg = (i_color >> 8) & 0xff;
@@ -450,22 +484,39 @@ public class Palette {
 			int r = (c >> 16) & 0xff;
 			int g = (c >> 8) & 0xff;
 			int b = c & 0xff;
-			sorted[i] = (br - r) * (br - r) + (bg - g) * (bg - g) + (bb - b)
-					* (bb - b);
-			ht.put(new Integer(sorted[i]), (swatches[i]));
+			Integer key = new Integer( (br - r) * (br - r) + (bg - g) * (bg - g) + (bb - b) * (bb - b));
+			if (ht.containsKey(key)) {
+				((ArrayList) ht.get(key)).add(swatches[i]);
+			} else {
+				ArrayList al = new ArrayList();
+				al.add(swatches[i]);
+				ht.put(key, al);
+			}
 		}
-		sorted = PApplet.sort(sorted);
-		for (int i = 0; i < sorted.length; i++) {
-			swatches[i] = ((Swatch) ht.get(new Integer(sorted[i])));
+		sort(ht);
+	}
+	
+	private void sort(Hashtable ht) {
+		Vector v = new Vector(ht.keySet());
+		Collections.sort(v);
+		int cnt = 0;
+		Iterator it = v.iterator();
+		while (it.hasNext()) {
+			Integer key = (Integer) it.next();
+			ArrayList al = (ArrayList) ht.get(key);
+			Iterator it2 = al.iterator();
+			while (it2.hasNext()) {
+				swatches[cnt] = (Swatch) it2.next();
+				cnt++;
+			}
 		}
-
 	}
 
 	/**
 	 * Interpolates all colors of the palette with passed color.
 	 * 
-	 * @param i_color
-	 * @param distance
+	 * @param i_color color: a color that all palette colors will interpolte with
+	 * @param distance float: 
 	 */
 	public void interpolate(int i_color, float distance) {
 		distance = PApplet.constrain(distance, 0, 1);
@@ -490,9 +541,11 @@ public class Palette {
 	}
 
 	/**
-	 * Returns the darkest color of the palette
+	 * Returns the darkest color of the palette.
 	 * 
-	 * @return color
+	 * @return color: darkest color of the palette
+	 * @related getLightest ( )
+	 * @related getAverage ( )
 	 */
 	public int getDarkest() {
 		int darkest = swatches[0].getColor();
@@ -508,9 +561,11 @@ public class Palette {
 	}
 
 	/**
-	 * Returns the lightest color of the palette
+	 * Returns the lightest color of the palette.
 	 * 
-	 * @return color
+	 * @return color: lightest color of the palette
+	 * @related getDarkest ( )
+	 * @related getAverage ( )
 	 */
 	public int getLightest() {
 		int lightest = swatches[0].getColor();
@@ -526,9 +581,11 @@ public class Palette {
 	}
 
 	/**
-	 * Returns the average color of the palette
+	 * Returns the average color of the palette.
 	 * 
-	 * @return color
+	 * @return color: average color of the palette
+	 * @related getDarkest ( )
+	 * @related getLightest ( )
 	 */
 	public int getAverage() {
 		int a = 0;
@@ -554,6 +611,9 @@ public class Palette {
 	 * @param position
 	 *            int, position
 	 * @return Swatch
+	 * @related getColor ( )
+	 * @related getSwatches ( )
+	 * @related getColors ( )
 	 */
 	public Swatch getSwatch(int position) {
 		return swatches[position];
@@ -563,9 +623,11 @@ public class Palette {
 	 * Returns the color at the given position in the color array of the
 	 * palette.
 	 * 
-	 * @param position
-	 *            int, position
+	 * @param position  int: position in the palette 
 	 * @return color
+	 * @related getSwatch ( )
+	 * @related getSwatches ( )
+	 * @related getColors ( )
 	 */
 	public int getColor(int position) {
 		return swatches[position].getColor();
@@ -575,6 +637,9 @@ public class Palette {
 	 * Returns an array holding all the swatches of the palette.
 	 * 
 	 * @return color Array
+	 * @related getSwatch ( )
+	 * @related getColor ( )
+	 * @related getColors ( )
 	 */
 	public Swatch[] getSwatches() {
 		Swatch[] i_colors = new Swatch[swatches.length];
@@ -586,6 +651,9 @@ public class Palette {
 	 * Returns an array holding all the color of the palette.
 	 * 
 	 * @return color Array
+	 * @related getSwatch ( )
+	 * @related getColor ( )
+	 * @related getSwatches ( )
 	 */
 	public int[] getColors() {
 		int[] i_colors = new int[swatches.length];
@@ -600,47 +668,16 @@ public class Palette {
 	 * of the following strings: "red", "orange", "yellow", "lime",
 	 * "green","teal", "cyan", "azure", "blue", "indigo", "purple", "pink"
 	 * 
-	 * @return String Array
+	 * @return String[]: array with the nearest hues
 	 */
 	public String[] getNearestHues() {
 		String[] nearestHues = new String[swatches.length];
 		for (int i = 0; i < swatches.length; i++) {
-			nearestHues[i] = getNearestHue(swatches[i].getColor());
+			nearestHues[i] = swatches[i].getNearestHue();
 		}
 		return nearestHues;
 	}
 
-	private String getNearestHue(int i_color) {
-		String[] hueNames = { "red", "orange", "yellow", "lime", "green",
-				"teal", "cyan", "azure", "blue", "indigo", "purple", "pink" };
-
-		int r = (i_color >> 16) & 0xff;
-		int g = (i_color >> 8) & 0xff;
-		int b = i_color & 0xff;
-		if (r == b && b == g) {
-			if (r == 0) {
-				return "black";
-			} else if (r == 255) {
-				return "white";
-			} else {
-				return "grey";
-			}
-		}
-
-		String nearest = "";
-		float d = 256;
-		float hue = p.hue(i_color);
-		for (int i = 0; i < hueNames.length; i++) {
-			float i_d = Math.abs(hue - 255 / 12 * i);
-			if (i_d < d) {
-				nearest = hueNames[i];
-				d = i_d;
-			} else {
-				break;
-			}
-		}
-		return nearest;
-	}
 
 	/**
 	 * Save the palette as an or .act file in your sketch folder
@@ -652,16 +689,23 @@ public class Palette {
 	}
 
 	/**
-	 * Adds one or more colors at the end of your palette.
+	 * Add one color at the end of your palette.
 	 * 
 	 * @param i_color
+	 * @related addColors ( )
+	 * @related setColor ( )
+	 * @related setColors ( )
 	 */
 	public void addColor(int i_color) {
 		swatches = (Swatch[]) PApplet.append(swatches, new Swatch(p, i_color));
 	}
 
 	/**
+	 * Add all passed colors at the end of your palette.
 	 * @param i_colors
+	 * @related addColor ( )
+	 * @related setColor ( )
+	 * @related setColors ( )
 	 */
 	public void addColors(int[] i_colors) {
 		for (int i = 0; i < i_colors.length; i++) {
@@ -674,31 +718,36 @@ public class Palette {
 	}
 
 	/**
-	 * Sets the color on the passed position on palette. Or
+	 * Sets the color on the passed position on palette.
 	 * 
 	 * @param i_color
 	 * @param i_position
+	 * @related addColors ( )
+	 * @related addColor ( )
+	 * @related setColors ( )
 	 */
 	public void setColor(int i_color, int i_position) {
-
-	}
-
-	public void setColor(String i_colorName) {
-
-	}
-
-	/**
-	 * @param i_colors
-	 */
-	public void setColors(int[] i_colors) {
-		swatches = new Swatch[0];
-		for (int i = 0; i < i_colors.length; i++) {
-			addColor(i_colors[i]);
+		if(i_position<swatches.length){
+			swatches[i_position]=new Swatch(p, i_color);
+		}else{
+			throw new IllegalArgumentException(
+			"The passed position is bigger the the palette size");
 		}
 	}
 
-	public void setColors(String[] i_colorNames) {
 
+	/**
+	 * Delete all colors of the palette and fill the palette with the passed colors.
+	 * @param i_colors
+	 * @related addColors ( )
+	 * @related addColor ( )
+	 * @related setColors ( )
+	 */
+	public void setColors(int[] i_colors) {
+		swatches = new Swatch[i_colors.length];
+		for (int i = 0; i < i_colors.length; i++) {
+			addColor(i_colors[i]);
+		}
 	}
 
 	/**
