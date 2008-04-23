@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import colorLib.calculation.MedianCut;
+// import colorLib.calculation.MedianCut;
 
 /**
  * @author Andreas Kšberle
