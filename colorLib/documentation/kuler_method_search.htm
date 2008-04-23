@@ -23,15 +23,30 @@
 				<dd class="unit9">search ( )</dd>
 				<dt class="unit3m">Examples</dt>
 				<dd class="unit9">
-					<pre name="code" class="java">None available</pre>
+					<pre name="code" class="java">import colorLib.*;
+import colorLib.webServices.*;
+
+void setup(){
+  size(400, 400);
+  background(255);
+   Kuler kuler = new Kuler(this);
+  KulerTheme[] kulerThemes = kuler.search("tag", "germany");
+  for(int i=0; i&lt;kulerThemes.length; i++){
+    pushMatrix();
+    translate(10+(i%3)*130 , 10+floor(i/3)* 70);
+    kulerThemes[i].drawSwatches();
+    popMatrix();
+  }
+}
+</pre>
 				</dd>
 				<dt class="unit3m">Description</dt>
 				<dd class="unit9">Use your own query string or creates one by a given filter name and a
  query. Possible filters are "themeID", "userID", "email", "tag", "hex"
  and "title". Take a look at the <a
  href="http://labs.adobe.com/wiki/index.php/Kule">API</a> to see the
- possibilities of the kuler service.<br/> Use makePalettes() to get the
- result as an array of kulerThemes.</dd>
+ possibilities of the kuler service.<br/> The result is an array of 
+ <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.</dd>
 				<dt class="unit3m">Syntax</dt>
 				<dd class="unit9">
 					<pre name="code" class="java">search(searchQuery);
@@ -66,13 +81,13 @@ search(searchQuery, searchFilter);
 				
 <!-- start memberreturn.htm -->
 	<dt class="unit3m">Returns</dt>
-	<dd class="unit9">None</dd>
+	<dd class="unit9">KulerTheme[], an array of all themes which match the query</dd>
 <!-- end memberreturn.htm -->
 
 				<dt class="unit3m">Usage</dt>
 				<dd class="unit9">Web &amp; Application</dd>
 				<dt class="unit3m">Related</dt>
-				<dd class="unit9"><a href="kuler_method_gethighestrated.htm">getHighestRated ( )</a></dd><dd class="unit9"><a href="kuler_method_getpopular.htm">getPopular ( )</a></dd><dd class="unit9"><a href="kuler_method_getrecent.htm">getRecent ( )</a></dd><dd class="unit9"><a href="kuler_method_getrandom.htm">getRandom ( )</a></dd><dd class="unit9"><a href="kuler_method_getthemes.htm">getThemes ( )</a></dd>
+				<dd class="unit9"><a href="kuler_method_gethighestrated.htm">getHighestRated ( )</a></dd><dd class="unit9"><a href="kuler_method_getpopular.htm">getPopular ( )</a></dd><dd class="unit9"><a href="kuler_method_getrecent.htm">getRecent ( )</a></dd><dd class="unit9"><a href="kuler_method_getrandom.htm">getRandom ( )</a></dd>
 			</dl>	
 		</div>
 		<p id="footer" about="http://code.google.com/p/colorlib/">

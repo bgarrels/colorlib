@@ -23,7 +23,18 @@
 				<dd class="unit9">getStartIndex ( )</dd>
 				<dt class="unit3m">Examples</dt>
 				<dd class="unit9">
-					<pre name="code" class="java">None available</pre>
+					<pre name="code" class="java">import colorLib.*;
+import colorLib.webServices.*;
+
+void setup(){
+  size(400, 500);
+  Kuler kuler = new Kuler(this);
+  kuler.setMaxItems(100);
+  KulerTheme[] kulerThemes1 = kuler.getRecent(); //get the 0 - 100 
+  kuler.setStartIndex(1);
+  KulerTheme[] kulerThemes2 = kuler.getRecent(); //get the result from 100 - 200
+}
+</pre>
 				</dd>
 				<dt class="unit3m">Description</dt>
 				<dd class="unit9">A 0-based index into the list that specifies the first item to display.

@@ -17,7 +17,6 @@ public class KulerTheme extends ColrTheme {
 
 	private int themeRating;
 	private int themeDownloadCount;
-
 	private Date themeCreatedAt, themeEditedAt;
 
 	protected KulerTheme(final PApplet i_p) {
@@ -53,6 +52,7 @@ public class KulerTheme extends ColrTheme {
 	 * @related getThemeID ( ) 
 	 * @related getThemeRating ( ) 
 	 * @related getThemeTitle ( ) 
+	 * @example KulerTheme_authorLabel
 	 */
 	public String getAuthorLabel() {
 		return authorLabel;
@@ -63,8 +63,8 @@ public class KulerTheme extends ColrTheme {
 	}
 
 	/**
-	 * Returns the date the theme was created.
-	 * @return 	String: date, return the date formated with the passed dateFormat, default is "yyyy MM dd HH:mm",
+	 * Returns the date the theme was created. You can use a String to change the format of the returned date.
+	 * @return 	String: date, return the date formated with the passed dateFormat, default is "yyyy-MM-dd",
 	 * 		   	see <a href="http://java.sun.com/docs/books/tutorial/i18n/format/simpleDateFormat.html">suns java tutorial</a> for 
 	 * 			posibble formats
 	 * @related getAuthorId ( )
@@ -74,6 +74,7 @@ public class KulerTheme extends ColrTheme {
 	 * @related getThemeID ( ) 
 	 * @related getThemeRating ( ) 
 	 * @related getThemeTitle ( ) 
+	 * @example Kuler_recent
 	 */
 	public String getThemeCreatedAt(String dateFormat) {
 		SimpleDateFormat df = new SimpleDateFormat(dateFormat);
@@ -81,7 +82,7 @@ public class KulerTheme extends ColrTheme {
 	}
 	
 	public String getThemeCreatedAt() {
-		return getThemeCreatedAt("yyyy-MM-dd HH:mm:ss.S");
+		return getThemeCreatedAt("yyyy-MM-dd");
 		
 	}
 
@@ -174,6 +175,7 @@ public class KulerTheme extends ColrTheme {
 	 * @related getThemeEditedAt ( ) 
 	 * @related getThemeID ( ) 
 	 * @related getThemeTitle ( ) 
+	 * @example Kuler_popular
 	 */
 	public float getThemeRating() {
 		return themeRating;
@@ -193,6 +195,7 @@ public class KulerTheme extends ColrTheme {
 	 * @related getThemeEditedAt ( ) 
 	 * @related getThemeID ( ) 
 	 * @related getThemeRating ( ) 
+	 * @example KulerTheme_themeTitle
 	 */
 	public String getThemeTitle() {
 		return themeTitle;

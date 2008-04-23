@@ -286,7 +286,44 @@ public class Swatch {
 		c = setHSBColor(hue * 256 / 360, p.saturation(c), p.brightness(c), p
 				.alpha(c));
 	}
+	/**
+	 * Returns the nearest hue to the color as an one
+	 * of the following strings: "red", "orange", "yellow", "lime",
+	 * "green","teal", "cyan", "azure", "blue", "indigo", "purple", "pink"
+	 * 
+	 * @return String: the nearest hue of the color
+	 */
+	public String getNearestHue() {
+		String[] hueNames = { "red", "orange", "yellow", "lime", "green",
+				"teal", "cyan", "azure", "blue", "indigo", "purple", "pink" };
 
+		int r = (c >> 16) & 0xff;
+		int g = (c >> 8) & 0xff;
+		int b = c & 0xff;
+		if (r == b && b == g) {
+			if (r == 0) {
+				return "black";
+			} else if (r == 255) {
+				return "white";
+			} else {
+				return "grey";
+			}
+		}
+
+		String nearest = "";
+		float d = 256;
+		float hue = p.hue(c);
+		for (int i = 0; i < hueNames.length; i++) {
+			float i_d = Math.abs(hue - 255 / 12 * i);
+			if (i_d < d) {
+				nearest = hueNames[i];
+				d = i_d;
+			} else {
+				break;
+			}
+		}
+		return nearest;
+	}
 	/**
 	 * Calculated the brightness difference between the swatch and the given
 	 * color or swatch. The brightness is calculated by the following formular
