@@ -19,8 +19,8 @@ public class KulerTheme extends ColrTheme {
 	private int themeDownloadCount;
 	private Date themeCreatedAt, themeEditedAt;
 
-	protected KulerTheme(final PApplet i_p) {
-		super(i_p);
+	protected KulerTheme(final PApplet i_p, int[] i_colors) {
+		super(i_p, i_colors);
 	}
 
 	/**
@@ -182,7 +182,7 @@ public class KulerTheme extends ColrTheme {
 	}
 
 	protected void setThemeRating(final String themeRating) {
-		this.themeRating = Float.valueOf(themeRating).intValue();
+		this.themeRating = Integer.valueOf(themeRating).intValue();
 	}
 
 	/**

@@ -18,6 +18,7 @@ public class Colr {
 	
 	final PApplet p;
 	public boolean printXML = false;
+	private String serverPage;
 	
 	/**
 	 * @param i_p
@@ -133,5 +134,7 @@ public class Colr {
 			  PApplet.println(lines[i]);
 		}
 	}
+	
+	
 	
 }

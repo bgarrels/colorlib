@@ -8,14 +8,15 @@ import processing.xml.*;
 
 /**
  * The Kuler object is an container to query adobes <a
- * href="kuler.adobe.com">kuler</a> service and get the response as an
+ * href="http://kuler.adobe.com">kuler</a> service and get the response as an
  * KulerTheme object. Take a look at the <a
- * href="http://labs.adobe.com/wiki/index.php/Kule">API</a> to see the
+ * href="http://labs.adobe.com/wiki/index.php/Kuler">API</a> to see the
  * possibilities of the kuler service.<br/> At kuler the palette a maximal
  * count of 5 colors per theme. The default size of the themes per query is 20,
  * but you can increase the count up 100. To query more then 100 you have to
  * increase the startIndex. So a query with maxItems=100 and startIndex=1 will
- * give you themes fromm count 100 to 200.
+ * give you themes fromm count 100 to 200. To use the class in an applet on your server
+ * you have to set 
  * 
  * @author Andreas Kšberle
  * @author Jan Vantomme
@@ -32,6 +33,9 @@ public class Kuler {
 
 	private boolean printXML = false;
 	
+	private String serverPage = "http://kuler.adobe.com/kuler/API/rss/";
+
+	private String pageTyp=".cfm";
 	/**
 	 * @param parent PApplet: typically use "this"
 	 */
@@ -69,8 +73,7 @@ public class Kuler {
 	}
 
 	/**
-	 * @param days
-	 *            int: Days
+	 * @param days int: Days
 	 */
 	public KulerTheme[] getPopular(final int days) {
 		return makePalettes("&listtype=rating&timespan=" + days, "get");
@@ -108,7 +111,7 @@ public class Kuler {
 	 * Use your own query string or creates one by a given filter name and a
 	 * query. Possible filters are "themeID", "userID", "email", "tag", "hex"
 	 * and "title". Take a look at the <a
-	 * href="http://labs.adobe.com/wiki/index.php/Kule">API</a> to see the
+	 * href="http://labs.adobe.com/wiki/index.php/Kuler#Search_RSS_Feeds">API</a> to see the
 	 * possibilities of the kuler service.<br/> The result is an array of 
 	 * <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
 	 * 
@@ -125,28 +128,37 @@ public class Kuler {
 	}
 
 	/**
-	 * @param searchQuery  String: query that is use with a searchFilter
-	 * @param searchFilter String: one of the following filters: "themeID", "userID", "email", "tag", "hex" and "title"
+	 * @param query  String: query that is use with a searchFilter
+	 * @param filter String: one of the following filters: "themeID", "userID", "email", "tag", "hex" and "title"
 	 */
-	public KulerTheme[] search(final String searchQuery, final String searchFilter) {
-		return makePalettes("&searchQuery=" + searchQuery + ":" + searchFilter, "search");
+	public KulerTheme[] search(final String query, final String filter) {
+		return makePalettes("&searchQuery=" + query + ":" + filter, "search");
 	}
 
 	private KulerTheme[] makePalettes(final String querry, final String typ) {
 		ArrayList themes = new ArrayList();
-		StringBuffer url = new StringBuffer("http://kuler.adobe.com/kuler/API/rss/").
+		StringBuffer url = new StringBuffer(serverPage).
 				append(typ).
-				append(".cfm?itemsPerPage=").
+				append(pageTyp).
+				append("?itemsPerPage=").
 				append(maxItems).
 				append("&startIndex=").
 				append(startIndex).
 				append(querry);
 		PApplet.println(url.toString());
+		if(printXML)printXML(url.toString());
 		XMLElement xml = new XMLElement(p, url.toString());
 		XMLElement[] themeItems = xml.getChildren("channel/item/kuler:themeItem");
 		for (int i = 0; i < themeItems.length; i++) {
-			KulerTheme kulerTheme = new KulerTheme(p);
+			
 			XMLElement themeItem = themeItems[i];
+			XMLElement[] themeSwatches = themeItem.getChildren("kuler:themeSwatches/kuler:swatch/kuler:swatchHexColor");
+			int[] colors = new int[themeSwatches.length];
+			for (int j = 0; j < themeSwatches.length; j++) {
+				colors[j] = PApplet.unhex("FF" + themeSwatches[j].getContent());
+			}
+			KulerTheme kulerTheme = new KulerTheme(p, colors);
+			
 			kulerTheme.setThemeID(themeItem.getChildren("kuler:themeID")[0].getContent());
 			kulerTheme.setThemeTitle(themeItem.getChildren("kuler:themeTitle")[0].getContent());
 			kulerTheme.setAuthorID(themeItem.getChildren("kuler:themeAuthor/kuler:authorID")[0].getContent());
@@ -157,15 +169,10 @@ public class Kuler {
 			kulerTheme.setThemeCreatedAt(themeItem.getChildren("kuler:themeCreatedAt")[0].getContent());
 			kulerTheme.setThemeEditedAt(themeItem.getChildren("kuler:themeEditedAt")[0].getContent());
 
-			XMLElement[] themeSwatches = themeItem.getChildren("kuler:themeSwatches/kuler:swatch/kuler:swatchHexColor");
-			int[] colors = new int[themeSwatches.length];
-			for (int j = 0; j < themeSwatches.length; j++) {
-				colors[j] = PApplet.unhex("FF" + themeSwatches[j].getContent());
-			}
-			kulerTheme.setColors(colors);
+			
 			themes.add(kulerTheme);
 		}
-		if(printXML)printXML(url.toString());
+		
 		return (KulerTheme[]) themes.toArray(new KulerTheme[themes.size()]);
 	}
 
@@ -237,6 +244,17 @@ public class Kuler {
 	 */
 	public void printXML(boolean b){
 		printXML=b;
+	}
+
+	/**
+	 * As you cant connect to the kuler service directly if you run your sketch as an applet,
+	 * you can set a path to a php or whatever page that's querry the kuler service and
+	 * response the xml to the applet.
+	 * @param serverPage
+	 */
+	public void setserverPage(String serverPath, String pageTyp) {
+		this.serverPage = serverPath;
+		this.pageTyp = pageTyp;
 	}
 
 }
