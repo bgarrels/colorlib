@@ -334,6 +334,7 @@ public class Swatch {
 	 * @param i_color
 	 * @return float, difference
 	 * @related colorDiff ( )
+	 * @example Swatch_brightnessdiff
 	 */
 	public float brightnessDiff(final int i_color) {
 		return Math

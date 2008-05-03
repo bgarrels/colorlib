@@ -162,7 +162,7 @@ public class Palette {
 	/**
 	 * Returns the count of all swatches in the Palette
 	 * 
-	 * @return int, count
+	 * @return int: count
 	 */
 	public int totalSwatches() {
 		return swatches.length;
@@ -177,6 +177,7 @@ public class Palette {
 	 * @related makeSplittedComplementary ( )
 	 * @related makeTriad ( )
 	 * @related makeTetrad ( )
+	 * @example Palette_makeComplement
 	 */
 	public void makeComplement(final int i_color) {
 		swatches = new Swatch[2];
@@ -186,11 +187,12 @@ public class Palette {
 	}
 
 	/**
-	 * @param i_color
+	 * @param i_color color: 
 	 * @related makeComplement ( )
 	 * @related makeSplittedComplementary ( )
 	 * @related makeTriad ( )
 	 * @related makeTetrad ( )
+	 * @example Palette_makeComplement
 	 */
 	public void makeComplementary(int i_color) {
 		swatches = new Swatch[6];
@@ -225,8 +227,9 @@ public class Palette {
 	 * @related makeComplementary ( )
 	 * @related makeTriad ( )
 	 * @related makeTetrad ( )
+	 * @example Palette_makeComplement
 	 */
-	public void makeSplittedComplementary(int i_color) {
+	public void makeSplittedComplementary(final int i_color) {
 		swatches = new Swatch[3];
 		swatches[0] = new Swatch(p, i_color);
 		swatches[1] = new Swatch(p, i_color);
@@ -244,8 +247,9 @@ public class Palette {
 	 * @related makeComplementary ( )
 	 * @related makeSplittedComplementary ( )
 	 * @related makeTetrad ( )
+	 * @example Palette_makeComplement
 	 */
-	public void makeTriad(int i_color, int i_angle) {
+	public void makeTriad(final int i_color, final int i_angle) {
 		swatches = new Swatch[3];
 		swatches[0] = new Swatch(p, i_color);
 		swatches[1] = new Swatch(p, i_color);
@@ -267,8 +271,9 @@ public class Palette {
 	 * @related makeComplementary ( )
 	 * @related makeSplittedComplementary ( )
 	 * @related makeTriad ( )
+	 * @example Palette_makeComplement
 	 */
-	public void makeTetrad(int i_color) {
+	public void makeTetrad(final int i_color) {
 		swatches = new Swatch[4];
 		swatches[0] = new Swatch(p, i_color);
 		for (int i = 1; i < 4; i++) {
@@ -292,7 +297,7 @@ public class Palette {
 	/**
 	 * @param i_step
 	 */
-	public void darken(int i_step) {
+	public void darken(final int i_step) {
 		lighten(-i_step);
 	}
 
@@ -331,7 +336,7 @@ public class Palette {
 	 * @related darken ( )
 	 * @related desaturate ( )
 	 */
-	public void saturate(int i_step) {
+	public void saturate(final int i_step) {
 		for (int i = 0; i < swatches.length; i++) {
 			swatches[i].saturate(i_step);
 		}
@@ -352,7 +357,7 @@ public class Palette {
 	/**
 	 * @param i_step
 	 */
-	public void desaturate(int i_step) {
+	public void desaturate(final int i_step) {
 		saturate(-i_step);
 	}
 
@@ -362,7 +367,7 @@ public class Palette {
 	 * @param i_angle
 	 * @related rotateRYB ( )
 	 */
-	public void rotateRGB(int i_angle) {
+	public void rotateRGB(final int i_angle) {
 		for (int i = 0; i < swatches.length; i++) {
 			swatches[i].rotateRGB(i_angle);
 		}
@@ -375,7 +380,7 @@ public class Palette {
 	 * @param i_angle
 	 * @related rotateRGB ( )
 	 */
-	public void rotateRYB(float i_angle) {
+	public void rotateRYB(final float i_angle) {
 		for (int i = 0; i < swatches.length; i++) {
 			swatches[i].rotateRYB(i_angle);
 		}
@@ -474,7 +479,7 @@ public class Palette {
 	 * @related sortByHue ( )
 	 */
 
-	public void sortByProximity(int i_color) {
+	public void sortByProximity(final int i_color) {
 		Hashtable ht = new Hashtable();
 		int br = (i_color >> 16) & 0xff;
 		int bg = (i_color >> 8) & 0xff;
@@ -496,7 +501,7 @@ public class Palette {
 		sort(ht);
 	}
 	
-	private void sort(Hashtable ht) {
+	private void sort(final Hashtable ht) {
 		Vector v = new Vector(ht.keySet());
 		Collections.sort(v);
 		int cnt = 0;
@@ -518,7 +523,7 @@ public class Palette {
 	 * @param i_color color: a color that all palette colors will interpolte with
 	 * @param distance float: 
 	 */
-	public void interpolate(int i_color, float distance) {
+	public void interpolate(final int i_color, float distance) {
 		distance = PApplet.constrain(distance, 0, 1);
 		for (int i = 0; i < swatches.length; i++) {
 			int c = swatches[i].getColor();
@@ -546,6 +551,7 @@ public class Palette {
 	 * @return color: darkest color of the palette
 	 * @related getLightest ( )
 	 * @related getAverage ( )
+	 * @example Palette_getDarkest
 	 */
 	public int getDarkest() {
 		int darkest = swatches[0].getColor();
@@ -566,6 +572,7 @@ public class Palette {
 	 * @return color: lightest color of the palette
 	 * @related getDarkest ( )
 	 * @related getAverage ( )
+	 * @example Palette_getDarkest
 	 */
 	public int getLightest() {
 		int lightest = swatches[0].getColor();
@@ -586,6 +593,7 @@ public class Palette {
 	 * @return color: average color of the palette
 	 * @related getDarkest ( )
 	 * @related getLightest ( )
+	 * @example Palette_getDarkest
 	 */
 	public int getAverage() {
 		int a = 0;
@@ -684,8 +692,18 @@ public class Palette {
 	 * 
 	 * @param i_name
 	 */
-	public void save(String i_name) {
-
+	public void save(final String i_name) {
+		byte[] bytes = new byte[768];
+		for (int i = 0; i < swatches.length; i++) {
+			int color = swatches[i].getColor();
+			bytes[i*3]=(byte) ((color >> 16) & 0xff);
+			bytes[i*3+1]=(byte) ((color >> 8) & 0xff);
+			bytes[i*3+2]=(byte) (color & 0xff);
+		}
+		for (int i = swatches.length*3; i < 768; i++) {
+			bytes[i]=(byte) (0);
+		}
+		p.saveBytes(i_name+".act", bytes);
 	}
 
 	/**
@@ -696,7 +714,7 @@ public class Palette {
 	 * @related setColor ( )
 	 * @related setColors ( )
 	 */
-	public void addColor(int i_color) {
+	public void addColor(final int i_color) {
 		swatches = (Swatch[]) PApplet.append(swatches, new Swatch(p, i_color));
 	}
 
@@ -707,14 +725,10 @@ public class Palette {
 	 * @related setColor ( )
 	 * @related setColors ( )
 	 */
-	public void addColors(int[] i_colors) {
+	public void addColors(final int[] i_colors) {
 		for (int i = 0; i < i_colors.length; i++) {
 			addColor(i_colors[i]);
 		}
-	}
-
-	public void addColors(String[] i_colorNames) {
-
 	}
 
 	/**
@@ -823,18 +837,7 @@ public class Palette {
 		p.stroke(stroke);
 	}
 
-	/**
-	 * 
-	 * @param h
-	 *            Hue value of the color to be set
-	 * @param s
-	 *            Saturation value of the color to be set
-	 * @param b
-	 *            Brightness value of the color to be set
-	 * @param a
-	 *            Alpha value of the color to be set
-	 * @return A new color
-	 */
+
 	private int setHSBColor(float h, float s, float b, float a) {
 		int color;
 		int colorMode = p.g.colorMode;
@@ -844,16 +847,6 @@ public class Palette {
 		return color;
 	}
 
-	/**
-	 * 
-	 * @param h
-	 *            Hue value of the color to be set
-	 * @param s
-	 *            Saturation value of the color to be set
-	 * @param b
-	 *            Brightness value of the color to be set
-	 * @return A new color
-	 */
 	private int setHSBColor(float h, float s, float b) {
 		return setHSBColor(h, s, b, 255);
 	}

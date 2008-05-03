@@ -13,12 +13,18 @@ public class ColrTheme extends Palette {
 	
 	/**
 	 * @param i_p
+	 * @param i_colors 
 	 */
-	protected ColrTheme(final PApplet i_p) {
-		super(i_p);
+	protected ColrTheme(final PApplet i_p, int[] i_colors) {
+		super(i_p, i_colors);
 		themeTags = new String[0];
 	}
 	
+	public ColrTheme(PApplet i_p) {
+		super(i_p);
+		themeTags = new String[0];
+	}
+
 	/**
 	 * @return String[]: tags for this theme
 	 */
