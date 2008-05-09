@@ -7,16 +7,15 @@ import processing.core.PApplet;
 import processing.xml.*;
 
 /**
- * The Kuler object is an container to query adobes <a
- * href="http://kuler.adobe.com">kuler</a> service and get the response as an
+ * The Kuler object is a container to query the Adobe <a
+ * href="http://kuler.adobe.com">Kuler</a> service and get the response as a
  * KulerTheme object. Take a look at the <a
- * href="http://labs.adobe.com/wiki/index.php/Kuler">API</a> to see the
- * possibilities of the kuler service.<br/> At kuler the palette a maximal
- * count of 5 colors per theme. The default size of the themes per query is 20,
- * but you can increase the count up 100. To query more then 100 you have to
- * increase the startIndex. So a query with maxItems=100 and startIndex=1 will
- * give you themes fromm count 100 to 200. To use the class in an applet on your server
- * you have to set 
+ * href="http://labs.adobe.com/wiki/index.php/Kuler">Kuler API</a> to see the
+ * possibilities of the Kuler service.<br/>
+ * A Kuler palette contains 5 colors per theme. The default number of themes
+ * returned per query is 20, but you can increase the count up 100.
+ * To query more than 100 themes, you have to increase the startIndex.
+ * A query with maxItems=100 and startIndex=2 will return 100 themes starting at 200.
  * 
  * @author Andreas Kšberle
  * @author Jan Vantomme
@@ -37,7 +36,7 @@ public class Kuler {
 
 	private String pageTyp=".cfm";
 	/**
-	 * @param parent PApplet: typically use "this"
+	 * @param parent PApplet: normally you will be using new Kuler(this);"
 	 */
 	public Kuler(final PApplet parent) {
 		p = parent;
@@ -58,7 +57,7 @@ public class Kuler {
 	}
 
 	/**
-	 * Get the popular colors for the specified number of days (default is 30
+	 * Get the most popular colors for the specified number of days (default is 30
 	 * days) as an array of <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
 	 * 
 	 * @related getHighestRated ( )
@@ -94,7 +93,7 @@ public class Kuler {
 	}
 
 	/**
-	 * Gets random colorsas an array of <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
+	 * Get random colors as an array of <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
 	 * 
 	 * @related getHighestRated ( )
 	 * @related getPopular ( )

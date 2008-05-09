@@ -9,7 +9,7 @@ import colorLib.Palette;
 import colorLib.Swatch;
 /**
  * Colr is a container to query the <a href="http://www.colr.org">Colr service</a>. 
- * As the <a href="http://www.colr.org/api.html">API of Colr</a> is very limited there are only three methods to use.
+ * As the <a href="http://www.colr.org/api.html">API of Colr</a> is very limited, there are only three methods to use.
  * @author Andreas Kšberle
  * @author Jan Vantomme
  * @example Colr
@@ -65,7 +65,7 @@ public class Colr {
 	
 	/**
 	 * Query the <a href="http://www.colr.org">Colr service</a> with a tag and 
-	 * return a ColrTheme holding all colors and all tags associated with this colors.
+	 * return a ColrTheme holding all colors and all tags associated with this tag.
 	 * @param tag String: tag to query the service
 	 * @return ColrTheme: a ColrTheme holding all colors and all tags associated with this colors
 	 * @related searchTags ( )
@@ -94,7 +94,7 @@ public class Colr {
 	
 	/**
 	 * Query the Colr service with the given tag. 
-	 * Returns an array with all returned shemes as ColrThemes which stores the colors and 
+	 * Returns an array with all returned schemes as ColrThemes which stores the colors and 
 	 * the tags associated with the scheme on Colr. 
 	 * @param tag
 	 * @return ColrTheme[]: array contains all theme matching the query
@@ -134,7 +134,4 @@ public class Colr {
 			  PApplet.println(lines[i]);
 		}
 	}
-	
-	
-	
 }

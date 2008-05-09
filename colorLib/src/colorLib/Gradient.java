@@ -3,8 +3,8 @@ package colorLib;
 import processing.core.*;
 
 /**
- * You can create an palette with gradient colors
- * The class extends palette class, so all methods of the palette class can access here.
+ * Create a palette with all colors of a gradient.
+ * The class extends the Palette class, so all methods of the Palette class can accessed from here.
  * @author Andreas Kšberle
  * @author Jan Vantomme
  * @nosuperclasses
@@ -12,6 +12,7 @@ import processing.core.*;
 public class Gradient extends Palette {
 
 	/**
+	 * Creates a Gradient object which holds all colors to create a gradient.
 	 * @param i_p
 	 * @param i_colors int[], an int array which holds the colors in the processing way
 	 * @param stepSize int, the size of the gradient
@@ -36,17 +37,36 @@ public class Gradient extends Palette {
 		createGradient(i_colors, i_size, i_wrap);
 	}
 
+	/**
+	 * 
+	 * @param i_palette
+	 * @param i_size
+	 * @param i_wrap
+	 */
 	public Gradient(Palette i_palette, int i_size, boolean i_wrap) {
 		super(i_palette.p, i_size);
 		createGradient(i_palette.getColors(), i_size, i_wrap);
 	}
 
+	/**
+	 * 
+	 * @param i_colors
+	 * @param i_stepSize
+	 * @param wrap
+	 */
 	private void createGradient(int[] i_colors, int i_stepSize, boolean wrap) {
 		for (int i = 0; i < i_stepSize; i++) {
 			swatches[i] = new Swatch(p,(int) colorsBetween(i_colors, (float) i / i_stepSize, wrap));
 		}
 	}
 
+	/**
+	 * 
+	 * @param startColor
+	 * @param endColor
+	 * @param step
+	 * @return
+	 */
 	private int colorBetween(final int startColor, final int endColor,
 			final float step) {
 		int startAlpha = startColor >> 24 & 0xFF;
@@ -69,6 +89,13 @@ public class Gradient extends Palette {
 		return returnColor;
 	}
 
+	/**
+	 * 
+	 * @param i_colors
+	 * @param step
+	 * @param wrap
+	 * @return
+	 */
 	private int colorsBetween(final int[] i_colors, final float step,
 			boolean wrap) {
 		int length = i_colors.length - 1;

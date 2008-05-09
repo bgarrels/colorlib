@@ -9,29 +9,30 @@ import colorLib.Palette;
 
 /**
  * @author Andreas Koeberle
+ * @author Jan Vantomme
  * @nosuperclass
  */
 public class ClLoversTheme extends Palette {
-
 	
 	private String title, userName, description, url;
 	private int  numViews, numVotes, numComments, rank;
 	private float numHearts;
 	private Date dateCreated;
 	
-		
+	/**
+	 * @param i_p PApplet
+	 */		
 	public ClLoversTheme(PApplet i_p) {
 		super(i_p);
 	}
 
-
 	/**
+	 * Returns the date when the theme was created.
 	 * @return the dateCreated
 	 */
 	public Date getDateCreated() {
 		return dateCreated;
 	}
-
 
 	/**
 	 * @param dateCreated the dateCreated to set
@@ -45,14 +46,13 @@ public class ClLoversTheme extends Palette {
 		}
 	}
 
-
 	/**
+	 * Returns the description of the theme.
 	 * @return the description
 	 */
 	public String getDescription() {
 		return description;
 	}
-
 
 	/**
 	 * @param description the description to set
@@ -61,14 +61,13 @@ public class ClLoversTheme extends Palette {
 		this.description = description;
 	}
 
-
 	/**
+	 * Returns the number of comments for the theme.
 	 * @return the numComments
 	 */
 	public int getNumComments() {
 		return numComments;
 	}
-
 
 	/**
 	 * @param numComments the numComments to set
@@ -77,14 +76,13 @@ public class ClLoversTheme extends Palette {
 		this.numComments = Integer.valueOf(numComments).intValue();
 	}
 
-
 	/**
+	 * Returns the number of hearts for the theme.
 	 * @return the numHearts
 	 */
 	public float getNumHearts() {
 		return numHearts;
 	}
-
 
 	/**
 	 * @param numHearts the numHearts to set
@@ -93,14 +91,13 @@ public class ClLoversTheme extends Palette {
 		this.numHearts = Float.valueOf(numHearts).intValue();
 	}
 
-
 	/**
+	 * Returns the number of views for the theme.
 	 * @return the numViews
 	 */
 	public int getNumViews() {
 		return numViews;
 	}
-
 
 	/**
 	 * @param numViews the numViews to set
@@ -109,14 +106,13 @@ public class ClLoversTheme extends Palette {
 		this.numViews = Integer.valueOf(numViews).intValue();
 	}
 
-
 	/**
+	 * Returns the number of votes for the theme.
 	 * @return the numVotes
 	 */
 	public int getNumVotes() {
 		return numVotes;
 	}
-
 
 	/**
 	 * @param numVotes the numVotes to set
@@ -125,14 +121,13 @@ public class ClLoversTheme extends Palette {
 		this.numVotes = numVotes;
 	}
 
-
 	/**
+	 * Returns the rank for the theme.
 	 * @return the rank
 	 */
 	public int getRank() {
 		return rank;
 	}
-
 
 	/**
 	 * @param string the rank to set
@@ -141,14 +136,13 @@ public class ClLoversTheme extends Palette {
 		this.rank = Integer.valueOf(rank).intValue();
 	}
 
-
 	/**
+	 * Returns the title of the theme.
 	 * @return the title
 	 */
 	public String getTitle() {
 		return title;
 	}
-
 
 	/**
 	 * @param title the title to set
@@ -157,14 +151,13 @@ public class ClLoversTheme extends Palette {
 		this.title = title;
 	}
 
-
 	/**
+	 * Returns the url of the theme.
 	 * @return the url
 	 */
 	public String getUrl() {
 		return url;
 	}
-
 
 	/**
 	 * @param url the url to set
@@ -173,14 +166,13 @@ public class ClLoversTheme extends Palette {
 		this.url = url;
 	}
 
-
 	/**
+	 * Returns the username of the creator of the theme.
 	 * @return the userName
 	 */
 	public String getUserName() {
 		return userName;
 	}
-
 
 	/**
 	 * @param userName the userName to set
@@ -188,8 +180,4 @@ public class ClLoversTheme extends Palette {
 	protected void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
-	
-	
-
 }
