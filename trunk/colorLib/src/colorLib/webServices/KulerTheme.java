@@ -24,7 +24,8 @@ public class KulerTheme extends ColrTheme {
 	}
 
 	/**
-	 * Returns the id of the author, which can be used for another query against the kuler service.
+	 * Returns the id of the author. This function can be used to search for more themes
+	 * by the same author.
 	 * @return String: authorID
 	 * @related getAuthorLabel ( ) 
 	 * @related getThemeCreatedAt ( ) 
@@ -63,10 +64,10 @@ public class KulerTheme extends ColrTheme {
 	}
 
 	/**
-	 * Returns the date the theme was created. You can use a String to change the format of the returned date.
-	 * @return 	String: date, return the date formated with the passed dateFormat, default is "yyyy-MM-dd",
-	 * 		   	see <a href="http://java.sun.com/docs/books/tutorial/i18n/format/simpleDateFormat.html">suns java tutorial</a> for 
-	 * 			posibble formats
+	 * Returns a string with the date the theme was created. You can use this string to change the format of the date.
+	 * @return 	String: date, returns the date formated with the passed dateFormat, default is "yyyy-MM-dd",
+	 * 		   	see <a href="http://java.sun.com/docs/books/tutorial/i18n/format/simpleDateFormat.html">Suns' Java tutorial</a> for 
+	 * 			posibble formats.
 	 * @related getAuthorId ( )
 	 * @related getAuthorLabel ( ) 
 	 * @related getThemeDownloadCount ( ) 
@@ -98,7 +99,7 @@ public class KulerTheme extends ColrTheme {
 	}
 
 	/**
-	 * Returns how often the themes was downloaded. 
+	 * Returns how often the theme was downloaded. 
 	 * @return int: download count
 	 * @related getAuthorId ( )
 	 * @related getAuthorLabel ( ) 
@@ -141,7 +142,7 @@ public class KulerTheme extends ColrTheme {
 	}
 
 	/**
-	 * Returns the id of the theme, which can be used for another query against the kuler service.
+	 * Returns the id of the theme, which can be used for another query against the Kuler service.
 	 * @return String: ID
 	 * @related getAuthorId ( )
 	 * @related getAuthorLabel ( ) 
@@ -166,7 +167,7 @@ public class KulerTheme extends ColrTheme {
 	}
 
 	/**
-	 * Return the rating of the theme
+	 * Returns the rating of the theme.
 	 * @return int: rating
 	 * @related getAuthorId ( )
 	 * @related getAuthorLabel ( ) 
@@ -186,7 +187,7 @@ public class KulerTheme extends ColrTheme {
 	}
 
 	/**
-	 * Return the title of the theme.
+	 * Returns the title of the theme.
 	 * @return String: title
 	 * @related getAuthorId ( )
 	 * @related getAuthorLabel ( ) 
@@ -204,7 +205,5 @@ public class KulerTheme extends ColrTheme {
 	protected void setThemeTitle(final String themeTitle) {
 		this.themeTitle = themeTitle;
 	}
-	
-	
 
 }

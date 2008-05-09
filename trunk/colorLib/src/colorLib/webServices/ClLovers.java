@@ -3,16 +3,13 @@ package colorLib.webServices;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
-import xml.*;
+import processing.xml.*;
 import colorLib.Palette;
 
 /**
  * @author Andreas Koeberle
+ * @author Jan Vantomme
  * @nosuperclass
- */
-/**
- * @author andreaskoberle
- *
  */
 public class ClLovers {
 	private String lover, orderCol, sortBy;
@@ -24,7 +21,9 @@ public class ClLovers {
 	final PApplet p;
 
 	private boolean printXML;
+	
 	/**
+	 * The ClLovers object is a container to query the <a href="http://www.colourlovers.com/">COLOURLovers API</a>.
 	 * @param i_p
 	 */
 	public ClLovers(PApplet i_p) {
@@ -40,6 +39,7 @@ public class ClLovers {
 	}
 
 	/**
+	 * Returns the colors as a ClLoversTheme object.
 	 * @param i_keywords
 	 * @return
 	 */
@@ -91,6 +91,7 @@ public class ClLovers {
 	}
 	
 	/**
+	 * Returns the palettes.
 	 * @param i_keywords
 	 * @return
 	 */
@@ -147,6 +148,7 @@ public class ClLovers {
 	}
 
 	/**
+	 * Returns the brightness range.
 	 * @return
 	 */
 	public int[] getBriRange() {
@@ -165,6 +167,7 @@ public class ClLovers {
 	}
 
 	/**
+	 * Returns the hue range.
 	 * @return
 	 */
 	public int[] getHueRange() {
@@ -237,6 +240,7 @@ public class ClLovers {
 	}
 
 	/**
+	 * Returns the number of results.
 	 * @return
 	 */
 	public int getNumResults() {
@@ -273,7 +277,7 @@ public class ClLovers {
 	}
 	
 	/**
-	 * Use this methode to print the result xml in the console. 
+	 * Use this method to print the resulting xml in the console. 
 	 * @param b boolean: set true if you want the result xml printed in the console 
 	 */
 	public void printXML(boolean b){

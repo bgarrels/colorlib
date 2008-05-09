@@ -14,7 +14,7 @@ import colorLib.Swatch;
 
 public class MedianCut {
 
-	private Hashtable histogramm;
+	private Hashtable histogram;
 
 	private Cube[] cubes;
 
@@ -22,19 +22,29 @@ public class MedianCut {
 
 	int cnt = 0;
 
+	/**
+	 * Creates a MedianCut object.
+	 * @param i_p
+	 */
 	public MedianCut(PApplet i_p) {
 		p = i_p;
 	}
 
+	/**
+	 * 
+	 * @param colors
+	 * @param cnt
+	 * @return
+	 */
 	public int[] calc(int[] colors, int cnt) {
-		histogramm = new Hashtable();
+		histogram = new Hashtable();
 		for (int i = 0; i < colors.length; i++) {
 			Integer color = new Integer(colors[i]);
-			if (histogramm.containsKey(color)) {
-				histogramm.put(color, new Integer(((Integer) histogramm
+			if (histogram.containsKey(color)) {
+				histogram.put(color, new Integer(((Integer) histogram
 						.get(color)).intValue() + 1));
 			} else {
-				histogramm.put(color, new Integer(1));
+				histogram.put(color, new Integer(1));
 			}
 		}
 		HashSet h = new HashSet();
@@ -87,14 +97,30 @@ public class MedianCut {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @param i_image
+	 * @param cnt
+	 * @return
+	 */
 	public int[] calc(PImage i_image, int cnt) {
 		return calc(i_image.pixels, cnt);
 	}
 
+	/**
+	 * 
+	 * @param i_palette
+	 * @param cnt
+	 * @return
+	 */
 	public int[] calc(Palette i_palette, int cnt) {
 		return calc(i_palette.getColors(), cnt);
 	}
 
+	/**
+	 * 
+	 * @param cube
+	 */
 	private void shrink(Cube cube) {
 		int r, g, b;
 		int color;
@@ -132,12 +158,21 @@ public class MedianCut {
 		cube.bmin = bmin;
 		cube.bmax = bmax;
 	}
-
+	
+	/**
+	 * Cube class
+	 *
+	 */
 	private class Cube {
 		int level, count, rmin, rmax, gmin, gmax, bmin, bmax;
 
 		int[] colors;
 
+		/**
+		 * 
+		 * @param colors
+		 * @param i_level
+		 */
 		Cube(int[] colors, int i_level) {
 			this.colors = colors;
 			countColor();
@@ -151,7 +186,11 @@ public class MedianCut {
 			}
 			cnt++;
 		}
-
+		
+		/**
+		 * 
+		 * @param shiftingStep
+		 */
 		public void sort(int shiftingStep) {
 			ArrayList sort = new ArrayList();
 			Hashtable sortTable= new Hashtable();
@@ -182,20 +221,21 @@ public class MedianCut {
 					cnt++;
 				}
 			}
-			
-			
-
 		}
 
+		/**
+		 * 
+		 * @return
+		 */
 		Cube split() {
 			int cnt = 0, i = 0;
 			for (; i < colors.length; i++) {
 				if (cnt >= colors.length / 2)
 					break;
-				cnt += ((Integer) histogramm.get(new Integer(colors[i])))
+				cnt += ((Integer) histogram.get(new Integer(colors[i])))
 						.intValue();
 				// PApplet.println("color: "+colors[i]+" count: "+((Integer)
-				// histogramm.get(new Integer(colors[i]))).intValue());
+				// histogram.get(new Integer(colors[i]))).intValue());
 			}
 			int median = i;
 			Cube cube = new Cube(PApplet.subset(colors, 0, median), level + 1);
@@ -204,15 +244,21 @@ public class MedianCut {
 			return cube;
 		}
 
+		/**
+		 * Counts the colors.
+		 */
 		void countColor() {
 			 count = colors.length;
 //			count = 0;
 //			for (int i = 0; i < colors.length; i++) {
-//				count += ((Integer) histogramm.get(new Integer(colors[i])))
+//				count += ((Integer) histogram.get(new Integer(colors[i])))
 //						.intValue();
 //			}
 		}
 
+		/**
+		 * Returns the average.
+		 */
 		int getAverage() {
 			int a = 0;
 			int r = 0;
