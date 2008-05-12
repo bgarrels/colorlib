@@ -1,6 +1,8 @@
+import colorLib.*;
+
 Swatch s1;
 Swatch s2;
-Color  c;
+color  c;
 
 void setup() {
 	size(200, 200);

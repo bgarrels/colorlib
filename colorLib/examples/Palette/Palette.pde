@@ -1,3 +1,5 @@
+import colorLib.*;
+
 Palette p1;
 Palette p2;
 Palette p3;
@@ -13,6 +15,7 @@ void setup()
 	translate(20, 20);
 	
 	p1 = new Palette(this, "test.act");
+        p1.deleteDuplicate();
 	p1.drawSwatches();
 
 	translate(0, 80);

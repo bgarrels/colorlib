@@ -6,10 +6,10 @@ void setup(){
   background(255);
   smooth();
   noFill();
-  Kuler kuler = new Colr(this);
-  KulerTheme kulerTheme = kuler.search("tag", "spring");
+  Colr colr = new Colr(this);
+  ColrTheme[] colrTheme = colr.searchThemes("spring");
   int[] clrs = colrTheme.getColors();
-  for(int i = 0; i < clrs.length; i++){
+  for (int i = 0; i < clrs.length; i++){
     fill(clrs[i]);
     int rad = random(10, 30);
     ellipse(random(width), random(height), rad, rad);

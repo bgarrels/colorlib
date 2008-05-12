@@ -1,3 +1,5 @@
+import colorLib.*;
+
 Swatch s;
 
 void setup()

@@ -13,7 +13,7 @@ void setup(){
     pushMatrix();
     translate(10+(i%3)*130 , 10+floor(i/3)* 70);
     kulerThemes[i].drawSwatches();
-    text( kulerThemes[i].getThemeTitle(), 5, 53);
+    text(kulerThemes[i].getThemeTitle(), 5, 53);
     popMatrix();
   }
 }
