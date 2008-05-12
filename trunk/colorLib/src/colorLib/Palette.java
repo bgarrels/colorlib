@@ -73,7 +73,7 @@ public class Palette {
 		for (int i = 0; i < swatches.length; i++) {
 			swatches[i] = new Swatch(p, i_image.pixels[i]);
 		}
-		deletedDuplicate();
+		deleteDuplicate();
 	}
 
 	/**
@@ -765,9 +765,9 @@ public class Palette {
 	}
 
 	/**
-	 * Delete all duplicate colors on the palette.
+	 * Delete all duplicate colors within the palette.
 	 */
-	public void deletedDuplicate() {
+	public void deleteDuplicate() {
 		HashSet h = new HashSet();
 		for (int i = 0; i < swatches.length; i++) {
 			h.add(new Integer(swatches[i].getColor()));

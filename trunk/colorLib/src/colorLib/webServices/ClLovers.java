@@ -10,6 +10,7 @@ import colorLib.Palette;
  * @author Andreas Koeberle
  * @author Jan Vantomme
  * @nosuperclass
+ * @example ClLovers
  */
 public class ClLovers {
 	private String lover, orderCol, sortBy;
@@ -78,6 +79,7 @@ public class ClLovers {
 	}
 	
 	/**
+	 * Returns the colors for a given array of keywords.
 	 * @param i_keywords
 	 */
 	public void getColors(final String[] i_keywords) {
@@ -91,7 +93,7 @@ public class ClLovers {
 	}
 	
 	/**
-	 * Returns the palettes.
+	 * Returns the palettes for a given keyword.
 	 * @param i_keywords
 	 * @return
 	 */
@@ -135,7 +137,8 @@ public class ClLovers {
 	}
 	
 	/**
-	 * @param i_keywords
+	 * Returns the palettes for a given array of keywords.
+	 * @param i_keywords String: An array of keywords.
 	 */
 	public void getPalettes(final String[] i_keywords) {
 		StringBuffer keywords = new StringBuffer();
@@ -156,12 +159,15 @@ public class ClLovers {
 	}
 
 	/**
-	 * @param briRange
+	 * Sets the brightness range to query the COLOURLovers API.
+	 * This function takes a int[] array with a size of 2.
+	 * The values of the integers should be in the range of 0 to 99.
+	 * @param briRange int[]: An integer array with a size of two.
 	 */
 	public void setBriRange(int[] briRange) {
-		if(briRange.length!=2){
+		if (briRange.length!=2) {
 			throw new IllegalArgumentException( "The passed array hasn't the size of 2" ); 
-		}else{
+		} else {
 			this.briRange = briRange;
 		}
 	}
@@ -175,12 +181,15 @@ public class ClLovers {
 	}
 
 	/**
-	 * @param hueRange
+	 * Sets the hue range to query the COLOURLovers API.
+	 * This function takes a int[] array with a size of 2.
+	 * The values of the integers should be in the range of 0 to 359.
+	 * @param hueRange int[]: An integer array with a size of two.
 	 */
 	public void setHueRange(int[] hueRange) {
-		if(hueRange.length!=2){
+		if (hueRange.length!=2) {
 			throw new IllegalArgumentException( "The passed array hasn't the size of 2" ); 
-		}else{
+		} else {
 			this.hueRange = hueRange;
 		}
 	}
@@ -207,16 +216,16 @@ public class ClLovers {
 	}
 
 	/**
-	 * @param orderCol
+	 * @param orderCol Either dateCreated, score, name, numVotes, numViews.
 	 */
 	public void setOrderCol(String orderCol) {
-		if(orderCol.equals("dateCreated") || 
+		if (orderCol.equals("dateCreated") || 
 		   orderCol.equals("score") || 
 		   orderCol.equals("name") || 
 		   orderCol.equals("numVotes") || 
 		   orderCol.equals("numViews")){
 			this.orderCol = orderCol;
-		}else{
+		} else {
 			throw new IllegalArgumentException( "Only 'dateCreated', 'score', 'name', 'numVotes' or 'numViews' are allowed" ); 
 		}
 	}
@@ -229,12 +238,14 @@ public class ClLovers {
 	}
 
 	/**
-	 * @param sortBy
+	 * This function sets how the colors should be sorted.
+	 * Allowed values are ASC for ascending and DESC for descending.
+	 * @param sortBy Either ASC (ascending) or DESC (descending);
 	 */
 	public void setSortBy(String sortBy) {
-		if(orderCol.equals("ASC") || orderCol.equals("DESC")){
+		if (orderCol.equals("ASC") || orderCol.equals("DESC")) {
 			this.sortBy = sortBy;
-		}else{
+		} else {
 			throw new IllegalArgumentException( "Only 'ASC' or 'DESC' are allowed" ); 
 		}	
 	}
@@ -248,6 +259,8 @@ public class ClLovers {
 	}
 
 	/**
+	 * Sets the number of results to query.
+	 * The value of the integer should not be bigger than 100.
 	 * @param numResults
 	 */
 	public void setNumResults(int numResults) {
@@ -255,6 +268,7 @@ public class ClLovers {
 	}
 
 	/**
+	 * Returns the result offset.
 	 * @return
 	 */
 	public int getResultOffset() {
@@ -262,6 +276,7 @@ public class ClLovers {
 	}
 
 	/**
+	 * Sets the result offset used to query the COLOURLovers API.
 	 * @param resultOffset
 	 */
 	public void setResultOffset(int resultOffset) {
@@ -277,8 +292,8 @@ public class ClLovers {
 	}
 	
 	/**
-	 * Use this method to print the resulting xml in the console. 
-	 * @param b boolean: set true if you want the result xml printed in the console 
+	 * Use this method to print the resulting XML in the console. 
+	 * @param b boolean: set this to true if you want to print the resulting XML in the console 
 	 */
 	public void printXML(boolean b){
 		printXML=b;
