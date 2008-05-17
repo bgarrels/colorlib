@@ -109,13 +109,16 @@ public class Palette {
 			createPaletteFromFile(b, 8, 26, b[2] & 0xff);
 		} else if (i_filename.endsWith(".act")) {
 			createPaletteFromFile(b, 0, 3, 255);
-		} else if (i_filename.endsWith(".aco")) {
+		} 
+		/*else if (i_filename.endsWith(".aco")) {
 			createPaletteFromFile(b, 0, 0, 0); // TODO: find right arguments to
 			// parse the file
 		} else if (i_filename.endsWith(".ase")) {
 			createPaletteFromFile(b, 0, 0, 0); // TODO: find right arguments to
 			// parse the file
-		} else {
+		} 
+		*/
+		else {
 			throw new IllegalArgumentException(
 					"Only .cs and .act files are supported");
 		}
@@ -169,7 +172,7 @@ public class Palette {
 	}
 
 	/**
-	 * Creates a 2 color palette with the passed color and it's complementary on
+	 * Creates a 2 color palette with the passed color and it's complement on
 	 * the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
 	 * 
 	 * @param i_color
@@ -187,6 +190,9 @@ public class Palette {
 	}
 
 	/**
+	 * Creates a 6 color palette with the passed color and it's complement on
+	 * the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel and 
+	 * 2 darker and softer contrasting colors of each complement.
 	 * @param i_color color: 
 	 * @related makeComplement ( )
 	 * @related makeSplittedComplementary ( )
@@ -222,6 +228,8 @@ public class Palette {
 	}
 
 	/**
+	 * Creates a 3 color palette with the passed color and it's left and right complement on
+	 * the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
 	 * @param i_color
 	 * @related makeComplement ( )
 	 * @related makeComplementary ( )
@@ -241,6 +249,10 @@ public class Palette {
 	}
 
 	/**
+	 * Creates a 3 color palette that make up an triangle  on
+	 * the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel. 
+	 * The default angle of the triangle is 120¡, for an equilateral triangle, 
+	 * but you can pass your own in the range of 0-180.
 	 * @param i_color
 	 * @param i_angle
 	 * @related makeComplement ( )
@@ -249,7 +261,8 @@ public class Palette {
 	 * @related makeTetrad ( )
 	 * @example Palette_makeComplement
 	 */
-	public void makeTriad(final int i_color, final int i_angle) {
+	public void makeTriad(final int i_color, int i_angle) {
+		i_angle=PApplet.constrain(i_angle,0,180);
 		swatches = new Swatch[3];
 		swatches[0] = new Swatch(p, i_color);
 		swatches[1] = new Swatch(p, i_color);
@@ -266,6 +279,8 @@ public class Palette {
 	}
 
 	/**
+	 * Creates a 4 color palette that make up an cross  on
+	 * the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
 	 * @param i_color
 	 * @related makeComplement ( )
 	 * @related makeComplementary ( )

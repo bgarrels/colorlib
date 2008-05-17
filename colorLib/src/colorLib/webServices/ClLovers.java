@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.xml.*;
-import colorLib.Palette;
 
 /**
  * @author Andreas Koeberle
