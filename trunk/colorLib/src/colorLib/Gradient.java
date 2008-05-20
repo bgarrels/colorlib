@@ -3,8 +3,8 @@ package colorLib;
 import processing.core.*;
 
 /**
- * Create a palette with all colors of a gradient.
- * The class extends the Palette class, so all methods of the Palette class can accessed from here.
+ * Create a Palette object with all colors of a gradient.
+ * This class extends the Palette class, so all the methods of the Palette class can be accessed from here.
  * @author Andreas Kšberle
  * @author Jan Vantomme
  * @nosuperclasses
@@ -22,14 +22,17 @@ public class Gradient extends Palette {
 	}
 
 	/**
-	 * @param i_palette Palette, creates the gradient from the colors of palette swatches
+	 * Creates a gradient with the colors of the passed Palette object and the specified number of steps.
+	 * @param i_palette Palette, a Palette object
+	 * @param i_step int, the number of steps
 	 */
 	public Gradient(Palette i_palette, int i_step) {
 		this(i_palette, i_step, false);
 	}
-
 	
 	/**
+	 * Creates a gradient with the passed colors array and the specified number of steps.
+	 * @param i_colors an array of colors.
 	 * @param i_wrap boolean, if its true the gradient ends with the same colors as its begin (default is false)
 	 */
 	public Gradient(PApplet i_p, final int[] i_colors, final int i_size, boolean i_wrap) {
@@ -42,6 +45,12 @@ public class Gradient extends Palette {
 		createGradient(i_palette.getColors(), i_size, i_wrap);
 	}
 
+	/**
+	 * 
+	 * @param i_colors an array of colors.
+	 * @param i_stepSize
+	 * @param wrap
+	 */
 	private void createGradient(int[] i_colors, int i_stepSize, boolean wrap) {
 		for (int i = 0; i < i_stepSize; i++) {
 			swatches[i] = new Swatch(p,(int) colorsBetween(i_colors, (float) i / i_stepSize, wrap));
