@@ -50,26 +50,20 @@ public class ClLovers {
 		append("&numResults=").append(numResults).
 		append("&resultOffset=").append(resultOffset).
 		append("&keywords=").append(i_keywords);
-		PApplet.println(url);
-		String[] s = p.loadStrings(url.toString());
-		StringBuffer buf =new StringBuffer();
-		for (int i = 0; i < s.length; i++) {
-			buf.append(s[i].replaceAll("CDATA.]", "CDATA[empty]"));
-		}
-		XMLElement xml = new XMLElement(buf.toString());
+		XMLElement xml = new XMLElement(p, url.toString());
 		XMLElement[] colors = xml.getChildren("color");
 		ClLoversTheme theme = new ClLoversTheme(p);
 		if (colors.length > 0) {
 			for (int i = 0; i < colors.length; i++) {
 				XMLElement color = colors[i];
-//				theme.setTitle(color.getChildren("title")[0].getContent());
-//				theme.setUserName(color.getChildren("userName")[0].getContent());
-//				theme.setNumViews(color.getChildren("numViews")[0].getContent());
-//				theme.setNumComments(color.getChildren("numComments")[0].getContent());
-//				theme.setNumHearts(color.getChildren("numHearts")[0].getContent());
-//				theme.setRank(color.getChildren("rank")[0].getContent());
-//				theme.setDateCreated(color.getChildren("dateCreated")[0].getContent());
-//				theme.setDescription(color.getChildren("description")[0].getContent());
+				theme.setTitle(color.getChildren("title")[0].getContent());
+				theme.setUserName(color.getChildren("userName")[0].getContent());
+				theme.setNumViews(color.getChildren("numViews")[0].getContent());
+				theme.setNumComments(color.getChildren("numComments")[0].getContent());
+				theme.setNumHearts(color.getChildren("numHearts")[0].getContent());
+				theme.setRank(color.getChildren("rank")[0].getContent());
+				theme.setDateCreated(color.getChildren("dateCreated")[0].getContent());
+				theme.setDescription(color.getChildren("description")[0].getContent());
 				theme.addColor(PApplet.unhex("FF" +color.getChildren("hex")[0].getContent()));
 			}
 		}
@@ -103,13 +97,7 @@ public class ClLovers {
 		append("&numResults=").append(numResults).
 		append("&resultOffset=").append(resultOffset).
 		append("&keywords=").append(i_keywords);
-		PApplet.println(url);
-		String[] s = p.loadStrings(url.toString());
-		StringBuffer buf =new StringBuffer();
-		for (int i = 0; i < s.length; i++) {
-			buf.append(s[i].replaceAll("CDATA.]", "CDATA[empty]"));
-		}
-		XMLElement xml = new XMLElement(buf.toString());
+		XMLElement xml = new XMLElement(p, url.toString());
 		XMLElement[] palettes = xml.getChildren("palette");
 		ArrayList themes = new ArrayList();
 		if (palettes.length > 0) {
