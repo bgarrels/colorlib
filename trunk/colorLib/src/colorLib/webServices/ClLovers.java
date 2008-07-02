@@ -44,13 +44,28 @@ public class ClLovers {
 	 * @return
 	 */
 	public ClLoversTheme getColors(final String i_keywords) {
+		
 		StringBuffer url = new StringBuffer("http://www.colourlovers.com/api/colors?").
 		append("hueRange=").append(hueRange[0]).append(",").append(hueRange[1]).
 		append("&briRange=").append(briRange[0]).append(",").append(briRange[1]).
 		append("&numResults=").append(numResults).
 		append("&resultOffset=").append(resultOffset).
 		append("&keywords=").append(i_keywords);
+
+		PApplet.println(url);
+		
+		String[] s = p.loadStrings(url.toString());
+		
+		StringBuffer buf = new StringBuffer();
+		
+		for (int i = 0; i < s.length; i++) {
+			buf.append(s[i].replaceAll("CDATA.]", "CDATA[empty]"));
+		}
+		
+//		XMLElement xml = new XMLElement(buf.toString()); // This line is causing big trouble!
+
 		XMLElement xml = new XMLElement(p, url.toString());
+
 		XMLElement[] colors = xml.getChildren("color");
 		ClLoversTheme theme = new ClLoversTheme(p);
 		if (colors.length > 0) {

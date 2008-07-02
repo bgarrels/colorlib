@@ -12,6 +12,13 @@ import processing.core.*;
 import colorLib.Palette;
 import colorLib.Swatch;
 
+/**
+ * Creates a MedianCut object
+ * 
+ * @author Andreas Kšberle
+ * @author Jan Vantomme
+ * 
+ */
 public class MedianCut {
 
 	private Hashtable histogram;
@@ -34,7 +41,7 @@ public class MedianCut {
 	 * 
 	 * @param colors
 	 * @param cnt
-	 * @return
+	 * @return result
 	 */
 	public int[] calc(int[] colors, int cnt) {
 		histogram = new Hashtable();
@@ -101,7 +108,7 @@ public class MedianCut {
 	 * 
 	 * @param i_image
 	 * @param cnt
-	 * @return
+	 * @return calc
 	 */
 	public int[] calc(PImage i_image, int cnt) {
 		return calc(i_image.pixels, cnt);
@@ -111,7 +118,7 @@ public class MedianCut {
 	 * 
 	 * @param i_palette
 	 * @param cnt
-	 * @return
+	 * @return calc
 	 */
 	public int[] calc(Palette i_palette, int cnt) {
 		return calc(i_palette.getColors(), cnt);
