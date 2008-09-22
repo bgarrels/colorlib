@@ -41,7 +41,7 @@ public class ClLovers {
 	/**
 	 * Returns the colors as a ClLoversTheme object.
 	 * @param i_keywords
-	 * @return
+	 * @return ClLoversTheme: ColorLovers Theme
 	 */
 	public ClLoversTheme getColors(final String i_keywords) {
 		
@@ -103,7 +103,7 @@ public class ClLovers {
 	/**
 	 * Returns the palettes for a given keyword.
 	 * @param i_keywords
-	 * @return
+	 * @return ClLoversTheme 
 	 */
 	public ClLoversTheme[] getPalettes(final String i_keywords) {
 		StringBuffer url = new StringBuffer("http://www.colourlovers.com/api/palettes?").
@@ -154,7 +154,7 @@ public class ClLovers {
 
 	/**
 	 * Returns the brightness range.
-	 * @return
+	 * @return briRange: Brightness Range
 	 */
 	public int[] getBriRange() {
 		return briRange;
@@ -176,7 +176,7 @@ public class ClLovers {
 
 	/**
 	 * Returns the hue range.
-	 * @return
+	 * @return hueRange: Hue Range
 	 */
 	public int[] getHueRange() {
 		return hueRange;
@@ -197,7 +197,7 @@ public class ClLovers {
 	}
 
 	/**
-	 * @return
+	 * @return lover: 
 	 */
 	public String getLover() {
 		return lover;
@@ -211,7 +211,7 @@ public class ClLovers {
 	}
 
 	/**
-	 * @return
+	 * @return orderCol
 	 */
 	public String getOrderCol() {
 		return orderCol;
@@ -233,7 +233,7 @@ public class ClLovers {
 	}
 
 	/**
-	 * @return
+	 * @return sortBy
 	 */
 	public String getSortBy() {
 		return sortBy;
@@ -254,7 +254,7 @@ public class ClLovers {
 
 	/**
 	 * Returns the number of results.
-	 * @return
+	 * @return numResults: the Number of results
 	 */
 	public int getNumResults() {
 		return numResults;
@@ -271,7 +271,7 @@ public class ClLovers {
 
 	/**
 	 * Returns the result offset.
-	 * @return
+	 * @return resultOffset: Result Offset
 	 */
 	public int getResultOffset() {
 		return resultOffset;

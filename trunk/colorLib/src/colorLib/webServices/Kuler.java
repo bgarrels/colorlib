@@ -32,8 +32,10 @@ public class Kuler {
 
 	private boolean printXML = false;
 	
-	private String serverPage = "http://kuler.adobe.com/kuler/API/rss/";
-
+	private String key; // added this one to work with the new Kuler API
+	
+	private String serverPage = "http://kuler-api.adobe.com/rss/";
+	// old url: http://kuler.adobe.com/kuler/API/rss/
 	private String pageTyp=".cfm";
 	/**
 	 * @param parent PApplet: normally you will be using new Kuler(this);"
@@ -42,6 +44,10 @@ public class Kuler {
 		p = parent;
 	}
 
+	public void setKey(String key) {
+		this.key = key;		
+	}
+	
 	/**
 	 * Get the highest rated colors as an array of <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
 	 * 
@@ -134,6 +140,7 @@ public class Kuler {
 		return makePalettes("&searchQuery=" + query + ":" + filter, "search");
 	}
 
+	// added the key string to the end of the StringBuffer to work with the new API
 	private KulerTheme[] makePalettes(final String querry, final String typ) {
 		ArrayList themes = new ArrayList();
 		StringBuffer url = new StringBuffer(serverPage).
@@ -143,7 +150,8 @@ public class Kuler {
 				append(maxItems).
 				append("&startIndex=").
 				append(startIndex).
-				append(querry);
+				append(querry).
+				append("&key="+key);
 		PApplet.println(url.toString());
 		if(printXML)printXML(url.toString());
 		XMLElement xml = new XMLElement(p, url.toString());
