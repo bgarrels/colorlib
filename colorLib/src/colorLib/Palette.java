@@ -251,7 +251,7 @@ public class Palette {
 	/**
 	 * Creates a 3 color palette that make up an triangle  on
 	 * the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel. 
-	 * The default angle of the triangle is 120¡, for an equilateral triangle, 
+	 * The default angle of the triangle is 120 degrees, for an equilateral triangle, 
 	 * but you can pass your own in the range of 0-180.
 	 * @param i_color
 	 * @param i_angle
@@ -279,7 +279,7 @@ public class Palette {
 	}
 
 	/**
-	 * Creates a 4 color palette that make up an cross  on
+	 * Creates a 4 color palette that make up an cross on
 	 * the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
 	 * @param i_color
 	 * @related makeComplement ( )
