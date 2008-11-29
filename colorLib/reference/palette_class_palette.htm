@@ -1,0 +1,380 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd"> <html 	xmlns="http://www.w3.org/1999/xhtml" 		xmlns:dc="http://purl.org/dc/elements/1.1/" 		xmlns:cc="http://creativecommons.org/ns#"> <head> 	<meta http-equiv="content-type" content="text/html; charset=utf-8" /> 	<meta name="author" content="Jan Vantomme, Andreas K&ouml;berle" /> 	<meta name="copyright" content="2008 Jan Vantomme,Andreas K&ouml;berle" /> 	<meta name="description" content="Documentation for colorlib, a color library for Processing." /> 	<link rel="stylesheet" href="css/colorlib.css" type="text/css" media="screen" charset="utf-8" /> 	<title>Colorlib | colorLib.webServices : : Palette</title> </head> <body> 	<div id="container"> 		<div id="header"> 			<h1>colorLib.webServices</h1> 			<a  href="index.htm">index</a> 		</div> 		<dl class="unit12"> 			<dt class="unit3m">Name</dt> 			<dd class="unit9 name">Palette</dd> 			<dt class="unit3m">Examples</dt> 			<dd class="unit9"> 				<pre name="code" class="java">None available</pre> 			</dd> 			<dt class="unit3m">Description</dt> 			<dd class="unit9"></dd> 			<dt class="unit3m">Syntax</dt> 			<dd class="unit9"> 				<pre name="code" class="java">Palette(i_p);
+Palette(i_p, i_length);
+Palette(i_p, i_colors);
+Palette(i_p, i_image);
+Palette(i_p, i_image, cnt);
+Palette(i_p, i_colors, cnt);
+Palette(i_p, i_filename);
+</pre> 			</dd> 			
+<!-- start memberparameters.htm -->
+			<dt class="unit3m">Parameters</dt>
+			<dd class="unit9">
+				<dl>
+				
+<!-- start memberparameter.htm -->
+					<dt class="unit3m">i_p</dt>
+					<dd class="unit6">PApplet, normally use 'this'</dd>
+<!-- end memberparameter.htm -->
+
+<!-- start memberparameter.htm -->
+					<dt class="unit3m">i_length</dt>
+					<dd class="unit6">int: length of the created</dd>
+<!-- end memberparameter.htm -->
+
+<!-- start memberparameter.htm -->
+					<dt class="unit3m">i_colors</dt>
+					<dd class="unit6">color[]: an array of colors</dd>
+<!-- end memberparameter.htm -->
+
+<!-- start memberparameter.htm -->
+					<dt class="unit3m">i_image</dt>
+					<dd class="unit6">PImage:</dd>
+<!-- end memberparameter.htm -->
+
+<!-- start memberparameter.htm -->
+					<dt class="unit3m">cnt</dt>
+					<dd class="unit6">int: the count of colors that will be extracted from the pic
+            using the medain cut algorithm</dd>
+<!-- end memberparameter.htm -->
+
+<!-- start memberparameter.htm -->
+					<dt class="unit3m">i_filename</dt>
+					<dd class="unit6">String: an .cs or .act file located in the data folder of your
+            sketch</dd>
+<!-- end memberparameter.htm -->
+
+				</dl>
+			</dd>
+<!-- end memberparameters.htm -->
+ 			 			
+<!-- start classmembers.htm -->
+			<dt class="unit3m">
+				Methods
+			</dt>
+			<dd class="unit9">
+				<dl class="unit9">
+					
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_addcolor.htm">addColor ( )</a>
+					</dt>
+					<dd class="unit6">
+						Add one color at the end of your palette.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_addcolors.htm">addColors ( )</a>
+					</dt>
+					<dd class="unit6">
+						Add all passed colors at the end of your palette.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_darken.htm">darken ( )</a>
+					</dt>
+					<dd class="unit6">
+						Decrease the brighness of all colors in the palette by the passed value.
+ By default its 10.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_deleteduplicate.htm">deleteDuplicate ( )</a>
+					</dt>
+					<dd class="unit6">
+						Delete all duplicate colors within the palette.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_desaturate.htm">desaturate ( )</a>
+					</dt>
+					<dd class="unit6">
+						Increase the saturation of all colors in the palette by the passed value.
+ By default its 10.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_drawswatches.htm">drawSwatches ( )</a>
+					</dt>
+					<dd class="unit6">
+						Draw all colors
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_drawwheel.htm">drawWheel ( )</a>
+					</dt>
+					<dd class="unit6">
+						Draws a color wheel with all colors of the palette.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_getaverage.htm">getAverage ( )</a>
+					</dt>
+					<dd class="unit6">
+						Returns the average color of the palette.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_getcolor.htm">getColor ( )</a>
+					</dt>
+					<dd class="unit6">
+						Returns the color at the given position in the color array of the
+ palette.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_getcolors.htm">getColors ( )</a>
+					</dt>
+					<dd class="unit6">
+						Returns an array holding all the color of the palette.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_getdarkest.htm">getDarkest ( )</a>
+					</dt>
+					<dd class="unit6">
+						Returns the darkest color of the palette.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_getlightest.htm">getLightest ( )</a>
+					</dt>
+					<dd class="unit6">
+						Returns the lightest color of the palette.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_getnearesthues.htm">getNearestHues ( )</a>
+					</dt>
+					<dd class="unit6">
+						Returns an array with the nearest hue to the palettes color as an array
+ of the following strings: "red", "orange", "yellow", "lime",
+ "green","teal", "cyan", "azure", "blue", "indigo", "purple", "pink"
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_getswatch.htm">getSwatch ( )</a>
+					</dt>
+					<dd class="unit6">
+						Returns the swatch at the given position in the color array of the
+ palette.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_getswatches.htm">getSwatches ( )</a>
+					</dt>
+					<dd class="unit6">
+						Returns an array holding all the swatches of the palette.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_interpolate.htm">interpolate ( )</a>
+					</dt>
+					<dd class="unit6">
+						Interpolates all colors of the palette with passed color.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_lighten.htm">lighten ( )</a>
+					</dt>
+					<dd class="unit6">
+						Increase the brighness of all colors in the palette by the passed value.
+ By default its 10.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_makecomplement.htm">makeComplement ( )</a>
+					</dt>
+					<dd class="unit6">
+						Creates a 2 color palette with the passed color and it's complement on
+ the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_makecomplementary.htm">makeComplementary ( )</a>
+					</dt>
+					<dd class="unit6">
+						Creates a 6 color palette with the passed color and it's complement on
+ the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel and 
+ 2 darker and softer contrasting colors of each complement.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_makesplittedcomplementary.htm">makeSplittedComplementary ( )</a>
+					</dt>
+					<dd class="unit6">
+						Creates a 3 color palette with the passed color and it's left and right complement on
+ the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_maketetrad.htm">makeTetrad ( )</a>
+					</dt>
+					<dd class="unit6">
+						Creates a 4 color palette that make up an cross  on
+ the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_maketriad.htm">makeTriad ( )</a>
+					</dt>
+					<dd class="unit6">
+						Creates a 3 color palette that make up an triangle  on
+ the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel. 
+ The default angle of the triangle is 120�, for an equilateral triangle, 
+ but you can pass your own in the range of 0-180.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_rotatergb.htm">rotateRGB ( )</a>
+					</dt>
+					<dd class="unit6">
+						Rotates all colors by the passed angle on the RGB color wheel.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_rotateryb.htm">rotateRYB ( )</a>
+					</dt>
+					<dd class="unit6">
+						Rotates all colors by the passed angle on the <a
+ href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_saturate.htm">saturate ( )</a>
+					</dt>
+					<dd class="unit6">
+						Increase the saturation of all colors in the palette by the passed value.
+ By default its 10.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_save.htm">save ( )</a>
+					</dt>
+					<dd class="unit6">
+						Save the palette as an or .act file in your sketch folder
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_setcolor.htm">setColor ( )</a>
+					</dt>
+					<dd class="unit6">
+						Sets the color on the passed position on palette.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_setcolors.htm">setColors ( )</a>
+					</dt>
+					<dd class="unit6">
+						Delete all colors of the palette and fill the palette with the passed colors.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_sortbyhue.htm">sortByHue ( )</a>
+					</dt>
+					<dd class="unit6">
+						Sorts the palette by hue starting with red end ends blue.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_sortbyluminance.htm">sortByLuminance ( )</a>
+					</dt>
+					<dd class="unit6">
+						Sorts the palette by luminance with element at last index containing the
+ "brightest" item of the palette.This method based on toxis 
+ <a href="http://www.toxi.co.uk/blog/2006/04/colour-code-snippets.htm">color code snippets</a>.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_sortbyproximity.htm">sortByProximity ( )</a>
+					</dt>
+					<dd class="unit6">
+						Sorts the palette by proximity to a colour with element at first index
+ containing the "closest" item of the palette.This method based on toxis 
+ <a href="http://www.toxi.co.uk/blog/2006/04/colour-code-snippets.htm">color code snippets</a>.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_sortbysaturation.htm">sortBySaturation ( )</a>
+					</dt>
+					<dd class="unit6">
+						Sorts the palette by saturation with element at last index containing the
+ most saturated item of the palette. This method based on toxis 
+ <a href="http://www.toxi.co.uk/blog/2006/04/colour-code-snippets.htm">color code snippets</a>.
+					</dd>
+<!-- end classmember.htm -->
+
+<!-- start classmember.htm -->
+					<dt class="unit3m">
+						<a href="palette_method_totalswatches.htm">totalSwatches ( )</a>
+					</dt>
+					<dd class="unit6">
+						Returns the count of all swatches in the Palette
+					</dd>
+<!-- end classmember.htm -->
+
+				</dl>
+			</dd>
+<!-- end classmembers.htm -->
+ 			<dt class="unit3m">Usage</dt> 			<dd class="unit9">Web &amp; Application</dd> 			<dt class="unit3m">Related</dt> 			<dd class="unit9">&nbsp;</dd> 		</dl> 		<p id="footer" about="http://code.google.com/p/colorlib/"> 			<span property="dc:title">colorLib.<span>  			&copy; 2008  			<a href="http://eskimoblood.de" property="dc:creator">Andreas K&ouml;berle</a>,  			<a href="http://pixelplayground.eu" property="dc:creator">Jan Vantomme</a>.  			Released under the  			<a rel="cc:license" href="http://creativecommons.org/licenses/MIT/">MIT License</a>. 		</p> 	</div> 	<script type="text/javascript" src="js/shCore.js"></script>	 	<script type="text/javascript" src="js/shBrushJava.js"></script> 	<script type="text/javascript"> 		dp.SyntaxHighlighter.ClipboardSwf = 'flash/clipboard.swf'; 		dp.SyntaxHighlighter.HighlightAll('code'); 	</script> </body> </html>
