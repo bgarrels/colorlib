@@ -1,55 +1,0 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd"> <html 	xmlns="http://www.w3.org/1999/xhtml" 		xmlns:dc="http://purl.org/dc/elements/1.1/" 		xmlns:cc="http://creativecommons.org/ns#"> <head> 	<meta http-equiv="content-type" content="text/html; charset=utf-8" /> 	<meta name="author" content="Jan Vantomme, Andreas K&ouml;berle" /> 	<meta name="copyright" content="2008 Jan Vantomme, Andreas K&ouml;berle" /> 	<meta name="description" content="Documentation for colorlib, a color library for Processing." /> 	 	<link rel="stylesheet" href="css/colorlib.css" type="text/css" media="screen" charset="utf-8" /> 	<title>Colorlib | colorLib.webServices : : Swatch : : brightnessDiff ( )</title> </head> <body> 	<div id="container"> 		<div id="header"> 			<h1>colorLib.webServices</h1> 		</div> 		<div id="contentwrapper"> 			<dl class="unit12"> 				<dt class="unit3m">Name</dt> 				<dd class="unit9">brightnessDiff ( )</dd> 				<dt class="unit3m">Examples</dt> 				<dd class="unit9"> 					<pre name="code" class="java">import colorLib.*;
-
-Swatch s1;
-Swatch s2;
-color  c;
-
-void setup() {
-	size(200, 200);
-	noStroke();
-		
-	s1 = new Swatch(this, color(123, 2, 48));
-	s2 = new Swatch(this, color(3, 78, 255));
-	c  = color(35, 78, 199);
-		
-	fill(s1.getColor());
-	rect(0, 0, width/2, height);
-	fill(s2.getColor());
-	rect(width/2, 0, width/2, height/2);
-	fill(c);
-	rect(width/2, height/2, width/2, height/2);
-		
-	println("Brightness Difference between s1 and s2: " + s1.brightnessDiff(s2));
-	println("Brightness Difference between s1 and c: " + s1.brightnessDiff(c));
-}
-</pre> 				</dd> 				<dt class="unit3m">Description</dt> 				<dd class="unit9">Calculated the brightness difference between the swatch and the given
- color or swatch. The brightness is calculated by the following formular
- <a href="http://www.w3.org/TR/AERT#color-contrast">suggest by the W3C</a>:
- <code>((Red value * 299) + (Green value * 587) + (Blue value * 114)) / 1000</code>
- The result should be higher then 125 for a good readability.</dd> 				<dt class="unit3m">Syntax</dt> 				<dd class="unit9"> 					<pre name="code" class="java">brightnessDiff(i_color);
-brightnessDiff(i_swatch);
-</pre> 				</dd> 				
-<!-- start memberparameters.htm -->
-			<dt class="unit3m">Parameters</dt>
-			<dd class="unit9">
-				<dl>
-				
-<!-- start memberparameter.htm -->
-					<dt class="unit3m">i_color</dt>
-					<dd class="unit6"></dd>
-<!-- end memberparameter.htm -->
-
-<!-- start memberparameter.htm -->
-					<dt class="unit3m">i_swatch</dt>
-					<dd class="unit6"></dd>
-<!-- end memberparameter.htm -->
-
-				</dl>
-			</dd>
-<!-- end memberparameters.htm -->
- 				
-<!-- start memberreturn.htm -->
-					<dt class="unit3m">Returns</dt>
-					<dd class="unit9">float, difference</dd>
-<!-- end memberreturn.htm -->
- 				<dt class="unit3m">Usage</dt> 				<dd class="unit9">Web &amp; Application</dd> 				<dt class="unit3m">Related</dt> 				<dd class="unit9"><a href="swatch_method_colordiff.htm">colorDiff ( )</a></dd> 			</dl>	 		</div> 		<p id="footer" about="http://code.google.com/p/colorlib/"> 			<span property="dc:title">colorLib.<span>  			&copy; 2008  			<a href="http://eskimoblood.de" property="dc:creator">Andreas K&ouml;berle</a>,  			<a href="http://pixelplayground.eu" property="dc:creator">Jan Vantomme</a>.  			Released under the  			<a rel="cc:license" href="http://creativecommons.org/licenses/MIT/">MIT License</a>. 		</p> 	</div> 	<script type="text/javascript" src="js/shCore.js"></script>	 	<script type="text/javascript" src="js/shBrushJava.js"></script>	 	<script type="text/javascript"> 		dp.SyntaxHighlighter.ClipboardSwf = 'flash/clipboard.swf'; 		dp.SyntaxHighlighter.HighlightAll('code'); 	</script> </body> </html>
