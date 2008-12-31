@@ -16,7 +16,7 @@
 	<meta name="DC.publisher" content="Jan Vantomme, Andreas K&ouml;berle" />
 	<meta name="DCTERMS.audience" content="processing.org community" />
 	
-	<link rel="stylesheet" href="css/colorlib.css" type="text/css" media="screen" charset="utf-8" />
+	<link rel="stylesheet" href="css/lightgrid.css" type="text/css" media="screen" charset="utf-8" />
 
 </head>
 <body>
@@ -24,28 +24,29 @@
 		<div id="header">
 			<h1>@colorLib</h1>
 		</div>
-		<div id="navigation">
+		<div id="navigation" class="unit12 line-above">
 			<ul>
 				<li><a href="index.htm">index</a></li>
-				<li><a href="palette.htm">palette</a></li>
-				<li><a href="swatch.htm">swatch</a></li>
+				<li><a href="palette_class_palette.htm">palette</a></li>
+				<li><a href="swatch_class_swatch.htm">swatch</a></li>
 				<li><a href="kuler_class_kuler.htm">kuler</a></li>
 				<li><a href="cllovers_class_cllovers.htm">colourlovers</a></li>
 				<li><a href="colr_class_colr.htm">colr</a></li>
 			</ul>
 		</div>
-		<div id="contentwrapper">
+		<div id="contentwrapper" class="unit12 line-above">
+			<div class="unit12">
+				<div class="unit3m">
+					<strong>Name</strong>
+				</div>
+				<div class="unit9">
+					makeTriad ( )
+			</div>
 			<div class="unit3m">
-				<h3>Name</h3>
+				<strong>Examples</strong>
 			</div>
 			<div class="unit9">
-				makeTriad ( )
-			</div>
-			<div class="unit3m">
-				<h3>Examples</h3>
-			</div>
-			<div class="unit9">
-				<pre>import colorLib.*;
+				<pre><code>import colorLib.*;
 
 Palette p;
 
@@ -82,28 +83,28 @@ void generate(){
   p.makeTetrad(cl);
   p.drawSwatches();
 }
-</pre>
+</code></pre>
 			</div>
-			<div class="unit3m">
-				<h3>Description</h3>
-			</div>
-			<div class="unit9">
-				Creates a 3 color palette that make up an triangle  on
+				<div class="unit3m">
+					<strong>Description</strong>
+				</div>
+				<div class="unit9">
+					Creates a 3 color palette that make up an triangle  on
  the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel. 
  The default angle of the triangle is 120 degrees, for an equilateral triangle, 
  but you can pass your own in the range of 0-180.
-			</div>
-			<div class="unit3m">
-				<h3>Syntax</h3>
-			</div>
-			<div class="unit9">
-				<pre>makeTriad(i_color, i_angle);
+				</div>
+				<div class="unit3m">
+					<strong>Syntax</strong>
+				</div>
+				<div class="unit9">
+					<pre><code>makeTriad(i_color, i_angle);
 makeTriad(i_color);
-</pre>
-			</div>
-			
+</code></pre>
+				</div>
+				
 <!-- start memberparameters.htm -->
-			<div class="unit3m"><h3>Parameters</h3></div>
+			<div class="unit3m"><strong>Parameters</strong></div>
 			<div class="unit9">
 				<div>
 				
@@ -121,22 +122,21 @@ makeTriad(i_color);
 			</div>
 <!-- end memberparameters.htm -->
 
-			
+				
 <!-- start memberreturn.htm -->
-					<div class="unit3m"><h3>Returns</h3></div>
+					<div class="unit3m"><strong>Returns</strong></div>
 					<div class="unit9">None</div>
 <!-- end memberreturn.htm -->
 
-			<div class="unit3m">
-				<h3>Usage</h3>
-			</div>
-			<div class="unit9">
-				Web &amp; Application
-			</div>
-			<div class="unit3m">
-				<h3>Related</h3>
-			</div>
-			<div class="unit9">
+				<div class="unit3m">
+					<strong>Usage</strong>
+				</div>
+				<div class="unit9">
+					Web &amp; Application
+				</div>
+				<div class="unit3m">
+					<strong>Related</strong>
+				</div>
 				<a href="palette_method_makecomplement.htm">makeComplement ( )</a><br />
 <a href="palette_method_makecomplementary.htm">makeComplementary ( )</a><br />
 <a href="palette_method_makesplittedcomplementary.htm">makeSplittedComplementary ( )</a><br />
@@ -144,7 +144,7 @@ makeTriad(i_color);
 
 			</div>
 		</div>
-		<div id="footer">
+		<div id="footer" class="unit12 line-above">
 	    	<p about="http://code.google.com/p/colorlib/">
 				<span property="dc:title">colorLib.</span>
 				&copy; 2008 <a href="http://eskimoblood.de" property="dc:creator">Andreas K&ouml;berle</a>, <a href="http://pixelplayground.eu" property="dc:creator">Jan Vantomme</a>. Released under the <a rel="cc:license" href="http://creativecommons.org/licenses/MIT/">MIT License</a>.

@@ -16,68 +16,65 @@
 	<meta name="DC.publisher" content="Jan Vantomme, Andreas K&ouml;berle" />
 	<meta name="DCTERMS.audience" content="processing.org community" />
 	
-	<link rel="stylesheet" href="css/colorlib.css" type="text/css" media="screen" charset="utf-8" />
+	<link rel="stylesheet" href="css/lightgrid.css" type="text/css" media="screen" charset="utf-8" />
 
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/jquery-chilli.js"></script>
-	<script type="text/javascript">
-		Chilibook.recipeFolder = "js/";
-	</script>
 </head>
 <body>
 	<div id="container">
 		<div id="header">
 			<h1>@colorLib</h1>
 		</div>
-		<div id="navigation">
+		<div id="navigation" class="unit12 line-above">
 			<ul>
 				<li><a href="index.htm">index</a></li>
-				<li><a href="palette.htm">palette</a></li>
-				<li><a href="swatch.htm">swatch</a></li>
-				<li><a href="kuler.htm">kuler</a></li>
+				<li><a href="palette_class_palette.htm">palette</a></li>
+				<li><a href="swatch_class_swatch.htm">swatch</a></li>
+				<li><a href="kuler_class_kuler.htm">kuler</a></li>
+				<li><a href="cllovers_class_cllovers.htm">colourlovers</a></li>
+				<li><a href="colr_class_colr.htm">colr</a></li>
 			</ul>
 		</div>
-		<div id="contentwrapper">
+		<div id="contentwrapper" class="unit12 line-above">
 			<div class="unit12">
 				<div class="unit3m">
-					Name
+					<strong>Name</strong>
 				</div>
 				<div class="unit9">
 					@name
 			</div>
 			<div class="unit3m">
-				Examples
+				<strong>Examples</strong>
 			</div>
 			<div class="unit9">
-				<code class="java">@example</code>
+				<pre><code>@example</code></pre>
 			</div>
 				<div class="unit3m">
-					Description
+					<strong>Description</strong>
 				</div>
 				<div class="unit9">
 					@description
 				</div>
 				<div class="unit3m">
-					Syntax
+					<strong>Syntax</strong>
 				</div>
 				<div class="unit9">
-					<code class="java">@syntax</code>
+					<pre><code>@syntax</code></pre>
 				</div>
 				@parameters
 				@return
 				<div class="unit3m">
-					Usage
+					<strong>Usage</strong>
 				</div>
 				<div class="unit9">
 					@usage
 				</div>
 				<div class="unit3m">
-					Related
+					<strong>Related</strong>
 				</div>
 				@related
 			</div>
 		</div>
-		<div id="footer">
+		<div id="footer" class="unit12 line-above">
 	    	<p about="http://code.google.com/p/colorlib/">
 				<span property="dc:title">colorLib.</span>
 				&copy; 2008 <a href="http://eskimoblood.de" property="dc:creator">Andreas K&ouml;berle</a>, <a href="http://pixelplayground.eu" property="dc:creator">Jan Vantomme</a>. Released under the <a rel="cc:license" href="http://creativecommons.org/licenses/MIT/">MIT License</a>.

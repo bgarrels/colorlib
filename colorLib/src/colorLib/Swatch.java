@@ -325,9 +325,9 @@ public class Swatch {
 		return nearest;
 	}
 	/**
-	 * Calculated the brightness difference between the swatch and the given
-	 * color or swatch. The brightness is calculated by the following formular
-	 * <a href="http://www.w3.org/TR/AERT#color-contrast">suggest by the W3C</a>:
+	 * Calculates the brightness difference between the swatch and the given
+	 * color or swatch. The brightness is calculated by the following formula
+	 * suggested by the <a href="http://www.w3.org/TR/AERT#color-contrast">W3C</a>:
 	 * <code>((Red value * 299) + (Green value * 587) + (Blue value * 114)) / 1000</code>
 	 * The result should be higher then 125 for a good readability.
 	 * 
@@ -353,8 +353,8 @@ public class Swatch {
 
 	/**
 	 * Calculated the color difference between the swatch and the given color or
-	 * swatch by the following formular <a
-	 * href="http://www.w3.org/TR/AERT#color-contrast">suggest by the W3C</a>:
+	 * swatch by the following formula suggested by the <a
+	 * href="http://www.w3.org/TR/AERT#color-contrast">W3C</a>:
 	 * <code>(maximum (Red value 1, Red value 2) - minimum (Red value 1, Red value 2)) + (maximum (Green value 1, Green value 2) - minimum (Green value 1, Green value 2)) + (maximum (Blue value 1, Blue value 2) - minimum (Blue value 1, Blue value 2))</code>
 	 * The result should be higher then 500 for a good readability.
 	 * 

@@ -13,9 +13,12 @@ import java.util.Vector;
 import colorLib.calculation.MedianCut;
 
 /**
+ * Creates a Palette object which will hold all your colors.
  * @author Andreas Kšberle
  * @author Jan Vantomme
+ * @nosuperclasses
  */
+
 public class Palette {
 
 	private static final long serialVersionUID = 1L;

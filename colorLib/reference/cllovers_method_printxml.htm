@@ -6,7 +6,7 @@
 	<meta name="copyright" content="2008 Jan Vantomme, Andreas K&ouml;berle" />
 	<meta name="description" content="Documentation for colorLib, a color library for Processing." />
 
-	<title>colorLib | colorLib.webServices : : Colr : : searchTags ( )</title>
+	<title>colorLib | colorLib.webServices : : ClLovers : : printXML ( )</title>
 
 	<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
 	<link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
@@ -40,51 +40,25 @@
 					<strong>Name</strong>
 				</div>
 				<div class="unit9">
-					searchTags ( )
+					printXML ( )
 			</div>
 			<div class="unit3m">
 				<strong>Examples</strong>
 			</div>
 			<div class="unit9">
-				<pre><code>import colorLib.*;
-import colorLib.webServices.*;
-
-void setup(){
-  size(400, 400);
-  Colr colr = new Colr(this);
-
-  color cl = color(255);
-  String[] tags = colr.searchTags(cl);
-  for(int i=0; i&lt;tags.length; i++){
-    print(tags[i]);
-    //salt berg pure blanc snow cold ice holy blanco clear
-    //ivory ipod glacier silence love sky winter plain blizzard 
-    //god diaphanous white readymix pure notfunny table aquaclic thjy
-  }
-  
-  println(" ");
-  tags = colr.searchTags("000000");
-  for(int i=0; i&lt;tags.length; i++){
-    print(tags[i]);
-    //death hole darkness all midnight inner eyelid space 
-    //vacuum empty goth traffic black tar absolute black emo black black
-  }
-}
-
-</code></pre>
+				<pre><code>None available</code></pre>
 			</div>
 				<div class="unit3m">
 					<strong>Description</strong>
 				</div>
 				<div class="unit9">
-					Query the <a href="http://www.colr.org">Colr service</a> with a color and returns a string array with all related tags.
+					Use this method to print the resulting XML in the console.
 				</div>
 				<div class="unit3m">
 					<strong>Syntax</strong>
 				</div>
 				<div class="unit9">
-					<pre><code>searchTags(hex);
-searchTags(i_color);
+					<pre><code>printXML(b);
 </code></pre>
 				</div>
 				
@@ -94,18 +68,8 @@ searchTags(i_color);
 				<div>
 				
 <!-- start memberparameter.htm -->
-					<div class="unit3m">hex</div>
-					<div class="unit6">String: hex value of a color</div>
-<!-- end memberparameter.htm -->
-
-<!-- start memberparameter.htm -->
-					<div class="unit3m">i_color</div>
-					<div class="unit6">color: color</div>
-<!-- end memberparameter.htm -->
-
-<!-- start memberparameter.htm -->
-					<div class="unit3m">i_color</div>
-					<div class="unit6">Swatch: swatch</div>
+					<div class="unit3m">b</div>
+					<div class="unit6">boolean: set this to true if you want to print the resulting XML in the console</div>
 <!-- end memberparameter.htm -->
 
 				</div>
@@ -115,7 +79,7 @@ searchTags(i_color);
 				
 <!-- start memberreturn.htm -->
 					<div class="unit3m"><strong>Returns</strong></div>
-					<div class="unit9">String[]: string array with all tags associated  with this color</div>
+					<div class="unit9">None</div>
 <!-- end memberreturn.htm -->
 
 				<div class="unit3m">
@@ -127,9 +91,7 @@ searchTags(i_color);
 				<div class="unit3m">
 					<strong>Related</strong>
 				</div>
-				<a href="colr_method_searchthemes.htm">searchThemes ( )</a><br />
-<a href="colr_method_searchcolors.htm">searchColors ( )</a><br />
-
+				
 			</div>
 		</div>
 		<div id="footer" class="unit12 line-above">
