@@ -19,8 +19,11 @@ public class KulerTheme extends ColrTheme {
 	private int themeDownloadCount;
 	private Date themeCreatedAt, themeEditedAt;
 
+	protected String[] themeTags; // added
+	
 	protected KulerTheme(final PApplet i_p, int[] i_colors) {
 		super(i_p, i_colors);
+		this.themeTags = new String[0]; // added
 	}
 
 	/**
@@ -155,11 +158,18 @@ public class KulerTheme extends ColrTheme {
 	public String getThemeID() {
 		return themeID;
 	}
-
+	
 	protected void setThemeTags(String i_themeTags) {
-		if (themeTags != null || !i_themeTags.equalsIgnoreCase("")){
-			themeTags=PApplet.concat(themeTags, i_themeTags.split(","));
-	    }
+		System.out.println("themeTags: " + i_themeTags);
+		
+		if (i_themeTags != null && i_themeTags.contains(",")) {
+			themeTags = PApplet.concat(themeTags, i_themeTags.split(","));
+		//	System.out.println(i_themeTags.contains(",") ? "  - Found a comma" : "  - Didn't find a comma");
+		}
+		
+		/*		if (themeTags != null || !i_themeTags.equalsIgnoreCase("")){
+			themeTags = PApplet.concat(themeTags, i_themeTags.split(","));
+	    } */
 	}
 	
 	protected void setThemeID(final String themeID) {

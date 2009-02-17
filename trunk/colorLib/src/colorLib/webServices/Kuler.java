@@ -1,7 +1,7 @@
 package colorLib.webServices;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+// import java.util.Iterator;
 
 import processing.core.PApplet;
 import processing.xml.*;
@@ -34,9 +34,9 @@ public class Kuler {
 	
 	private String key; // added this one to work with the new Kuler API
 	
-	private String serverPage = "http://kuler-api.adobe.com/rss/";
-	// old url: http://kuler.adobe.com/kuler/API/rss/
-	private String pageTyp=".cfm";
+	private String serverPage = "http://kuler-api.adobe.com/rss/"; // old url: http://kuler.adobe.com/kuler/API/rss/
+	
+		private String pageTyp=".cfm";
 	/**
 	 * @param parent PApplet: normally you will be using new Kuler(this);"
 	 */
@@ -44,6 +44,10 @@ public class Kuler {
 		p = parent;
 	}
 
+	/**
+	 * Sets your Kuler API Key. You can apply for an API Key at the <a href="http://kuler.adobe.com/api/">Adobe Kuler website</a>.
+	 * @param key
+	 */
 	public void setKey(String key) {
 		this.key = key;		
 	}
@@ -51,7 +55,6 @@ public class Kuler {
 	/**
 	 * Get the highest rated colors as an array of <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
 	 * 
-	 * @related getPopular ( )
 	 * @related getPopular ( )
 	 * @related getRecent ( )
 	 * @related getRandom ( )
@@ -74,14 +77,14 @@ public class Kuler {
 	 * @example Kuler_popular
 	 */
 	public KulerTheme[] getPopular() {
-		return makePalettes("&listtype=rating&timespan=30", "get");
+		return makePalettes("&listType=popular&timeSpan=30", "get");
 	}
 
 	/**
 	 * @param days int: Days
 	 */
 	public KulerTheme[] getPopular(final int days) {
-		return makePalettes("&listtype=rating&timespan=" + days, "get");
+		return makePalettes("&listType=popular&timeSpan=" + days, "get");
 	}
 
 	/**
@@ -95,7 +98,7 @@ public class Kuler {
 	 * @example Kuler_recent
 	 */
 	public KulerTheme[] getRecent() {
-		return makePalettes("&listtype=recent", "get");
+		return makePalettes("&listType=recent", "get");
 	}
 
 	/**
@@ -109,7 +112,7 @@ public class Kuler {
 	 * @example Kuler_random
 	 */
 	public KulerTheme[] getRandom() {
-		return makePalettes("&listtype=random", "get");
+		return makePalettes("&listType=random", "get");
 	}
 
 	/**
@@ -129,20 +132,20 @@ public class Kuler {
 	 * @example Kuler_search
 	 */
 	public KulerTheme[] search(final String searchQuery) {
-		return makePalettes(searchQuery, "search");
+		return makePalettes("searchQuery=" + searchQuery, "search");
 	}
 
 	/**
 	 * @param query  String: query that is use with a searchFilter
 	 * @param filter String: one of the following filters: "themeID", "userID", "email", "tag", "hex" and "title"
 	 */
-	public KulerTheme[] search(final String query, final String filter) {
-		return makePalettes("&searchQuery=" + query + ":" + filter, "search");
+	public KulerTheme[] search(final String searchQuery, final String filter) {
+		return makePalettes("&searchQuery=" + searchQuery + ":" + filter, "search");
 	}
 
 	// added the key string to the end of the StringBuffer to work with the new API
 	private KulerTheme[] makePalettes(final String querry, final String typ) {
-		ArrayList themes = new ArrayList();
+		ArrayList<KulerTheme> themes = new ArrayList<KulerTheme>();
 		StringBuffer url = new StringBuffer(serverPage).
 				append(typ).
 				append(pageTyp).
@@ -153,17 +156,21 @@ public class Kuler {
 				append(querry).
 				append("&key="+key);
 		PApplet.println(url.toString());
+
 		if(printXML)printXML(url.toString());
 		XMLElement xml = new XMLElement(p, url.toString());
 		XMLElement[] themeItems = xml.getChildren("channel/item/kuler:themeItem");
+		
 		for (int i = 0; i < themeItems.length; i++) {
 			
 			XMLElement themeItem = themeItems[i];
 			XMLElement[] themeSwatches = themeItem.getChildren("kuler:themeSwatches/kuler:swatch/kuler:swatchHexColor");
 			int[] colors = new int[themeSwatches.length];
+		
 			for (int j = 0; j < themeSwatches.length; j++) {
 				colors[j] = PApplet.unhex("FF" + themeSwatches[j].getContent());
 			}
+			
 			KulerTheme kulerTheme = new KulerTheme(p, colors);
 			
 			kulerTheme.setThemeID(themeItem.getChildren("kuler:themeID")[0].getContent());
@@ -176,7 +183,6 @@ public class Kuler {
 			kulerTheme.setThemeCreatedAt(themeItem.getChildren("kuler:themeCreatedAt")[0].getContent());
 			kulerTheme.setThemeEditedAt(themeItem.getChildren("kuler:themeEditedAt")[0].getContent());
 
-			
 			themes.add(kulerTheme);
 		}
 		
