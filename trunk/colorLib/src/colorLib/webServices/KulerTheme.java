@@ -8,7 +8,7 @@ import processing.core.PApplet;
 import colorLib.Palette;
 
 /**
- * @author Andreas Kšberle
+ * @author Andreas Kï¿½berle
  * @author Jan Vantomme
  * @nosuperclasses
  */
@@ -161,7 +161,6 @@ public class KulerTheme extends ColrTheme {
 	
 	protected void setThemeTags(String i_themeTags) {
 		System.out.println("themeTags: " + i_themeTags);
-		
 		if (i_themeTags != null && i_themeTags.contains(",")) {
 			themeTags = PApplet.concat(themeTags, i_themeTags.split(","));
 		//	System.out.println(i_themeTags.contains(",") ? "  - Found a comma" : "  - Didn't find a comma");
