@@ -1,11 +1,6 @@
 package colorLib.webServices;
 
 import java.util.ArrayList;
-
-import colorLib.Palette;
-
-import com.sun.istack.internal.FinalArrayList;
-
 import processing.core.PApplet;
 import processing.xml.*;
 
@@ -19,6 +14,8 @@ public class ClLovers extends WebService{
 	private String lover, orderCol, sortBy;
 
 	private int[] hueRange, briRange;
+	
+	private int DEFAULT = 0, POPULAR = 1, LATEST = 2, RANDOM = 3;
 
 	/**
 	 * The ClLovers object is a container to query the <a href="http://www.colourlovers.com/">COLOURLovers API</a>.
@@ -87,7 +84,6 @@ public class ClLovers extends WebService{
 				theme.addColor(PApplet.unhex("FF" +color.getChildren("hex")[0].getContent()));
 			}
 		}
-		if(printXML)printXML(url.toString());
 		return theme;
 	}
 	
@@ -111,13 +107,19 @@ public class ClLovers extends WebService{
 	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
 	 * @return ClLoversTheme 
 	 */
-	public ClLoversTheme[] getPalettes(final String i_keywords, final String filename) {
+	private ClLoversTheme[] searchForThemes(final String keywords, final String filename, int mode) {
+		String[] modes = {"?", "/top?", "/new?", "/random"};
 		StringBuffer url = new StringBuffer("http://www.colourlovers.com/api/palettes?").
-		append("hueRange=").append(hueRange[0]).append(",").append(hueRange[1]).
-		append("&briRange=").append(briRange[0]).append(",").append(briRange[1]).
-		append("&numResults=").append(numResults).
-		append("&resultOffset=").append(resultOffset).
-		append("&keywords=").append(i_keywords);
+		append(modes[mode]);
+		if(mode!=3){
+			url.append("hueRange=").append(hueRange[0]).append(",").append(hueRange[1]).
+			append("&briRange=").append(briRange[0]).append(",").append(briRange[1]).
+			append("&numResults=").append(numResults).
+			append("&resultOffset=").append(resultOffset);
+			if(keywords != null){
+				url.append("&keywords=").append(keywords);
+			}
+		}
 		XMLElement xml = getXML(url.toString(), filename);
 		XMLElement[] palettes = xml.getChildren("palette");
 		ArrayList themes = new ArrayList();
@@ -137,16 +139,18 @@ public class ClLovers extends WebService{
 				for (int j = 0; j < colors.length; j++) {
 					theme.addColor(PApplet.unhex("FF" +colors[j].getContent()));
 				}
-				if(printXML)printXML(url.toString());
 				themes.add(theme);
 			}
 		}
 		return (ClLoversTheme[]) themes.toArray(new ClLoversTheme[themes.size()]);
 	}
 	
+	public ClLoversTheme[] getPalettes(final String i_keywords, final String filename) {
+		return searchForThemes(i_keywords, filename, 0);
+	}
+	
 	/**
-	 * Returns the palettes for a given array of keywords.
-	 * @param i_keywords String: An array of keywords.
+	 * @deprecated As of release beta2, replaced by {@link #searchForThemes()}
 	 */
 	public ClLoversTheme[] getPalettes(final String[] i_keywords, final String filename) {
 		StringBuffer keywords = new StringBuffer();
@@ -155,11 +159,14 @@ public class ClLovers extends WebService{
 				keywords.append("+");
 			keywords.append(i_keywords[i]);
 		}
-		return getPalettes(keywords.toString(), filename);
+		return searchForThemes(keywords.toString(), filename, 0);
 	}
 	
+	/**
+	 * @deprecated As of release beta2, replaced by {@link #searchForThemes()}
+	 */
 	public ClLoversTheme[] getPalettes(final String[] i_keywords) {
-		return getPalettes(i_keywords, null);
+		return searchForThemes(i_keywords, null);
 	}
 	
 	/**
@@ -173,16 +180,25 @@ public class ClLovers extends WebService{
 				keywords.append("+");
 			keywords.append(i_keywords[i]);
 		}
-		return getPalettes(keywords.toString(), filename);
+		return searchForThemes(keywords.toString(), filename, DEFAULT);
 	}
 	
 	public ClLoversTheme[] searchForThemes(final String[] i_keywords) {
-		return getPalettes(i_keywords, null);
+		return searchForThemes(i_keywords, null);
 	}
 	
-	public ClLoversTheme[] searchForThemes(final String i_keywords) {
-		return getPalettes(i_keywords, null);
+	public ClLoversTheme[] getPopular(final String keyword, final String filename) {
+		return searchForThemes(keyword, filename, POPULAR);
 	}
+	
+	public ClLoversTheme[] getLatest(final String keyword, final String filename) {
+		return searchForThemes(keyword, filename, LATEST);
+	}
+	
+	public ClLoversTheme[] getRandom(final String keyword, final String filename) {
+		return searchForThemes(keyword, filename, RANDOM);
+	}
+	
 
 	/**
 	 * Returns the brightness range.

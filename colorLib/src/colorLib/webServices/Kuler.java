@@ -63,7 +63,7 @@ public class Kuler extends WebService{
 	/**
 	 * Get the highest rated colors as an array of <a
 	 * href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
-	 * As its it necessary to load an xml every time you start your sketch you can save it by using the filename parameter.
+	 * As it isn't necessary to load an xml every time you start your sketch you can save it by using the filename parameter.
 	 * Once a result is saved it will be used every time you use the same filename parameter
 	 * 
 	 * @related getPopular ( )
@@ -86,7 +86,7 @@ public class Kuler extends WebService{
 	 * Get the most popular colors for the specified number of days (default is
 	 * 30 days) as an array of <a
 	 * href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
-	 * As its it necessary to load an xml every time you start your sketch you can save it by using the filename parameter.
+	 * As it isn't necessary to load an xml every time you start your sketch you can save it by using the filename parameter.
 	 * Once a result is saved it will be used every time you use the same filename parameter
 	 * 
 	 * @related getHighestRated ( )
@@ -117,9 +117,9 @@ public class Kuler extends WebService{
 	/**
 	 * Get the most recent colors as an array of <a
 	 * href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
-	 * As its it necessary to load an xml every time you start your sketch you can save it by using the filename parameter.
+	 * As it isn't necessary to load an xml every time you start your sketch you can save it by using the filename parameter.
 	 * Once a result is saved it will be used every time you use the same filename parameter
-	 * 
+	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
 	 * @related getHighestRated ( )
 	 * @related getPopular ( )
 	 * @related getRandom ( )
@@ -127,14 +127,7 @@ public class Kuler extends WebService{
 	 * @return KulerTheme[], an array of all themes which match the query
 	 * @example Kuler_recent
 	 */
-	public KulerTheme[] getLatest () {
-		return getLatest(null);
-	}
-	
-	/**
-	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
-	 * @return
-	 */
+
 	public KulerTheme[] getLatest (final String filename) {
 		return makePalettes("&listType=recent", "get", filename);
 	}
@@ -180,7 +173,7 @@ public class Kuler extends WebService{
 	 * href="http://labs.adobe.com/wiki/index.php/Kuler#Search_RSS_Feeds">API</a>
 	 * to see the possibilities of the kuler service.<br/> The result is an
 	 * array of <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
-	 * As its it necessary to load an xml every time you start your sketch you can save it by using the filename parameter.
+	 * As it isn't necessary to load an xml every time you start your sketch you can save it by using the filename parameter.
 	 * Once a result is saved it will be used every time you use the same filename parameter
 	 * 
 	 * @param searchQuery
@@ -225,8 +218,8 @@ public class Kuler extends WebService{
 		XMLElement xml = getXML(url, filename);
 		ArrayList<KulerTheme> themes = new ArrayList<KulerTheme>();
 		if (xml.getChild("success") != null && xml.getChild("success").getContent().equals("false")) {
-			PApplet.println("The following error appears while calling kuler service:");
-			PApplet.println(xml.getChild("error/errorText").getContent());
+			p.println("The following error appears while calling kuler service:");
+			p.println(xml.getChild("error/errorText").getContent());
 		} else {
 			XMLElement[] themeItems = xml.getChildren("channel/item/kuler:themeItem");
 
