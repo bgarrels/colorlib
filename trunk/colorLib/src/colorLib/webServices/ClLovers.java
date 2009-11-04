@@ -2,6 +2,10 @@ package colorLib.webServices;
 
 import java.util.ArrayList;
 
+import colorLib.Palette;
+
+import com.sun.istack.internal.FinalArrayList;
+
 import processing.core.PApplet;
 import processing.xml.*;
 
@@ -11,17 +15,11 @@ import processing.xml.*;
  * @nosuperclass
  * @example ClLovers
  */
-public class ClLovers {
+public class ClLovers extends WebService{
 	private String lover, orderCol, sortBy;
 
 	private int[] hueRange, briRange;
 
-	private int numResults, resultOffset;
-
-	final PApplet p;
-
-	private boolean printXML;
-	
 	/**
 	 * The ClLovers object is a container to query the <a href="http://www.colourlovers.com/">COLOURLovers API</a>.
 	 * @param i_p
@@ -44,6 +42,13 @@ public class ClLovers {
 	 * @return ClLoversTheme: ColorLovers Theme
 	 */
 	public ClLoversTheme getColors(final String i_keywords) {
+		return getColors(i_keywords, null);
+	}
+	
+	/**
+	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
+	 */
+	public ClLoversTheme getColors(final String i_keywords, final String filename) {
 		
 		StringBuffer url = new StringBuffer("http://www.colourlovers.com/api/colors?").
 		append("hueRange=").append(hueRange[0]).append(",").append(hueRange[1]).
@@ -52,19 +57,19 @@ public class ClLovers {
 		append("&resultOffset=").append(resultOffset).
 		append("&keywords=").append(i_keywords);
 
-		PApplet.println(url);
+//		PApplet.println(url);
 		
-		String[] s = p.loadStrings(url.toString());
-		
-		StringBuffer buf = new StringBuffer();
-		
-		for (int i = 0; i < s.length; i++) {
-			buf.append(s[i].replaceAll("CDATA.]", "CDATA[empty]"));
-		}
+//		String[] s = p.loadStrings(url.toString());
+//		
+//		StringBuffer buf = new StringBuffer();
+//		
+//		for (int i = 0; i < s.length; i++) {
+//			buf.append(s[i].replaceAll("CDATA.]", "CDATA[empty]"));
+//		}
 		
 //		XMLElement xml = new XMLElement(buf.toString()); // This line is causing big trouble!
 
-		XMLElement xml = new XMLElement(p, url.toString());
+		XMLElement xml = getXML(url.toString(), filename);
 
 		XMLElement[] colors = xml.getChildren("color");
 		ClLoversTheme theme = new ClLoversTheme(p);
@@ -103,16 +108,17 @@ public class ClLovers {
 	/**
 	 * Returns the palettes for a given keyword.
 	 * @param i_keywords
+	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
 	 * @return ClLoversTheme 
 	 */
-	public ClLoversTheme[] getPalettes(final String i_keywords) {
+	public ClLoversTheme[] getPalettes(final String i_keywords, final String filename) {
 		StringBuffer url = new StringBuffer("http://www.colourlovers.com/api/palettes?").
 		append("hueRange=").append(hueRange[0]).append(",").append(hueRange[1]).
 		append("&briRange=").append(briRange[0]).append(",").append(briRange[1]).
 		append("&numResults=").append(numResults).
 		append("&resultOffset=").append(resultOffset).
 		append("&keywords=").append(i_keywords);
-		XMLElement xml = new XMLElement(p, url.toString());
+		XMLElement xml = getXML(url.toString(), filename);
 		XMLElement[] palettes = xml.getChildren("palette");
 		ArrayList themes = new ArrayList();
 		if (palettes.length > 0) {
@@ -142,14 +148,40 @@ public class ClLovers {
 	 * Returns the palettes for a given array of keywords.
 	 * @param i_keywords String: An array of keywords.
 	 */
-	public void getPalettes(final String[] i_keywords) {
+	public ClLoversTheme[] getPalettes(final String[] i_keywords, final String filename) {
 		StringBuffer keywords = new StringBuffer();
 		for (int i = 0; i < i_keywords.length; i++) {
 			if (i > 0)
 				keywords.append("+");
 			keywords.append(i_keywords[i]);
 		}
-		getPalettes(keywords.toString());
+		return getPalettes(keywords.toString(), filename);
+	}
+	
+	public ClLoversTheme[] getPalettes(final String[] i_keywords) {
+		return getPalettes(i_keywords, null);
+	}
+	
+	/**
+	 * Returns the palettes for a given array of keywords.
+	 * @param i_keywords String: An array of keywords.
+	 */
+	public ClLoversTheme[] searchForThemes(final String[] i_keywords, final String filename) {
+		StringBuffer keywords = new StringBuffer();
+		for (int i = 0; i < i_keywords.length; i++) {
+			if (i > 0)
+				keywords.append("+");
+			keywords.append(i_keywords[i]);
+		}
+		return getPalettes(keywords.toString(), filename);
+	}
+	
+	public ClLoversTheme[] searchForThemes(final String[] i_keywords) {
+		return getPalettes(i_keywords, null);
+	}
+	
+	public ClLoversTheme[] searchForThemes(final String i_keywords) {
+		return getPalettes(i_keywords, null);
 	}
 
 	/**
@@ -252,46 +284,6 @@ public class ClLovers {
 		}	
 	}
 
-	/**
-	 * Returns the number of results.
-	 * @return numResults: the Number of results
-	 */
-	public int getNumResults() {
-		return numResults;
-	}
-
-	/**
-	 * Sets the number of results to query.
-	 * The value of the integer should not be bigger than 100.
-	 * @param numResults
-	 */
-	public void setNumResults(int numResults) {
-		this.numResults = PApplet.constrain(numResults, 0, 100);
-	}
-
-	/**
-	 * Returns the result offset.
-	 * @return resultOffset: Result Offset
-	 */
-	public int getResultOffset() {
-		return resultOffset;
-	}
-
-	/**
-	 * Sets the result offset used to query the COLOURLovers API.
-	 * @param resultOffset
-	 */
-	public void setResultOffset(int resultOffset) {
-		this.resultOffset = resultOffset;
-	}
-	
-	private void printXML(String url){
-		String lines[] = p.loadStrings(url);
-		PApplet.println("test");
-		for (int i=0; i < lines.length; i++) {
-			  PApplet.println(lines[i]);
-		}
-	}
 	
 	/**
 	 * Use this method to print the resulting XML in the console. 

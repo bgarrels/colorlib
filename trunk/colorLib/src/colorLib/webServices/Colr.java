@@ -1,23 +1,26 @@
 package colorLib.webServices;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 
 import processing.core.PApplet;
 import processing.xml.XMLElement;
+import processing.xml.XMLWriter;
 import colorLib.Palette;
 import colorLib.Swatch;
 /**
  * Colr is a container to query the <a href="http://www.colr.org">Colr service</a>. 
  * As the <a href="http://www.colr.org/api.html">API of Colr</a> is very limited, there are only three methods to use.
- * @author Andreas Kšberle
+ * @author Andreas Kï¿½berle
  * @author Jan Vantomme
  * @example Colr
  */
-public class Colr {
+public class Colr extends WebService{
 	
-	final PApplet p;
-	public boolean printXML = false;
 	private String serverPage;
 	
 	/**
@@ -35,9 +38,14 @@ public class Colr {
 	 * @related searchColors ( )
 	 * @example Colr_searchTags
 	 */
+	
 	public String[] searchTags(final String hex){
-		String url = "http://www.colr.org/rss/color/";
-		XMLElement xml = new XMLElement(p, url + hex);
+		return searchTags(hex, null);
+	}
+	
+	public String[] searchTags(final String hex, final String filename){
+		String url = "http://www.colr.org/rss/color/" + hex;
+		XMLElement xml = getXML(url, filename);
 		String tags = (xml.getChildren("channel/items/item/description/tags"))[0].getContent();
 		String[] tagArray = new String[0];
 		if (tags != null || !tags.equalsIgnoreCase("")){
@@ -45,7 +53,6 @@ public class Colr {
 	    }else{
 	    	PApplet.println("There are no tags for the color");
 	    }
-		if(printXML)printXML(url + hex);
 		return tagArray;
 	}
 	
@@ -53,14 +60,28 @@ public class Colr {
 	 * @param i_color color: color 
 	 */
 	public String[] searchTags(final int i_color){
-		return searchTags(PApplet.hex(i_color, 6));
+		return searchTags(PApplet.hex(i_color, 6), null);
+	}
+	
+	/**
+	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
+	 */
+	public String[] searchTags(final int i_color, final String filename){
+		return searchTags(PApplet.hex(i_color, 6), filename);
 	}
 	
 	/**
 	 * @param i_color Swatch: swatch
 	 */
 	public String[] searchTags(final Swatch i_color){
-		return searchTags(PApplet.hex(i_color.getColor(), 6));
+		return searchTags(PApplet.hex(i_color.getColor(), 6), null);
+	}
+	
+	/**
+	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
+	 */
+	public String[] searchTags(final Swatch i_color, final String filename){
+		return searchTags(PApplet.hex(i_color.getColor(), 6), filename);
 	}
 	
 	/**
@@ -73,22 +94,25 @@ public class Colr {
 	 * @example Colr
 	 */
 	public ColrTheme searchColors(String tag){
-		String url = "http://www.colr.org/rss/tag/"+ tag;
-		PApplet.println(url);
-		XMLElement xml = new XMLElement(p, url);
+		return searchColors(tag, null);
+	}
+	
+	/**
+	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
+	 */
+	public ColrTheme searchColors(String tag, String filename){
+		XMLElement xml = getXML("http://www.colr.org/rss/tag/"+ tag, filename);
+		
 		ColrTheme theme = new ColrTheme(p);
 		XMLElement[] colors = (xml.getChildren("channel/items/item"));	
 		for (int i = 0; i < colors.length; i++) {
 			XMLElement item= colors[i];
 			String title = item.getChildren("title")[0].getContent();
-			PApplet.println(title);
 			if(title.matches("[0-9A-Fa-f]{6}")){
-				PApplet.println(title);
 				theme.addColor(PApplet.unhex("FF"+title));
 				theme.addThemeTags(item.getChildren("description/tags")[0].getContent());
 			}
 		}
-		if(printXML)printXML(url);
 		return theme;
 	}
 	
@@ -102,10 +126,65 @@ public class Colr {
 	 * @related searchColors ( )
 	 * @example Colr_searchThemes
 	 */
-	public ColrTheme[] searchThemes(String tag){
-		String url = "http://www.colr.org/rss/tag/"+ tag;
-		PApplet.println(url);
-		XMLElement xml = new XMLElement(p, url);
+	public ColrTheme[] searchForThemes(String tag){
+		return searchForTag(tag, null);
+		
+	}
+	public ColrTheme[] searchForThemes(String tag,  final String filename){
+		return searchForTag(tag, filename);
+	}
+	
+	/**
+	 * Query the Colr service with the given tag. 
+	 * Returns an array with all returned schemes as ColrThemes which stores the colors and 
+	 * the tags associated with the scheme on Colr. 
+	 * @param tag
+	 * @return ColrTheme[]: array contains all theme matching the query
+	 * @related searchTags ( )
+	 * @related searchColors ( )
+	 * @example Colr_searchThemes
+	 */
+	public ColrTheme[] searchForTag(String tag){
+		return searchForTag(tag, null);
+		
+	}
+	
+	/**
+	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
+	 */
+	public ColrTheme[] searchForTag(String tag, final String filename){
+		XMLElement xml = null;
+
+		if (filename != null) {
+			try {
+				xml = new XMLElement(p, filename + ".xml");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+			}
+		}
+		if (xml == null) {
+			String url = "http://www.colr.org/rss/tag/" + tag;
+			PApplet.println(url);
+			xml = new XMLElement(p, url);
+
+			if (printXML) {
+				printXML(url.toString());
+			}
+			xml = new XMLElement(p, url.toString());
+
+			if (filename != null) {
+				try {
+					PrintWriter xmlfile = new PrintWriter(new OutputStreamWriter(new FileOutputStream(filename + ".xml"), "UTF-8"));
+					XMLWriter writer = new XMLWriter(xmlfile);
+					writer.write(xml);
+					xmlfile.flush();
+					xmlfile.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 		ArrayList themes = new ArrayList();
 		XMLElement[] items = (xml.getChildren("channel/items/item"));
 		for (int i = 0; i < items.length; i++) {
@@ -124,14 +203,6 @@ public class Colr {
 				themes.add(theme);
 			}
 		}
-		if(printXML)printXML(url + tag);
 		return ((ColrTheme[]) themes.toArray(new ColrTheme[themes.size()]));
-	}
-	
-	private void printXML(String url){
-		String lines[] = p.loadStrings(url);
-		for (int i=0; i < lines.length; i++) {
-			  PApplet.println(lines[i]);
-		}
 	}
 }

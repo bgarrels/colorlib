@@ -1,6 +1,12 @@
 package colorLib.webServices;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import colorLib.Palette;
 // import java.util.Iterator;
 
 import processing.core.PApplet;
@@ -22,15 +28,12 @@ import processing.xml.*;
  * @nosuperclasses
  * @exmaple Kuler_search
  */
-public class Kuler {
+/**
+ * @author andreask
+ *
+ */
+public class Kuler extends WebService{
 
-	private PApplet p;
-
-	private int maxItems = 20;
-
-	private int startIndex = 0;
-
-	private boolean printXML = false;
 
 	private String key; // added this one to work with the new Kuler API
 
@@ -60,6 +63,8 @@ public class Kuler {
 	/**
 	 * Get the highest rated colors as an array of <a
 	 * href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
+	 * As its it necessary to load an xml every time you start your sketch you can save it by using the filename parameter.
+	 * Once a result is saved it will be used every time you use the same filename parameter
 	 * 
 	 * @related getPopular ( )
 	 * @related getRecent ( )
@@ -68,13 +73,21 @@ public class Kuler {
 	 * @return KulerTheme[], an array of all themes which match the query
 	 */
 	public KulerTheme[] getHighestRated() {
-		return makePalettes("&listtype=rating", "get");
+		return makePalettes("&listtype=rating", "get", null);
+	}
+	/**
+	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
+	 */
+	public KulerTheme[] getHighestRated(final String filename) {
+		return makePalettes("&listtype=rating", "get", filename);
 	}
 
 	/**
 	 * Get the most popular colors for the specified number of days (default is
 	 * 30 days) as an array of <a
 	 * href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
+	 * As its it necessary to load an xml every time you start your sketch you can save it by using the filename parameter.
+	 * Once a result is saved it will be used every time you use the same filename parameter
 	 * 
 	 * @related getHighestRated ( )
 	 * @related getRecent ( )
@@ -83,8 +96,8 @@ public class Kuler {
 	 * @return KulerTheme[], an array of all themes which match the query
 	 * @example Kuler_popular
 	 */
-	public KulerTheme[] getPopular() {
-		return makePalettes("&listType=popular&timeSpan=30", "get");
+	public KulerTheme[] getPopular(final String filename) {
+		return makePalettes("&listType=popular&timeSpan=30", "get", filename);
 	}
 
 	/**
@@ -92,12 +105,20 @@ public class Kuler {
 	 *            int: Days
 	 */
 	public KulerTheme[] getPopular(final int days) {
-		return makePalettes("&listType=popular&timeSpan=" + days, "get");
+		return makePalettes("&listType=popular&timeSpan=" + days, "get", null);
+	}
+	/**
+	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
+	 */
+	public KulerTheme[] getPopular(final int days, final String filename) {
+		return makePalettes("&listType=popular&timeSpan=" + days, "get", filename);
 	}
 
 	/**
 	 * Get the most recent colors as an array of <a
 	 * href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
+	 * As its it necessary to load an xml every time you start your sketch you can save it by using the filename parameter.
+	 * Once a result is saved it will be used every time you use the same filename parameter
 	 * 
 	 * @related getHighestRated ( )
 	 * @related getPopular ( )
@@ -106,8 +127,34 @@ public class Kuler {
 	 * @return KulerTheme[], an array of all themes which match the query
 	 * @example Kuler_recent
 	 */
+	public KulerTheme[] getLatest () {
+		return getLatest(null);
+	}
+	
+	/**
+	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
+	 * @return
+	 */
+	public KulerTheme[] getLatest (final String filename) {
+		return makePalettes("&listType=recent", "get", filename);
+	}
+	
+	
+	/**
+	 * @deprecated As of release beta2, replaced by {@link #getLatest()}
+	 * @return
+	 */
 	public KulerTheme[] getRecent() {
-		return makePalettes("&listType=recent", "get");
+		return getLatest(null);
+	}
+	
+	/**
+	 * @deprecated As of release beta2, replaced by {@link #getLatest()}
+	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
+	 * @return
+	 */
+	public KulerTheme[] getRecent(final String filename) {
+		return getLatest(filename);
 	}
 
 	/**
@@ -121,8 +168,9 @@ public class Kuler {
 	 * @return KulerTheme[], an array of all themes which match the query
 	 * @example Kuler_random
 	 */
-	public KulerTheme[] getRandom() {
-		return makePalettes("&listType=random", "get");
+	
+	public KulerTheme[] getRandom(final String filename) {
+		return makePalettes("&listType=random", "get", filename);
 	}
 
 	/**
@@ -132,6 +180,8 @@ public class Kuler {
 	 * href="http://labs.adobe.com/wiki/index.php/Kuler#Search_RSS_Feeds">API</a>
 	 * to see the possibilities of the kuler service.<br/> The result is an
 	 * array of <a href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
+	 * As its it necessary to load an xml every time you start your sketch you can save it by using the filename parameter.
+	 * Once a result is saved it will be used every time you use the same filename parameter
 	 * 
 	 * @param searchQuery
 	 *            String: your query
@@ -143,7 +193,7 @@ public class Kuler {
 	 * @example Kuler_search
 	 */
 	public KulerTheme[] search(final String searchQuery) {
-		return makePalettes("searchQuery=" + searchQuery, "search");
+		return makePalettes("searchQuery=" + searchQuery, "search", null);
 	}
 
 	/**
@@ -154,20 +204,26 @@ public class Kuler {
 	 *            "email", "tag", "hex" and "title"
 	 */
 	public KulerTheme[] search(final String searchQuery, final String filter) {
-		return makePalettes("&searchQuery=" + searchQuery + ":" + filter, "search");
+		return makePalettes("&searchQuery=" + filter + ":" + searchQuery, "search", null);
 	}
 
-	// added the key string to the end of the StringBuffer to work with the new
-	// API
-	private KulerTheme[] makePalettes(final String querry, final String typ) {
+	/**
+	 * @param filename Filename to save the result xml, respectively load the xml if it still exists
+	 * @return
+	 */
+	public KulerTheme[] search(final String searchQuery, final String filter, String filename) {
+		return makePalettes("&searchQuery=" + filter + ":" + searchQuery, "search", filename);
+	}
+	
+	public KulerTheme[] searchForThemes(String tag, String filename) {
+		return makePalettes("&searchQuery=tag:" + tag , "search", filename);
+	}
+	
+	private KulerTheme[] makePalettes(final String querry, final String typ, String filename) {
+		String url = new StringBuffer(serverPage).append(typ).append(pageTyp).append("?itemsPerPage=").append(numResults).append("&startIndex=").append(resultOffset).append(querry).append(
+				"&key=" + key).toString();
+		XMLElement xml = getXML(url, filename);
 		ArrayList<KulerTheme> themes = new ArrayList<KulerTheme>();
-		StringBuffer url = new StringBuffer(serverPage).append(typ).append(pageTyp).append("?itemsPerPage=").append(maxItems).append("&startIndex=").append(startIndex).append(querry).append(
-				"&key=" + key);
-		PApplet.println(url.toString());
-
-		if (printXML)
-			printXML(url.toString());
-		XMLElement xml = new XMLElement(p, url.toString());
 		if (xml.getChild("success") != null && xml.getChild("success").getContent().equals("false")) {
 			PApplet.println("The following error appears while calling kuler service:");
 			PApplet.println(xml.getChild("error/errorText").getContent());
@@ -202,79 +258,6 @@ public class Kuler {
 		return (KulerTheme[]) themes.toArray(new KulerTheme[themes.size()]);
 	}
 
-	/**
-	 * Get the maximum number of items to display on a page, in the range
-	 * [1..100]. Default is 20.
-	 * 
-	 * @return int: maximum items per query
-	 * @related setMaxItems ( )
-	 * @related getStartIndex ( )
-	 * @related setStartIndex ( )
-	 * @example Kuler_maxItems
-	 */
-	public int getMaxItems() {
-		return maxItems;
-	}
-
-	/**
-	 * Set the maximum number of items to display on a page, in the range
-	 * [1..100]. Default is 20.
-	 * 
-	 * @param maxItems
-	 *            int: maximum items per query
-	 * @related getMaxItems ( )
-	 * @related getStartIndex ( )
-	 * @related setStartIndex ( )
-	 */
-	public void setMaxItems(int maxItems) {
-		this.maxItems = maxItems;
-	}
-
-	/**
-	 * A 0-based index into the list that specifies the first item to display.
-	 * Default is 0, which displays the first item in the list.
-	 * 
-	 * @return int: start index
-	 * @related getMaxItems ( )
-	 * @related setMaxItems ( )
-	 * @related setStartIndex ( )
-	 * @example Kuler_maxItems
-	 */
-	public int getStartIndex() {
-		return startIndex;
-	}
-
-	/**
-	 * A 0-based index into the list that specifies the first item to display.
-	 * Default is 0, which displays the first item in the list.
-	 * 
-	 * @param startIndex
-	 *            int: start index
-	 * @related getMaxItems ( )
-	 * @related setMaxItems ( )
-	 * @related getStartIndex ( )
-	 */
-	public void setStartIndex(int startIndex) {
-		this.startIndex = startIndex;
-	}
-
-	private void printXML(String url) {
-		String lines[] = p.loadStrings(url);
-		for (int i = 0; i < lines.length; i++) {
-			PApplet.println(lines[i]);
-		}
-	}
-
-	/**
-	 * Use this methode to print the result xml in the console.
-	 * 
-	 * @param b
-	 *            boolean: set true if you want the result xml printed in the
-	 *            console
-	 */
-	public void printXML(boolean b) {
-		printXML = b;
-	}
 
 	/**
 	 * As you cant connect to the kuler service directly if you run your sketch

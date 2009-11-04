@@ -4,7 +4,7 @@ import processing.core.PApplet;
 import colorLib.Palette;
 
 /**
- * @author Andreas Kšberle
+ * @author Andreas Kï¿½berle
  * @nosuperclasses
  */
 public class ColrTheme extends Palette {
