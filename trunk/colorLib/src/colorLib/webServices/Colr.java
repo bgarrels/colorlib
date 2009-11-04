@@ -21,7 +21,7 @@ import colorLib.Swatch;
  */
 public class Colr extends WebService{
 	
-	private String serverPage;
+	private final int DEFAULT = 0, LATEST = 1, RANDOM = 2;
 	
 	/**
 	 * @param i_p
@@ -29,6 +29,8 @@ public class Colr extends WebService{
 	public Colr(final PApplet i_p){
 		p=i_p;
 	}
+	
+	
 	
 	/**
 	 * Query the <a href="http://www.colr.org">Colr service</a> with a color and returns a string array with all related tags.
@@ -51,7 +53,7 @@ public class Colr extends WebService{
 		if (tags != null || !tags.equalsIgnoreCase("")){
 			tagArray= tags.split(",");
 	    }else{
-	    	PApplet.println("There are no tags for the color");
+	    	p.println("There are no tags for the color");
 	    }
 		return tagArray;
 	}
@@ -84,6 +86,8 @@ public class Colr extends WebService{
 		return searchTags(PApplet.hex(i_color.getColor(), 6), filename);
 	}
 	
+
+	
 	/**
 	 * Query the <a href="http://www.colr.org">Colr service</a> with a tag and 
 	 * return a ColrTheme holding all colors and all tags associated with this tag.
@@ -96,6 +100,8 @@ public class Colr extends WebService{
 	public ColrTheme searchColors(String tag){
 		return searchColors(tag, null);
 	}
+	
+	
 	
 	/**
 	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
@@ -126,64 +132,21 @@ public class Colr extends WebService{
 	 * @related searchColors ( )
 	 * @example Colr_searchThemes
 	 */
-	public ColrTheme[] searchForThemes(String tag){
-		return searchForTag(tag, null);
-		
-	}
-	public ColrTheme[] searchForThemes(String tag,  final String filename){
-		return searchForTag(tag, filename);
-	}
-	
-	/**
-	 * Query the Colr service with the given tag. 
-	 * Returns an array with all returned schemes as ColrThemes which stores the colors and 
-	 * the tags associated with the scheme on Colr. 
-	 * @param tag
-	 * @return ColrTheme[]: array contains all theme matching the query
-	 * @related searchTags ( )
-	 * @related searchColors ( )
-	 * @example Colr_searchThemes
-	 */
-	public ColrTheme[] searchForTag(String tag){
-		return searchForTag(tag, null);
-		
+	public ColrTheme[] searchForThemes(final String tag){
+		return searchForThemes(tag, null, DEFAULT);
 	}
 	
 	/**
 	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
 	 */
-	public ColrTheme[] searchForTag(String tag, final String filename){
-		XMLElement xml = null;
+	public ColrTheme[] searchForThemes(final String tag, final String filename, final int mode){
+		String[] modes = {"tag/", "latest", "random"};
+		StringBuffer url = new StringBuffer("http://www.colr.org/rss/").append(modes[mode]);
 
-		if (filename != null) {
-			try {
-				xml = new XMLElement(p, filename + ".xml");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-			}
+		if(mode == DEFAULT){
+			url.append(tag);
 		}
-		if (xml == null) {
-			String url = "http://www.colr.org/rss/tag/" + tag;
-			PApplet.println(url);
-			xml = new XMLElement(p, url);
-
-			if (printXML) {
-				printXML(url.toString());
-			}
-			xml = new XMLElement(p, url.toString());
-
-			if (filename != null) {
-				try {
-					PrintWriter xmlfile = new PrintWriter(new OutputStreamWriter(new FileOutputStream(filename + ".xml"), "UTF-8"));
-					XMLWriter writer = new XMLWriter(xmlfile);
-					writer.write(xml);
-					xmlfile.flush();
-					xmlfile.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+		XMLElement xml = getXML(url.toString(), filename);
 		
 		ArrayList themes = new ArrayList();
 		XMLElement[] items = (xml.getChildren("channel/items/item"));
@@ -204,5 +167,29 @@ public class Colr extends WebService{
 			}
 		}
 		return ((ColrTheme[]) themes.toArray(new ColrTheme[themes.size()]));
+	}
+	
+	
+	public ColrTheme[] getLatest(final String filename) {
+		return searchForThemes(null, filename, LATEST);
+	}
+	
+	public ColrTheme[] getRandom(final String filename) {
+		return searchForThemes(null, filename, RANDOM);
+	}
+	
+	/**
+	 * @deprecated
+	 */
+	public ColrTheme[] searchForTag(final String tag,  final String filename){
+		return searchForThemes(tag, filename, DEFAULT);
+	}
+	
+	/**
+	 * @deprecated
+	 */
+	public ColrTheme[] searchForTag(final String tag){
+		return searchForThemes(tag, null, DEFAULT);
+		
 	}
 }

@@ -26,7 +26,7 @@ public abstract class WebService {
 			}
 		}
 		if (xml == null) {
-			PApplet.println(url);
+			p.println(url);
 			xml = new XMLElement(p, url);
 			if (printXML) {
 				printXML(url.toString());
@@ -49,7 +49,7 @@ public abstract class WebService {
 	protected void printXML(String url) {
 		String lines[] = p.loadStrings(url);
 		for (int i = 0; i < lines.length; i++) {
-			PApplet.println(lines[i]);
+			p.println(lines[i]);
 		}
 	}
 	
@@ -66,7 +66,7 @@ public abstract class WebService {
 	}
 	
 	public Palette[] getPopular(final String filename) {
-		return null;
+		throw new UnsupportedOperationException();
 	}
 	
 	public Palette[] getLatest() {
