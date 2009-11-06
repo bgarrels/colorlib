@@ -145,8 +145,11 @@ public class ClLovers extends WebService{
 		return (ClLoversTheme[]) themes.toArray(new ClLoversTheme[themes.size()]);
 	}
 	
+	/**
+	 * @deprecated As of release beta2, replaced by {@link #searchForThemes()}
+	 */
 	public ClLoversTheme[] getPalettes(final String i_keywords, final String filename) {
-		return searchForThemes(i_keywords, filename, 0);
+		return searchForThemes(i_keywords, filename, DEFAULT);
 	}
 	
 	/**
@@ -159,7 +162,7 @@ public class ClLovers extends WebService{
 				keywords.append("+");
 			keywords.append(i_keywords[i]);
 		}
-		return searchForThemes(keywords.toString(), filename, 0);
+		return searchForThemes(keywords.toString(), filename, DEFAULT);
 	}
 	
 	/**
@@ -167,6 +170,14 @@ public class ClLovers extends WebService{
 	 */
 	public ClLoversTheme[] getPalettes(final String[] i_keywords) {
 		return searchForThemes(i_keywords, null);
+	}
+	
+	public ClLoversTheme[] searchForThemes(final String keyword, final String filename) {
+		return searchForThemes(keyword, filename, DEFAULT);
+	}
+	
+	public ClLoversTheme[] searchForThemes(final String keyword) {
+		return searchForThemes(keyword, null, DEFAULT);
 	}
 	
 	/**
@@ -189,6 +200,10 @@ public class ClLovers extends WebService{
 	
 	public ClLoversTheme[] getPopular(final String keyword, final String filename) {
 		return searchForThemes(keyword, filename, POPULAR);
+	}
+	
+	public ClLoversTheme[] getPopular(final String filename) {
+		return searchForThemes("", filename, POPULAR);
 	}
 	
 	public ClLoversTheme[] getLatest(final String keyword, final String filename) {

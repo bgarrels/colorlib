@@ -136,6 +136,10 @@ public class Colr extends WebService{
 		return searchForThemes(tag, null, DEFAULT);
 	}
 	
+	public ColrTheme[] searchForThemes(final String tag, final String filename){
+		return searchForThemes(tag, filename, DEFAULT);
+	}
+	
 	/**
 	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
 	 */
