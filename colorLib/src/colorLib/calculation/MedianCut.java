@@ -15,11 +15,13 @@ import colorLib.Swatch;
 /**
  * Creates a MedianCut object
  * 
- * @author Andreas Kšberle
+ * @author Andreas K&ouml;berle
  * @author Jan Vantomme
  * 
  */
-public class MedianCut {
+
+public class MedianCut
+{
 
 	private Hashtable histogram;
 
@@ -33,20 +35,22 @@ public class MedianCut {
 	 * Creates a MedianCut object.
 	 * @param i_p
 	 */
+	
 	public MedianCut(PApplet i_p)
 	{
 		p = i_p;
 	}
 
 	/**
-	 * 
 	 * @param colors
 	 * @param cnt
 	 * @return result
 	 */
+	
 	public int[] calc(int[] colors, int cnt)
 	{
 		histogram = new Hashtable();
+		
 		for (int i = 0; i < colors.length; i++) {
 			Integer color = new Integer(colors[i]);
 			if (histogram.containsKey(color)) {
@@ -56,23 +60,28 @@ public class MedianCut {
 				histogram.put(color, new Integer(1));
 			}
 		}
+		
 		HashSet h = new HashSet();
+		
 		for (int i = 0; i < colors.length; i++) {
 			h.add(new Integer(colors[i]));
 		}
+		
 		colors = new int[h.size()];
-		Iterator iter = h.iterator();
+		Iterator iter = h.iterator();	
 		int cnter = 0;
 		while (iter.hasNext()) {
 			colors[cnter] = ((Integer) iter.next()).intValue();
 			cnter++;
 		}
+		
 		int ncubes = 0;
 		Cube cube = new Cube(colors, 0);
 		cube.level = 0;
 		shrink(cube);
 		cubes = new Cube[cnt];
 		cubes[ncubes++] = cube;
+		
 		while (ncubes < cnt) {
 			int nextCube = -1, colorCnt = 1;
 			for (int i = 0; i < ncubes; i++) {
@@ -99,10 +108,12 @@ public class MedianCut {
 			}
 			cubes[ncubes++] = cube.split();
 		}
+		
 		int[] result = new int[ncubes];
 		for (int i = 0; i < ncubes; i++) {
 			result[i] = cubes[i].getAverage();
 		}
+		
 		return result;
 	}
 
@@ -242,6 +253,7 @@ public class MedianCut {
 		 * 
 		 * @return
 		 */
+		
 		Cube split()
 		{
 			int cnt = 0, i = 0;
@@ -263,6 +275,7 @@ public class MedianCut {
 		/**
 		 * Counts the colors.
 		 */
+		
 		void countColor()
 		{
 			 count = colors.length;
@@ -276,6 +289,7 @@ public class MedianCut {
 		/**
 		 * Returns the average.
 		 */
+		
 		int getAverage() 
 		{
 			int a = 0;
