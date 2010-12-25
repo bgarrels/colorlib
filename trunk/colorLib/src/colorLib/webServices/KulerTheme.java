@@ -10,9 +10,9 @@ import colorLib.Palette;
 /**
  * @author Andreas K�berle
  * @author Jan Vantomme
- * @nosuperclasses
  */
 public class KulerTheme extends ColrTheme {
+	
 	private String themeID, themeTitle, authorLabel, authorID;
 
 	private int themeRating;
@@ -21,7 +21,8 @@ public class KulerTheme extends ColrTheme {
 
 	protected String[] themeTags; // added
 	
-	protected KulerTheme(final PApplet i_p, int[] i_colors) {
+	protected KulerTheme(final PApplet i_p, int[] i_colors)
+	{
 		super(i_p, i_colors);
 		this.themeTags = new String[0]; // added
 	}
@@ -30,39 +31,28 @@ public class KulerTheme extends ColrTheme {
 	 * Returns the id of the author. This function can be used to search for more themes
 	 * by the same author.
 	 * @return String: authorID
-	 * @related getAuthorLabel ( ) 
-	 * @related getThemeCreatedAt ( ) 
-	 * @related getThemeDownloadCount ( ) 
-	 * @related getThemeEditedAt ( ) 
-	 * @related getThemeID ( ) 
-	 * @related getThemeRating ( ) 
-	 * @related getThemeTitle ( ) 
 	 */
-	public String getAuthorId() {
+	public String getAuthorId()
+	{
 		return authorID;
 	}
 
-	protected void setAuthorID(final String authorID) {
+	protected void setAuthorID(final String authorID)
+	{
 		this.authorID = authorID;
 	}
 
 	/**
 	 * Returns the name of the author.
 	 * @return String: authorLabel
-	 * @related getAuthorId ( )
-	 * @related getThemeCreatedAt ( ) 
-	 * @related getThemeDownloadCount ( ) 
-	 * @related getThemeEditedAt ( ) 
-	 * @related getThemeID ( ) 
-	 * @related getThemeRating ( ) 
-	 * @related getThemeTitle ( ) 
-	 * @example KulerTheme_authorLabel
 	 */
-	public String getAuthorLabel() {
+	public String getAuthorLabel()
+	{
 		return authorLabel;
 	}
 
-	protected void setAuthorLabel(final String authorLabel) {
+	protected void setAuthorLabel(final String authorLabel)
+	{
 		this.authorLabel = authorLabel;
 	}
 
@@ -71,26 +61,21 @@ public class KulerTheme extends ColrTheme {
 	 * @return 	String: date, returns the date formated with the passed dateFormat, default is "yyyy-MM-dd",
 	 * 		   	see <a href="http://java.sun.com/docs/books/tutorial/i18n/format/simpleDateFormat.html">Suns' Java tutorial</a> for 
 	 * 			posibble formats.
-	 * @related getAuthorId ( )
-	 * @related getAuthorLabel ( ) 
-	 * @related getThemeDownloadCount ( ) 
-	 * @related getThemeEditedAt ( ) 
-	 * @related getThemeID ( ) 
-	 * @related getThemeRating ( ) 
-	 * @related getThemeTitle ( ) 
-	 * @example Kuler_recent
 	 */
-	public String getThemeCreatedAt(String dateFormat) {
+	public String getThemeCreatedAt(String dateFormat)
+	{
 		SimpleDateFormat df = new SimpleDateFormat(dateFormat);
 		return df.format(themeCreatedAt);
 	}
 	
-	public String getThemeCreatedAt() {
+	public String getThemeCreatedAt()
+	{
 		return getThemeCreatedAt("yyyy-MM-dd");
 		
 	}
 
-	protected void setThemeCreatedAt(final String themeCreatedAt) {
+	protected void setThemeCreatedAt(final String themeCreatedAt)
+	{
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		try {
 			this.themeCreatedAt = format.parse(themeCreatedAt);
@@ -104,38 +89,28 @@ public class KulerTheme extends ColrTheme {
 	/**
 	 * Returns how often the theme was downloaded. 
 	 * @return int: download count
-	 * @related getAuthorId ( )
-	 * @related getAuthorLabel ( ) 
-	 * @related getThemeCreatedAt ( ) 
-	 * @related getThemeEditedAt ( ) 
-	 * @related getThemeID ( ) 
-	 * @related getThemeRating ( ) 
-	 * @related getThemeTitle ( ) 
 	 */
-	public int getThemeDownloadCount() {
+	public int getThemeDownloadCount()
+	{
 		return themeDownloadCount;
 	}
 
-	protected void setThemeDownloadCount(final String themeDownloadCount) {
+	protected void setThemeDownloadCount(final String themeDownloadCount)
+	{
 		this.themeDownloadCount = Integer.valueOf(themeDownloadCount).intValue();
 	}
 
 	/**
 	 * Returns the date the theme was last modified.
 	 * @return Date: date
-	 * @related getAuthorId ( )
-	 * @related getAuthorLabel ( ) 
-	 * @related getThemeCreatedAt ( ) 
-	 * @related getThemeDownloadCount ( ) 
-	 * @related getThemeID ( ) 
-	 * @related getThemeRating ( ) 
-	 * @related getThemeTitle ( ) 
 	 */
-	public Date getThemeEditedAt() {
+	public Date getThemeEditedAt()
+	{
 		return themeEditedAt;
 	}
 
-	protected void setThemeEditedAt(final String themeEditedAt) {
+	protected void setThemeEditedAt(final String themeEditedAt)
+	{
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		try {
 			this.themeEditedAt = format.parse(themeEditedAt);
@@ -147,19 +122,14 @@ public class KulerTheme extends ColrTheme {
 	/**
 	 * Returns the id of the theme, which can be used for another query against the Kuler service.
 	 * @return String: ID
-	 * @related getAuthorId ( )
-	 * @related getAuthorLabel ( ) 
-	 * @related getThemeCreatedAt ( ) 
-	 * @related getThemeDownloadCount ( ) 
-	 * @related getThemeEditedAt ( ) 
-	 * @related getThemeRating ( ) 
-	 * @related getThemeTitle ( ) 
 	 */
-	public String getThemeID() {
+	public String getThemeID()
+	{
 		return themeID;
 	}
 	
-	protected void setThemeTags(String i_themeTags) {
+	protected void setThemeTags(String i_themeTags)
+	{
 		System.out.println("themeTags: " + i_themeTags);
 		if (i_themeTags != null && i_themeTags.contains(",")) {
 			themeTags = PApplet.concat(themeTags, i_themeTags.split(","));
@@ -171,47 +141,36 @@ public class KulerTheme extends ColrTheme {
 	    } */
 	}
 	
-	protected void setThemeID(final String themeID) {
+	protected void setThemeID(final String themeID)
+	{
 		this.themeID = themeID;
 	}
 
 	/**
 	 * Returns the rating of the theme.
 	 * @return int: rating
-	 * @related getAuthorId ( )
-	 * @related getAuthorLabel ( ) 
-	 * @related getThemeCreatedAt ( ) 
-	 * @related getThemeDownloadCount ( ) 
-	 * @related getThemeEditedAt ( ) 
-	 * @related getThemeID ( ) 
-	 * @related getThemeTitle ( ) 
-	 * @example Kuler_popular
 	 */
-	public float getThemeRating() {
+	public float getThemeRating()
+	{
 		return themeRating;
 	}
 
-	protected void setThemeRating(final String themeRating) {
+	protected void setThemeRating(final String themeRating)
+	{
 		this.themeRating = Integer.valueOf(themeRating).intValue();
 	}
 
 	/**
 	 * Returns the title of the theme.
 	 * @return String: title
-	 * @related getAuthorId ( )
-	 * @related getAuthorLabel ( ) 
-	 * @related getThemeCreatedAt ( ) 
-	 * @related getThemeDownloadCount ( ) 
-	 * @related getThemeEditedAt ( ) 
-	 * @related getThemeID ( ) 
-	 * @related getThemeRating ( ) 
-	 * @example KulerTheme_themeTitle
 	 */
-	public String getThemeTitle() {
+	public String getThemeTitle()
+	{
 		return themeTitle;
 	}
 
-	protected void setThemeTitle(final String themeTitle) {
+	protected void setThemeTitle(final String themeTitle)
+	{
 		this.themeTitle = themeTitle;
 	}
 
