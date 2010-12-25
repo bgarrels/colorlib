@@ -14,20 +14,18 @@ import colorLib.calculation.MedianCut;
 
 /**
  * Creates a Palette object which will hold all your colors.
- * @author Andreas Kšberle
+ * @author Andreas K&uml;berle
  * @author Jan Vantomme
- * @nosuperclasses
  */
 
-public class Palette {
+public class Palette
+{
 
 	private static final long serialVersionUID = 1L;
 
 	protected Swatch[] swatches;
 
 	protected PApplet p;
-
-	PImage dropShadow;
 
 	/**
 	 * Creates a new palette object which holds your colors. All color
@@ -38,27 +36,32 @@ public class Palette {
 	 * href="www.colorschemer.com">color shemer</a> .cs file or an .act file
 	 * which you can create in Photoshop for example.
 	 * 
-	 * @param i_p
-	 *            PApplet, normally use 'this'
+	 * @param i_p	PApplet, normally use 'this'
 	 */
-	public Palette(PApplet i_p) {
+	
+	public Palette(PApplet i_p)
+	{
 		p = i_p;
 		swatches = new Swatch[0];
 	}
 
 	/**
+	 * Creates a Palette with a certain length.
 	 * @param i_length
 	 *            int: length of the created
 	 */
-	public Palette(PApplet i_p, int i_length) {
+	public Palette(PApplet i_p, int i_length)
+	{
 		this(i_p, new int[i_length]);
 	}
 
 	/**
+	 * Creates a Palette from an array of colors.
 	 * @param i_colors
 	 *            color[]: an array of colors
 	 */
-	public Palette(PApplet i_p, int[] i_colors) {
+	public Palette(PApplet i_p, int[] i_colors)
+	{
 		p = i_p;
 		swatches = new Swatch[i_colors.length];
 		for (int i = 0; i < i_colors.length; i++) {
@@ -67,10 +70,12 @@ public class Palette {
 	}
 
 	/**
+	 * Creates a Palette from PImage object. Duplicate colors are removed from the Palette.
 	 * @param i_image
 	 *            PImage:
 	 */
-	public Palette(PApplet i_p, PImage i_image) {
+	public Palette(PApplet i_p, PImage i_image)
+	{
 		p = i_p;
 		swatches = new Swatch[i_image.pixels.length];
 		for (int i = 0; i < swatches.length; i++) {
@@ -80,15 +85,18 @@ public class Palette {
 	}
 
 	/**
+	 * Creates a Palette from PImage object. Duplicate colors are removed from the Palette.
 	 * @param cnt
 	 *            int: the count of colors that will be extracted from the pic
 	 *            using the medain cut algorithm
 	 */
-	public Palette(PApplet i_p, PImage i_image, int cnt) {
+	public Palette(PApplet i_p, PImage i_image, int cnt)
+	{
 		this(i_p, i_image.pixels, cnt);
 	}
 
-	public Palette(PApplet i_p, int[] i_colors, int cnt) {
+	public Palette(PApplet i_p, int[] i_colors, int cnt)
+	{
 		p = i_p;
 		MedianCut mc = new MedianCut(p);
 		int[] colors = mc.calc(i_colors, cnt);
@@ -104,7 +112,8 @@ public class Palette {
 	 *            String: an .cs or .act file located in the data folder of your
 	 *            sketch
 	 */
-	public Palette(PApplet i_p, String i_filename) {
+	public Palette(PApplet i_p, String i_filename)
+	{
 		p = i_p;
 		byte[] b = p.loadBytes(i_filename);
 
@@ -142,8 +151,8 @@ public class Palette {
 	 * @param steps
 	 * @param length
 	 */
-	private void createPaletteFromFile(byte[] b, int start, int steps,
-			int length) {
+	private void createPaletteFromFile(byte[] b, int start, int steps, int length)
+	{
 		int cnt = 0;
 		for (int i = 0; i < length; i++) {
 			if (b[start + i * steps] != -1 && b[start + i * steps + 1] != -1
@@ -170,7 +179,8 @@ public class Palette {
 	 * 
 	 * @return int: count
 	 */
-	public int totalSwatches() {
+	public int totalSwatches()
+	{
 		return swatches.length;
 	}
 
@@ -179,13 +189,9 @@ public class Palette {
 	 * the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
 	 * 
 	 * @param i_color
-	 * @related makeComplementary ( )
-	 * @related makeSplittedComplementary ( )
-	 * @related makeTriad ( )
-	 * @related makeTetrad ( )
-	 * @example Palette_makeComplement
 	 */
-	public void makeComplement(final int i_color) {
+	public void makeComplement(final int i_color)
+	{
 		swatches = new Swatch[2];
 		swatches[0] = new Swatch(p, i_color);
 		swatches[1] = new Swatch(p, i_color);
@@ -196,51 +202,45 @@ public class Palette {
 	 * Creates a 6 color palette with the passed color and it's complement on
 	 * the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel and 
 	 * 2 darker and softer contrasting colors of each complement.
+	 * 
 	 * @param i_color color: 
-	 * @related makeComplement ( )
-	 * @related makeSplittedComplementary ( )
-	 * @related makeTriad ( )
-	 * @related makeTetrad ( )
-	 * @example Palette_makeComplement
 	 */
-	public void makeComplementary(int i_color) {
-		swatches = new Swatch[6];
+	public void makeComplementary(int i_color)
+	{
+		swatches    = new Swatch[6];
 		swatches[0] = new Swatch(p, i_color);
 		float brightness = 0;
+		
 		if (p.brightness(i_color) > 102) {
 			brightness = 25 + p.brightness(i_color) * 0.25f;
 		} else {
 			brightness = 255 - p.brightness(i_color) * 0.25f;
 		}
-		swatches[1] = new Swatch(p, setHSBColor(p.hue(i_color), p
-				.saturation(i_color), brightness));
-		swatches[2] = new Swatch(p, setHSBColor(p.hue(i_color), 25 + p
-				.saturation(i_color) * .3f, p.brightness(i_color) + 76.5f));
+		
+		swatches[1] = new Swatch(p, setHSBColor(p.hue(i_color), p.saturation(i_color), brightness));
+		swatches[2] = new Swatch(p, setHSBColor(p.hue(i_color), 25 + p .saturation(i_color) * .3f, p.brightness(i_color) + 76.5f));
 		swatches[3] = new Swatch(p, i_color);
 		swatches[3].rotateRYB(180);
+		
 		i_color = swatches[3].getColor();
+		
 		if (p.brightness(i_color) > 102) {
 			brightness = 25 + p.brightness(i_color) * 0.25f;
 		} else {
 			brightness = 255 - p.brightness(i_color) * 0.25f;
 		}
-		swatches[4] = new Swatch(p, setHSBColor(p.hue(i_color), p
-				.saturation(i_color), brightness));
-		swatches[5] = new Swatch(p, setHSBColor(p.hue(i_color), 25 + p
-				.saturation(i_color) * .25f, p.brightness(i_color) + 76.5f));
+		
+		swatches[4] = new Swatch(p, setHSBColor(p.hue(i_color), p.saturation(i_color), brightness));
+		swatches[5] = new Swatch(p, setHSBColor(p.hue(i_color), 25 + p.saturation(i_color) * .25f, p.brightness(i_color) + 76.5f));
 	}
 
 	/**
 	 * Creates a 3 color palette with the passed color and it's left and right complement on
 	 * the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
 	 * @param i_color
-	 * @related makeComplement ( )
-	 * @related makeComplementary ( )
-	 * @related makeTriad ( )
-	 * @related makeTetrad ( )
-	 * @example Palette_makeComplement
 	 */
-	public void makeSplittedComplementary(final int i_color) {
+	public void makeSplittedComplementary(final int i_color)
+	{
 		swatches = new Swatch[3];
 		swatches[0] = new Swatch(p, i_color);
 		swatches[1] = new Swatch(p, i_color);
@@ -258,13 +258,9 @@ public class Palette {
 	 * but you can pass your own in the range of 0-180.
 	 * @param i_color
 	 * @param i_angle
-	 * @related makeComplement ( )
-	 * @related makeComplementary ( )
-	 * @related makeSplittedComplementary ( )
-	 * @related makeTetrad ( )
-	 * @example Palette_makeComplement
 	 */
-	public void makeTriad(final int i_color, int i_angle) {
+	public void makeTriad(final int i_color, int i_angle)
+	{
 		i_angle=PApplet.constrain(i_angle,0,180);
 		swatches = new Swatch[3];
 		swatches[0] = new Swatch(p, i_color);
@@ -277,7 +273,8 @@ public class Palette {
 	/**
 	 * @param i_color
 	 */
-	public void makeTriad(int i_color) {
+	public void makeTriad(int i_color)
+	{
 		makeTriad(i_color, 120);
 	}
 
@@ -285,13 +282,9 @@ public class Palette {
 	 * Creates a 4 color palette that make up an cross on
 	 * the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
 	 * @param i_color
-	 * @related makeComplement ( )
-	 * @related makeComplementary ( )
-	 * @related makeSplittedComplementary ( )
-	 * @related makeTriad ( )
-	 * @example Palette_makeComplement
 	 */
-	public void makeTetrad(final int i_color) {
+	public void makeTetrad(final int i_color)
+	{
 		swatches = new Swatch[4];
 		swatches[0] = new Swatch(p, i_color);
 		for (int i = 1; i < 4; i++) {
@@ -303,19 +296,17 @@ public class Palette {
 	/**
 	 * Decrease the brighness of all colors in the palette by the passed value.
 	 * By default its 10.
-	 * 
-	 * @related saturate ( )
-	 * @related lighten ( )
-	 * @related desaturate ( )
 	 */
-	public void darken() {
+	public void darken()
+	{
 		lighten(-10);
 	}
 
 	/**
 	 * @param i_step
 	 */
-	public void darken(final int i_step) {
+	public void darken(final int i_step)
+	{
 		lighten(-i_step);
 	}
 
@@ -323,18 +314,17 @@ public class Palette {
 	 * Increase the brighness of all colors in the palette by the passed value.
 	 * By default its 10.
 	 * 
-	 * @related saturate ( )
-	 * @related darken ( )
-	 * @related desaturate ( )
 	 */
-	public void lighten() {
+	public void lighten()
+	{
 		lighten(10);
 	}
 
 	/**
 	 * @param i_step
 	 */
-	public void lighten(int i_step) {
+	public void lighten(int i_step)
+	{
 		for (int i = 0; i < swatches.length; i++) {
 			swatches[i].lighten(i_step);
 		}
@@ -344,17 +334,16 @@ public class Palette {
 	 * Increase the saturation of all colors in the palette by the passed value.
 	 * By default its 10.
 	 */
-	public void saturate() {
+	public void saturate()
+	{
 		saturate(10);
 	}
 
 	/**
 	 * @param i_step
-	 * @related lighten ( )
-	 * @related darken ( )
-	 * @related desaturate ( )
 	 */
-	public void saturate(final int i_step) {
+	public void saturate(final int i_step)
+	{
 		for (int i = 0; i < swatches.length; i++) {
 			swatches[i].saturate(i_step);
 		}
@@ -364,18 +353,17 @@ public class Palette {
 	 * Increase the saturation of all colors in the palette by the passed value.
 	 * By default its 10.
 	 * 
-	 * @related saturate ( )
-	 * @related lighten ( )
-	 * @related darken ( )
 	 */
-	public void desaturate() {
+	public void desaturate()
+	{
 		saturate(-10);
 	}
 
 	/**
 	 * @param i_step
 	 */
-	public void desaturate(final int i_step) {
+	public void desaturate(final int i_step)
+	{
 		saturate(-i_step);
 	}
 
@@ -383,9 +371,9 @@ public class Palette {
 	 * Rotates all colors by the passed angle on the RGB color wheel.
 	 * 
 	 * @param i_angle
-	 * @related rotateRYB ( )
 	 */
-	public void rotateRGB(final int i_angle) {
+	public void rotateRGB(final int i_angle)
+	{
 		for (int i = 0; i < swatches.length; i++) {
 			swatches[i].rotateRGB(i_angle);
 		}
@@ -396,9 +384,9 @@ public class Palette {
 	 * href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
 	 * 
 	 * @param i_angle
-	 * @related rotateRGB ( )
 	 */
-	public void rotateRYB(final float i_angle) {
+	public void rotateRYB(final float i_angle)
+	{
 		for (int i = 0; i < swatches.length; i++) {
 			swatches[i].rotateRYB(i_angle);
 		}
@@ -406,12 +394,9 @@ public class Palette {
 
 	/**
 	 * Sorts the palette by hue starting with red end ends blue.
-	 * @related sortByLuminance ( )
-	 * @related sortByProximity ( )
-	 * @related sortBySaturation ( )
-	 * @example Palette_sort
 	 */
-	public void sortByHue() {
+	public void sortByHue()
+	{
 		Hashtable ht = new Hashtable();
 		for (int i = 0; i < swatches.length; i++) {
 			Integer key = new Integer((int) p.hue(swatches[i].getColor()));
@@ -430,13 +415,9 @@ public class Palette {
 	 * Sorts the palette by saturation with element at last index containing the
 	 * most saturated item of the palette. This method based on toxis 
 	 * <a href="http://www.toxi.co.uk/blog/2006/04/colour-code-snippets.htm">color code snippets</a>.
-	 * 
-	 * @related sortByLuminance ( )
-	 * @related sortByProximity ( )
-	 * @related sortByHue ( )
-	 * @example Palette_sort
 	 */
-	public void sortBySaturation() {
+	public void sortBySaturation()
+	{
 		Hashtable ht = new Hashtable();
 		for (int i = 0; i < swatches.length; i++) {
 			int c = swatches[i].getColor();
@@ -464,13 +445,9 @@ public class Palette {
 	 * Sorts the palette by luminance with element at last index containing the
 	 * "brightest" item of the palette.This method based on toxis 
 	 * <a href="http://www.toxi.co.uk/blog/2006/04/colour-code-snippets.htm">color code snippets</a>.
-	 * 
-	 * @related sortBySaturation ( )
-	 * @related sortByProximity ( )
-	 * @related sortByHue ( )
-	 * @example Palette_sort
 	 */
-	public void sortByLuminance() {
+	public void sortByLuminance()
+	{
 		Hashtable ht = new Hashtable();
 		for (int i = 0; i < swatches.length; i++) {
 			int c = swatches[i].getColor();
@@ -492,12 +469,10 @@ public class Palette {
 	 * <a href="http://www.toxi.co.uk/blog/2006/04/colour-code-snippets.htm">color code snippets</a>.
 	 * 
 	 * @param i_color
-	 * @related sortByLuminance ( )
-	 * @related sortBySaturation ( )
-	 * @related sortByHue ( )
 	 */
 
-	public void sortByProximity(final int i_color) {
+	public void sortByProximity(final int i_color)
+	{
 		Hashtable ht = new Hashtable();
 		int br = (i_color >> 16) & 0xff;
 		int bg = (i_color >> 8) & 0xff;
@@ -519,7 +494,8 @@ public class Palette {
 		sort(ht);
 	}
 	
-	private void sort(final Hashtable ht) {
+	private void sort(final Hashtable ht)
+	{
 		Vector v = new Vector(ht.keySet());
 		Collections.sort(v);
 		int cnt = 0;
@@ -541,7 +517,8 @@ public class Palette {
 	 * @param i_color color: a color that all palette colors will interpolte with
 	 * @param distance float: 
 	 */
-	public void interpolate(final int i_color, float distance) {
+	public void interpolate(final int i_color, float distance)
+	{
 		distance = PApplet.constrain(distance, 0, 1);
 		for (int i = 0; i < swatches.length; i++) {
 			int c = swatches[i].getColor();
@@ -567,11 +544,9 @@ public class Palette {
 	 * Returns the darkest color of the palette.
 	 * 
 	 * @return color: darkest color of the palette
-	 * @related getLightest ( )
-	 * @related getAverage ( )
-	 * @example Palette_getDarkest
 	 */
-	public int getDarkest() {
+	public int getDarkest()
+	{
 		int darkest = swatches[0].getColor();
 		float brightness = p.brightness(darkest);
 		for (int i = 1; i < swatches.length; i++) {
@@ -588,11 +563,9 @@ public class Palette {
 	 * Returns the lightest color of the palette.
 	 * 
 	 * @return color: lightest color of the palette
-	 * @related getDarkest ( )
-	 * @related getAverage ( )
-	 * @example Palette_getDarkest
 	 */
-	public int getLightest() {
+	public int getLightest()
+	{
 		int lightest = swatches[0].getColor();
 		float brightness = p.brightness(lightest);
 		for (int i = 1; i < swatches.length; i++) {
@@ -609,9 +582,6 @@ public class Palette {
 	 * Returns the average color of the palette.
 	 * 
 	 * @return color: average color of the palette
-	 * @related getDarkest ( )
-	 * @related getLightest ( )
-	 * @example Palette_getDarkest
 	 */
 	public int getAverage() {
 		int a = 0;
@@ -637,11 +607,9 @@ public class Palette {
 	 * @param position
 	 *            int, position
 	 * @return Swatch
-	 * @related getColor ( )
-	 * @related getSwatches ( )
-	 * @related getColors ( )
 	 */
-	public Swatch getSwatch(int position) {
+	public Swatch getSwatch(int position)
+	{
 		return swatches[position];
 	}
 
@@ -651,11 +619,9 @@ public class Palette {
 	 * 
 	 * @param position  int: position in the palette 
 	 * @return color
-	 * @related getSwatch ( )
-	 * @related getSwatches ( )
-	 * @related getColors ( )
 	 */
-	public int getColor(int position) {
+	public int getColor(int position)
+	{
 		return swatches[position].getColor();
 	}
 
@@ -663,11 +629,9 @@ public class Palette {
 	 * Returns an array holding all the swatches of the palette.
 	 * 
 	 * @return color Array
-	 * @related getSwatch ( )
-	 * @related getColor ( )
-	 * @related getColors ( )
 	 */
-	public Swatch[] getSwatches() {
+	public Swatch[] getSwatches()
+	{
 		Swatch[] i_colors = new Swatch[swatches.length];
 		System.arraycopy(swatches, 0, i_colors, 0, swatches.length);
 		return i_colors;
@@ -677,11 +641,9 @@ public class Palette {
 	 * Returns an array holding all the color of the palette.
 	 * 
 	 * @return color Array
-	 * @related getSwatch ( )
-	 * @related getColor ( )
-	 * @related getSwatches ( )
 	 */
-	public int[] getColors() {
+	public int[] getColors()
+	{
 		int[] i_colors = new int[swatches.length];
 		for (int i = 0; i < i_colors.length; i++) {
 			i_colors[i] = swatches[i].getColor();
@@ -696,7 +658,8 @@ public class Palette {
 	 * 
 	 * @return String[]: array with the nearest hues
 	 */
-	public String[] getNearestHues() {
+	public String[] getNearestHues()
+	{
 		String[] nearestHues = new String[swatches.length];
 		for (int i = 0; i < swatches.length; i++) {
 			nearestHues[i] = swatches[i].getNearestHue();
@@ -710,7 +673,8 @@ public class Palette {
 	 * 
 	 * @param i_name
 	 */
-	public void save(final String i_name) {
+	public void save(final String i_name)
+	{
 		byte[] bytes = new byte[768];
 		for (int i = 0; i < swatches.length; i++) {
 			int color = swatches[i].getColor();
@@ -728,22 +692,18 @@ public class Palette {
 	 * Add one color at the end of your palette.
 	 * 
 	 * @param i_color
-	 * @related addColors ( )
-	 * @related setColor ( )
-	 * @related setColors ( )
 	 */
-	public void addColor(final int i_color) {
+	public void addColor(final int i_color)
+	{
 		swatches = (Swatch[]) PApplet.append(swatches, new Swatch(p, i_color));
 	}
 
 	/**
 	 * Add all passed colors at the end of your palette.
 	 * @param i_colors
-	 * @related addColor ( )
-	 * @related setColor ( )
-	 * @related setColors ( )
 	 */
-	public void addColors(final int[] i_colors) {
+	public void addColors(final int[] i_colors)
+	{
 		for (int i = 0; i < i_colors.length; i++) {
 			addColor(i_colors[i]);
 		}
@@ -754,16 +714,13 @@ public class Palette {
 	 * 
 	 * @param i_color
 	 * @param i_position
-	 * @related addColors ( )
-	 * @related addColor ( )
-	 * @related setColors ( )
 	 */
-	public void setColor(int i_color, int i_position) {
-		if(i_position<swatches.length){
-			swatches[i_position]=new Swatch(p, i_color);
-		}else{
-			throw new IllegalArgumentException(
-			"The passed position is bigger the the palette size");
+	public void setColor(int i_color, int i_position)
+	{
+		if (i_position<swatches.length) {
+			swatches[i_position] = new Swatch(p, i_color);
+		} else {
+			throw new IllegalArgumentException("The passed position is bigger the the palette size.");
 		}
 	}
 
@@ -771,11 +728,9 @@ public class Palette {
 	/**
 	 * Delete all colors of the palette and fill the palette with the passed colors.
 	 * @param i_colors
-	 * @related addColors ( )
-	 * @related addColor ( )
-	 * @related setColors ( )
 	 */
-	public void setColors(int[] i_colors) {
+	public void setColors(int[] i_colors)
+	{
 		swatches = new Swatch[i_colors.length];
 		for (int i = 0; i < i_colors.length; i++) {
 			addColor(i_colors[i]);
@@ -785,7 +740,8 @@ public class Palette {
 	/**
 	 * Delete all duplicate colors within the palette.
 	 */
-	public void deleteDuplicate() {
+	public void deleteDuplicate()
+	{
 		HashSet h = new HashSet();
 		for (int i = 0; i < swatches.length; i++) {
 			h.add(new Integer(swatches[i].getColor()));
@@ -802,16 +758,14 @@ public class Palette {
 	/**
 	 * Draw all colors
 	 */
-	public void drawSwatches() {
+	public void drawSwatches()
+	{
 		float paletteLength = 120f;
-		int paletteHeight = 38;
+		int   paletteHeight = 38;
 		int fill = p.g.fillColor;
 		int stroke = p.g.strokeColor;
-		if (dropShadow == null) {
-			dropShadow = p.loadImage("dropshadow.png");
-		}
-		p.image(dropShadow, -3, -2);
 		float swatchLength = paletteLength / swatches.length;
+
 		for (int i = 0; i < swatches.length; i++) {
 			p.fill(swatches[i].getColor());
 			p.noStroke();
@@ -839,7 +793,8 @@ public class Palette {
 	/**
 	 * Draws a color wheel with all colors of the palette.
 	 */
-	public void drawWheel() {
+	public void drawWheel()
+	{
 		float swatchLength = PApplet.TWO_PI / swatches.length;
 		int fill = p.g.fillColor;
 		int stroke = p.g.strokeColor;
@@ -856,7 +811,8 @@ public class Palette {
 	}
 
 
-	private int setHSBColor(float h, float s, float b, float a) {
+	private int setHSBColor(float h, float s, float b, float a)
+	{
 		int color;
 		int colorMode = p.g.colorMode;
 		p.colorMode(PApplet.HSB);
@@ -865,7 +821,8 @@ public class Palette {
 		return color;
 	}
 
-	private int setHSBColor(float h, float s, float b) {
+	private int setHSBColor(float h, float s, float b)
+	{
 		return setHSBColor(h, s, b, 255);
 	}
 

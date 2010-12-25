@@ -12,15 +12,17 @@ import processing.core.*;
  * 
  */
 
-public class Swatch {
+public class Swatch
+{
 
 	private PApplet p;
-	private  int c;
+	private int c;
 
 	/**
 	 * @param i_p PApplet, normally you will use 'this'.
 	 */
-	public Swatch(final PApplet i_p) {
+	public Swatch(final PApplet i_p)
+	{
 		p = i_p;
 		c = p.g.color(p.random(p.g.colorModeX), p.random(p.g.colorModeY), p
 				.random(p.g.colorModeZ));
@@ -29,7 +31,8 @@ public class Swatch {
 	/**
 	 * @param color color, color
 	 */
-	public Swatch(final PApplet i_p, final int color) {
+	public Swatch(final PApplet i_p, final int color)
+	{
 		p = i_p;
 		c = color;
 	}
@@ -38,13 +41,10 @@ public class Swatch {
 	 * Gets the black value for the color of this swatch. Based on the generic
 	 * RGB to CMYK formula: black = minimum(1 - red, 1 - green, 1 - blue)
 	 * 
-	 * @return color, the black value of the given color, a number between 0 and
-	 *         1.
-	 * @related cyan ( )
-	 * @related magenta ( )
-	 * @related yellow ( )
+	 * @return color, the black value of the given color, a number between 0 and 1.
 	 */
-	public float black() {
+	public float black()
+	{
 		return PApplet.min(1 - ((c >> 16) & 0xFF) / 255.0f,
 				1 - ((c >> 8) & 0xFF) / 255.0f, 1 - ((c) & 0xFF) / 255.0f);
 	}
@@ -54,11 +54,9 @@ public class Swatch {
 	 * CMYK formula: cyan = (1 - red - black) / (1 - black)
 	 * 
 	 * @return int, the cyan value of the given color, a number between 0 and 1.
-	 * @related black ( )
-	 * @related magenta ( )
-	 * @related yellow ( )
 	 */
-	public float cyan() {
+	public float cyan()
+	{
 		return (1 - ((c >> 16) & 0xFF) / 255.0f - black()) / (1 - black());
 	}
 
@@ -66,13 +64,10 @@ public class Swatch {
 	 * Gets the magenta value for a given RGB color. Based on the generic RGB to
 	 * CMYK formula: magenta = (1 - green - black) / (1 - black)
 	 * 
-	 * @return int, the magenta value of the given color, a number between 0 and
-	 *         1.
-	 * @related black ( )
-	 * @related cyan ( )
-	 * @related yellow ( )
+	 * @return int, the magenta value of the given color, a number between 0 and 1.
 	 */
-	public float magenta() {
+	public float magenta()
+	{
 		return (1 - ((c >> 8) & 0xFF) / 255.0f - black()) / (1 - black());
 	}
 
@@ -80,22 +75,18 @@ public class Swatch {
 	 * Gets the yellow value for a given RGB color. Based on the generic RGB to
 	 * CMYK formula: yellow = (1 - blue - black) / (1 - black)
 	 * 
-	 * @return int, the yellow value of the given color, a number between 0 and
-	 *         1.
-	 * @related black ( )
-	 * @related cyan ( )
-	 * @related magenta ( )
+	 * @return int, the yellow value of the given color, a number between 0 and 1.
 	 */
-	public float yellow() {
+	public float yellow()
+	{
 		return (1 - ((c) & 0xFF) / 255.0f - black()) / (1 - black());
 	}
 
 	/**
 	 * Darkens the color by a given number. The deafult is 10.
-	 * 
-	 * @related lighten ( )
 	 */
-	public void darken() {
+	public void darken()
+	{
 		darken(10);
 	}
 
@@ -103,16 +94,16 @@ public class Swatch {
 	 * @param i_step
 	 *            float, number to decrease the brightness of the swatch
 	 */
-	public void darken(float i_step) {
+	public void darken(float i_step)
+	{
 		lighten(-i_step);
 	}
 
 	/**
 	 * Lightens the color by a given number. The deafult is 10.
-	 * 
-	 * @related darken ( )
 	 */
-	public void lighten() {
+	public void lighten()
+	{
 		lighten(10);
 	}
 
@@ -120,17 +111,17 @@ public class Swatch {
 	 * @param i_step
 	 *            float, number to increase the brightness of the swatch
 	 */
-	public void lighten(final float i_step) {
+	public void lighten(final float i_step)
+	{
 		c = setHSBColor(p.hue(c), p.saturation(c), p.brightness(c) + i_step, p
 				.alpha(c));
 	}
 
 	/**
 	 * Desaturates the color by a given number. The deafult is 10.
-	 * 
-	 * @related saturate ( )
 	 */
-	public void desaturate() {
+	public void desaturate()
+	{
 		saturate(-10);
 	}
 
@@ -138,16 +129,16 @@ public class Swatch {
 	 * @param i_step
 	 *            i_step float, number to increase the saturation of the swatch
 	 */
-	public void desaturate(final int i_step) {
+	public void desaturate(final int i_step)
+	{
 		saturate(-i_step);
 	}
 
 	/**
 	 * Saturates the color by a given number. The deafult is 10.
-	 * 
-	 * @related desaturate ( )
 	 */
-	public void saturate() {
+	public void saturate() 
+	{
 		saturate(10);
 	}
 
@@ -155,7 +146,8 @@ public class Swatch {
 	 * @param i_step
 	 *            float, number to decrease the saturation of the swatch
 	 */
-	public void saturate(final int i_step) {
+	public void saturate(final int i_step)
+	{
 		c = setHSBColor(p.hue(c), p.saturation(c) + i_step, p.brightness(c));
 	}
 
@@ -174,7 +166,8 @@ public class Swatch {
 	 *            alpha value for the color that will be set by the function
 	 * @return a new color
 	 */
-	private int setHSBColor(final float h, final float s, final float b, final float a) {
+	private int setHSBColor(final float h, final float s, final float b, final float a)
+	{
 		int color;
 		int colorMode = p.g.colorMode;
 		p.colorMode(PApplet.HSB);
@@ -196,7 +189,8 @@ public class Swatch {
 	 *            function
 	 * @return a new color
 	 */
-	private int setHSBColor(final float h, final float s, final float b) {
+	private int setHSBColor(final float h, final float s, final float b)
+	{
 		return setHSBColor(h, s, b, 255);
 	}
 
@@ -204,9 +198,9 @@ public class Swatch {
 	 * Returns the color of the swatch.
 	 * 
 	 * @return color, color
-	 * @related setColor ( )
 	 */
-	public int getColor() {
+	public int getColor()
+	{
 		return c;
 	}
 
@@ -215,9 +209,9 @@ public class Swatch {
 	 * 
 	 * @param i_c
 	 *            color, color
-	 * @related getColor ( )
 	 */
-	public void setColor(final int i_c) {
+	public void setColor(final int i_c)
+	{
 		c = i_c;
 	}
 
@@ -226,9 +220,9 @@ public class Swatch {
 	 * 
 	 * @param i_angle
 	 *            float, value between 0 and 255
-	 * @related rotateRYB ( )
 	 */
-	public void rotateRGB(final float i_angle) {
+	public void rotateRGB(final float i_angle)
+	{
 		c = setHSBColor((p.hue(c) + i_angle) % 256, p.saturation(c), p
 				.brightness(c));
 	}
@@ -240,9 +234,9 @@ public class Swatch {
 	 * 
 	 * @param i_angle
 	 *            float, angle between 0 and 360¡ to rotate the color
-	 * @related rotateRGB ( )
 	 */
-	public void rotateRYB(float i_angle) {
+	public void rotateRYB(float i_angle)
+	{
 		float hue = ((p.hue(c)) / 256f) * 360;
 		i_angle %= 360;
 		float angle = 0;
@@ -286,6 +280,7 @@ public class Swatch {
 		c = setHSBColor(hue * 256 / 360, p.saturation(c), p.brightness(c), p
 				.alpha(c));
 	}
+	
 	/**
 	 * Returns the nearest hue to the color as an one
 	 * of the following strings: "red", "orange", "yellow", "lime",
@@ -293,7 +288,8 @@ public class Swatch {
 	 * 
 	 * @return String: the nearest hue of the color
 	 */
-	public String getNearestHue() {
+	public String getNearestHue()
+	{
 		String[] hueNames = { "red", "orange", "yellow", "lime", "green",
 				"teal", "cyan", "azure", "blue", "indigo", "purple", "pink" };
 
@@ -324,6 +320,7 @@ public class Swatch {
 		}
 		return nearest;
 	}
+	
 	/**
 	 * Calculates the brightness difference between the swatch and the given
 	 * color or swatch. The brightness is calculated by the following formula
@@ -333,10 +330,9 @@ public class Swatch {
 	 * 
 	 * @param i_color
 	 * @return float, difference
-	 * @related colorDiff ( )
-	 * @example Swatch_brightnessdiff
 	 */
-	public float brightnessDiff(final int i_color) {
+	public float brightnessDiff(final int i_color)
+	{
 		return Math
 				.abs(((c >> 16 & 0xFF) * 299 + (c >> 8 & 0xFF) * 587 + (c & 0xFF) * 114)
 						/ 1000
@@ -347,7 +343,8 @@ public class Swatch {
 	/**
 	 * @param i_swatch
 	 */
-	public float brightnessDiff(final Swatch i_swatch) {
+	public float brightnessDiff(final Swatch i_swatch)
+	{
 		return brightnessDiff(i_swatch.getColor());
 	}
 
@@ -361,9 +358,9 @@ public class Swatch {
 	 * @param i_color
 	 *            color
 	 * @return float, difference
-	 * @related brightnessDiff ( )
 	 */
-	public float colorDiff(final int i_color) {
+	public float colorDiff(final int i_color)
+	{
 		return (Math.max(c >> 16 & 0xFF, i_color >> 16 & 0xFF) - Math.min(
 				c >> 16 & 0xFF, i_color >> 16 & 0xFF))
 				+ (Math.max(c >> 8 & 0xFF, i_color >> 8 & 0xFF) - Math.min(
@@ -376,7 +373,8 @@ public class Swatch {
 	 * @param i_swatch
 	 *            Swatch, swatch
 	 */
-	public float colorDiff(final Swatch i_swatch) {
+	public float colorDiff(final Swatch i_swatch)
+	{
 		return colorDiff(i_swatch.getColor());
 	}
 
