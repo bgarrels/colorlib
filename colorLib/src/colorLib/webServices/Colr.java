@@ -15,7 +15,7 @@ import colorLib.Swatch;
 /**
  * Colr is a container to query the <a href="http://www.colr.org">Colr service</a>. 
  * As the <a href="http://www.colr.org/api.html">API of Colr</a> is very limited, there are only three methods to use.
- * @author Andreas K�berle
+ * @author Andreas K&ouml;berle
  * @author Jan Vantomme
  */
 public class Colr extends WebService

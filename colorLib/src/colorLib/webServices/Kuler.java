@@ -23,25 +23,19 @@ import processing.xml.*;
  * increase the startIndex. A query with maxItems=100 and startIndex=2 will
  * return 100 themes starting at 200.
  * 
- * @author Andreas K�berle
+ * @author Andreas K&ouml;berle
  * @author Jan Vantomme
- * @nosuperclasses
- * @exmaple Kuler_search
  */
-/**
- * @author andreask
- *
- */
+
 public class Kuler extends WebService
 {
 
 
-	private String key; // added this one to work with the new Kuler API
-
-	private String serverPage = "http://kuler-api.adobe.com/rss/"; // old url:
-																	// http://kuler.adobe.com/kuler/API/rss/
-
+	private String key;
+	private String serverPage = "http://kuler-api.adobe.com/rss/";
 	private String pageTyp = ".cfm";
+	
+	private boolean debugMode = true;
 
 	/**
 	 * @param parent
@@ -63,6 +57,15 @@ public class Kuler extends WebService
 		this.key = key;
 	}
 
+	/**
+	 * Sets the debug mode. Default is true. If you set this to false, nothing will be printed to the Processing console. 
+	 * @param debug
+	 */
+	public void setDebugMode(boolean debug)
+	{
+		this.debugMode = debug;		
+	}
+	
 	/**
 	 * Get the highest rated colors as an array of <a
 	 * href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
@@ -211,9 +214,14 @@ public class Kuler extends WebService
 				"&key=" + key).toString();
 		XMLElement xml = getXML(url, filename);
 		ArrayList<KulerTheme> themes = new ArrayList<KulerTheme>();
+
 		if (xml.getChild("success") != null && xml.getChild("success").getContent().equals("false")) {
-			p.println("The following error appears while calling kuler service:");
-			p.println(xml.getChild("error/errorText").getContent());
+
+			if (debugMode == true) {
+				p.println("The following error appears while calling kuler service:");
+				p.println(xml.getChild("error/errorText").getContent());
+			}
+
 		} else {
 			XMLElement[] themeItems = xml.getChildren("channel/item/kuler:themeItem");
 
@@ -242,21 +250,23 @@ public class Kuler extends WebService
 				themes.add(kulerTheme);
 			}
 		}
+		
 		return (KulerTheme[]) themes.toArray(new KulerTheme[themes.size()]);
 	}
 
 
 	/**
-	 * As you cant connect to the kuler service directly if you run your sketch
-	 * as an applet, you can set a path to a php or whatever page that's querry
-	 * the kuler service and response the xml to the applet.
+	 * As you can't connect to the Kuler service directly if you run your sketch
+	 * as an Applet, you can set a path to a php/cfm/... script. You can query the Kuler
+	 * service from that page and send the response XML to the Applet.
 	 * 
 	 * @param serverPath
+	 * @param pageType
 	 */
-	public void setserverPage(String serverPath, String pageTyp)
+	public void setserverPage(String serverPath, String pageType)
 	{
 		this.serverPage = serverPath;
-		this.pageTyp = pageTyp;
+		this.pageTyp = pageType;
 	}
 
 }

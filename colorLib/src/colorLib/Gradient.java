@@ -5,7 +5,7 @@ import processing.core.*;
 /**
  * Create a Palette object with all colors of a gradient.
  * This class extends the Palette class, so all the methods of the Palette class can be accessed from here.
- * @author Andreas Kšberle
+ * @author Andreas K&ouml;berle
  * @author Jan Vantomme
  */
 public class Gradient extends Palette
