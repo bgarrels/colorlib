@@ -11,12 +11,14 @@ import processing.core.PApplet;
 import processing.xml.XMLElement;
 import processing.xml.XMLWriter;
 
-public abstract class WebService {
+public abstract class WebService
+{
 	protected PApplet p;
 	protected boolean printXML = false;
 	protected int numResults, resultOffset;
 	
-	protected XMLElement getXML(String url, String filename) {
+	protected XMLElement getXML(String url, String filename)
+	{
 		XMLElement xml = null;
 		if (filename != null) {
 			try {
@@ -46,42 +48,51 @@ public abstract class WebService {
 		return xml;
 	}
 	
-	protected void printXML(String url) {
+	protected void printXML(String url)
+	{
 		String lines[] = p.loadStrings(url);
 		for (int i = 0; i < lines.length; i++) {
 			p.println(lines[i]);
 		}
 	}
 	
-	public Palette[] searchForThemes(String tag) {
+	public Palette[] searchForThemes(String tag)
+	{
 		return searchForThemes(tag, null);
 	}
 	
-	public Palette[] searchForThemes(String tag, String filename) {
+	public Palette[] searchForThemes(String tag, String filename)
+	{
 		return null;
 	}
 
-	public Palette[] getPopular() {
+	public Palette[] getPopular()
+	{
 		return getPopular(null);
 	}
 	
-	public Palette[] getPopular(final String filename) {
+	public Palette[] getPopular(final String filename)
+	{
 		throw new UnsupportedOperationException();
 	}
 	
-	public Palette[] getLatest() {
+	public Palette[] getLatest()
+	{
 		return getLatest(null);
 	}
 	
-	public Palette[] getLatest(final String filename) {
+	public Palette[] getLatest(final String filename)
+	{
 		return null;
 	}
 	
-	public Palette[] getRandom() {
+	public Palette[] getRandom()
+	{
 		return getRandom(null);
 	}
 	
-	public Palette[] getRandom(final String filename) {
+	public Palette[] getRandom(final String filename)
+	{
 		return null;
 	}
 
@@ -93,7 +104,8 @@ public abstract class WebService {
 	 *            boolean: set true if you want the result xml printed in the
 	 *            console
 	 */
-	public void printXML(boolean b) {
+	public void printXML(boolean b)
+	{
 		printXML = b;
 	}
 	
@@ -111,7 +123,8 @@ public abstract class WebService {
 	 * Default is 20.
 	 * @param numResults
 	 */
-	public void setNumResults(int numResults) {
+	public void setNumResults(int numResults)
+	{
 		this.numResults = PApplet.constrain(numResults, 0, 100);
 	}
 
@@ -120,7 +133,8 @@ public abstract class WebService {
 	 * Default is 0, which displays the first item in the list.
 	 * @return resultOffset: Result Offset
 	 */
-	public int getResultOffset() {
+	public int getResultOffset()
+	{
 		return resultOffset;
 	}
 
@@ -128,7 +142,8 @@ public abstract class WebService {
 	 * Sets the result offset.
 	 * @param resultOffset
 	 */
-	public void setResultOffset(int resultOffset) {
+	public void setResultOffset(int resultOffset)
+	{
 		this.resultOffset = resultOffset;
 	}
 

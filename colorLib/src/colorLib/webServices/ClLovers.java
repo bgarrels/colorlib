@@ -7,10 +7,10 @@ import processing.xml.*;
 /**
  * @author Andreas Koeberle
  * @author Jan Vantomme
- * @nosuperclass
- * @example ClLovers
  */
-public class ClLovers extends WebService{
+
+public class ClLovers extends WebService
+{
 	private String lover, orderCol, sortBy;
 
 	private int[] hueRange, briRange;
@@ -21,7 +21,8 @@ public class ClLovers extends WebService{
 	 * The ClLovers object is a container to query the <a href="http://www.colourlovers.com/">COLOURLovers API</a>.
 	 * @param i_p
 	 */
-	public ClLovers(PApplet i_p) {
+	public ClLovers(PApplet i_p)
+	{
 		p = i_p;
 		hueRange = new int[2];
 		hueRange[0]=0;
@@ -38,14 +39,16 @@ public class ClLovers extends WebService{
 	 * @param i_keywords
 	 * @return ClLoversTheme: ColorLovers Theme
 	 */
-	public ClLoversTheme getColors(final String i_keywords) {
+	public ClLoversTheme getColors(final String i_keywords)
+	{
 		return getColors(i_keywords, null);
 	}
 	
 	/**
 	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
 	 */
-	public ClLoversTheme getColors(final String i_keywords, final String filename) {
+	public ClLoversTheme getColors(final String i_keywords, final String filename)
+	{
 		
 		StringBuffer url = new StringBuffer("http://www.colourlovers.com/api/colors?").
 		append("hueRange=").append(hueRange[0]).append(",").append(hueRange[1]).
@@ -91,7 +94,8 @@ public class ClLovers extends WebService{
 	 * Returns the colors for a given array of keywords.
 	 * @param i_keywords
 	 */
-	public void getColors(final String[] i_keywords) {
+	public void getColors(final String[] i_keywords)
+	{
 		StringBuffer keywords = new StringBuffer();
 		for (int i = 0; i < i_keywords.length; i++) {
 			if (i > 0)
@@ -107,7 +111,8 @@ public class ClLovers extends WebService{
 	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
 	 * @return ClLoversTheme 
 	 */
-	private ClLoversTheme[] searchForThemes(final String keywords, final String filename, int mode) {
+	private ClLoversTheme[] searchForThemes(final String keywords, final String filename, int mode)
+	{
 		String[] modes = {"?", "/top?", "/new?", "/random"};
 		StringBuffer url = new StringBuffer("http://www.colourlovers.com/api/palettes?").
 		append(modes[mode]);
@@ -148,14 +153,16 @@ public class ClLovers extends WebService{
 	/**
 	 * @deprecated As of release beta2, replaced by {@link #searchForThemes()}
 	 */
-	public ClLoversTheme[] getPalettes(final String i_keywords, final String filename) {
+	public ClLoversTheme[] getPalettes(final String i_keywords, final String filename)
+	{
 		return searchForThemes(i_keywords, filename, DEFAULT);
 	}
 	
 	/**
 	 * @deprecated As of release beta2, replaced by {@link #searchForThemes()}
 	 */
-	public ClLoversTheme[] getPalettes(final String[] i_keywords, final String filename) {
+	public ClLoversTheme[] getPalettes(final String[] i_keywords, final String filename)
+	{
 		StringBuffer keywords = new StringBuffer();
 		for (int i = 0; i < i_keywords.length; i++) {
 			if (i > 0)
@@ -168,15 +175,18 @@ public class ClLovers extends WebService{
 	/**
 	 * @deprecated As of release beta2, replaced by {@link #searchForThemes()}
 	 */
-	public ClLoversTheme[] getPalettes(final String[] i_keywords) {
+	public ClLoversTheme[] getPalettes(final String[] i_keywords)
+	{
 		return searchForThemes(i_keywords, null);
 	}
 	
-	public ClLoversTheme[] searchForThemes(final String keyword, final String filename) {
+	public ClLoversTheme[] searchForThemes(final String keyword, final String filename)
+	{
 		return searchForThemes(keyword, filename, DEFAULT);
 	}
 	
-	public ClLoversTheme[] searchForThemes(final String keyword) {
+	public ClLoversTheme[] searchForThemes(final String keyword)
+	{
 		return searchForThemes(keyword, null, DEFAULT);
 	}
 	
@@ -184,7 +194,8 @@ public class ClLovers extends WebService{
 	 * Returns the palettes for a given array of keywords.
 	 * @param i_keywords String: An array of keywords.
 	 */
-	public ClLoversTheme[] searchForThemes(final String[] i_keywords, final String filename) {
+	public ClLoversTheme[] searchForThemes(final String[] i_keywords, final String filename)
+	{
 		StringBuffer keywords = new StringBuffer();
 		for (int i = 0; i < i_keywords.length; i++) {
 			if (i > 0)
@@ -194,23 +205,28 @@ public class ClLovers extends WebService{
 		return searchForThemes(keywords.toString(), filename, DEFAULT);
 	}
 	
-	public ClLoversTheme[] searchForThemes(final String[] i_keywords) {
+	public ClLoversTheme[] searchForThemes(final String[] i_keywords)
+	{
 		return searchForThemes(i_keywords, null);
 	}
 	
-	public ClLoversTheme[] getPopular(final String keyword, final String filename) {
+	public ClLoversTheme[] getPopular(final String keyword, final String filename)
+	{
 		return searchForThemes(keyword, filename, POPULAR);
 	}
 	
-	public ClLoversTheme[] getPopular(final String filename) {
+	public ClLoversTheme[] getPopular(final String filename)
+	{
 		return searchForThemes("", filename, POPULAR);
 	}
 	
-	public ClLoversTheme[] getLatest(final String keyword, final String filename) {
+	public ClLoversTheme[] getLatest(final String keyword, final String filename)
+	{
 		return searchForThemes(keyword, filename, LATEST);
 	}
 	
-	public ClLoversTheme[] getRandom(final String keyword, final String filename) {
+	public ClLoversTheme[] getRandom(final String keyword, final String filename)
+	{
 		return searchForThemes(keyword, filename, RANDOM);
 	}
 	
@@ -219,7 +235,8 @@ public class ClLovers extends WebService{
 	 * Returns the brightness range.
 	 * @return briRange: Brightness Range
 	 */
-	public int[] getBriRange() {
+	public int[] getBriRange()
+	{
 		return briRange;
 	}
 
@@ -229,7 +246,8 @@ public class ClLovers extends WebService{
 	 * The values of the integers should be in the range of 0 to 99.
 	 * @param briRange int[]: An integer array with a size of two.
 	 */
-	public void setBriRange(int[] briRange) {
+	public void setBriRange(int[] briRange)
+	{
 		if (briRange.length!=2) {
 			throw new IllegalArgumentException( "The passed array hasn't the size of 2" ); 
 		} else {
@@ -241,7 +259,8 @@ public class ClLovers extends WebService{
 	 * Returns the hue range.
 	 * @return hueRange: Hue Range
 	 */
-	public int[] getHueRange() {
+	public int[] getHueRange()
+	{
 		return hueRange;
 	}
 
@@ -251,7 +270,8 @@ public class ClLovers extends WebService{
 	 * The values of the integers should be in the range of 0 to 359.
 	 * @param hueRange int[]: An integer array with a size of two.
 	 */
-	public void setHueRange(int[] hueRange) {
+	public void setHueRange(int[] hueRange)
+	{
 		if (hueRange.length!=2) {
 			throw new IllegalArgumentException( "The passed array hasn't the size of 2" ); 
 		} else {
@@ -262,28 +282,32 @@ public class ClLovers extends WebService{
 	/**
 	 * @return lover: 
 	 */
-	public String getLover() {
+	public String getLover()
+	{
 		return lover;
 	}
 
 	/**
 	 * @param lover
 	 */
-	public void setLover(String lover) {
+	public void setLover(String lover)
+	{
 		this.lover = lover;
 	}
 
 	/**
 	 * @return orderCol
 	 */
-	public String getOrderCol() {
+	public String getOrderCol()
+	{
 		return orderCol;
 	}
 
 	/**
 	 * @param orderCol Either dateCreated, score, name, numVotes, numViews.
 	 */
-	public void setOrderCol(String orderCol) {
+	public void setOrderCol(String orderCol)
+	{
 		if (orderCol.equals("dateCreated") || 
 		   orderCol.equals("score") || 
 		   orderCol.equals("name") || 
@@ -298,7 +322,8 @@ public class ClLovers extends WebService{
 	/**
 	 * @return sortBy
 	 */
-	public String getSortBy() {
+	public String getSortBy()
+	{
 		return sortBy;
 	}
 
@@ -307,7 +332,8 @@ public class ClLovers extends WebService{
 	 * Allowed values are ASC for ascending and DESC for descending.
 	 * @param sortBy Either ASC (ascending) or DESC (descending);
 	 */
-	public void setSortBy(String sortBy) {
+	public void setSortBy(String sortBy)
+	{
 		if (orderCol.equals("ASC") || orderCol.equals("DESC")) {
 			this.sortBy = sortBy;
 		} else {
@@ -320,7 +346,8 @@ public class ClLovers extends WebService{
 	 * Use this method to print the resulting XML in the console. 
 	 * @param b boolean: set this to true if you want to print the resulting XML in the console 
 	 */
-	public void printXML(boolean b){
+	public void printXML(boolean b)
+	{
 		printXML=b;
 	}
 }

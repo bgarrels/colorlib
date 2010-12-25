@@ -33,7 +33,8 @@ public class MedianCut {
 	 * Creates a MedianCut object.
 	 * @param i_p
 	 */
-	public MedianCut(PApplet i_p) {
+	public MedianCut(PApplet i_p)
+	{
 		p = i_p;
 	}
 
@@ -43,7 +44,8 @@ public class MedianCut {
 	 * @param cnt
 	 * @return result
 	 */
-	public int[] calc(int[] colors, int cnt) {
+	public int[] calc(int[] colors, int cnt)
+	{
 		histogram = new Hashtable();
 		for (int i = 0; i < colors.length; i++) {
 			Integer color = new Integer(colors[i]);
@@ -110,7 +112,8 @@ public class MedianCut {
 	 * @param cnt
 	 * @return calc
 	 */
-	public int[] calc(PImage i_image, int cnt) {
+	public int[] calc(PImage i_image, int cnt)
+	{
 		return calc(i_image.pixels, cnt);
 	}
 
@@ -120,7 +123,8 @@ public class MedianCut {
 	 * @param cnt
 	 * @return calc
 	 */
-	public int[] calc(Palette i_palette, int cnt) {
+	public int[] calc(Palette i_palette, int cnt)
+	{
 		return calc(i_palette.getColors(), cnt);
 	}
 
@@ -128,7 +132,8 @@ public class MedianCut {
 	 * 
 	 * @param cube
 	 */
-	private void shrink(Cube cube) {
+	private void shrink(Cube cube)
+	{
 		int r, g, b;
 		int color;
 		int rmin, rmax, gmin, gmax, bmin, bmax;
@@ -170,7 +175,8 @@ public class MedianCut {
 	 * Cube class
 	 *
 	 */
-	private class Cube {
+	private class Cube
+	{
 		int level, count, rmin, rmax, gmin, gmax, bmin, bmax;
 
 		int[] colors;
@@ -180,7 +186,8 @@ public class MedianCut {
 		 * @param colors
 		 * @param i_level
 		 */
-		Cube(int[] colors, int i_level) {
+		Cube(int[] colors, int i_level)
+		{
 			this.colors = colors;
 			countColor();
 			level = i_level;
@@ -198,7 +205,8 @@ public class MedianCut {
 		 * 
 		 * @param shiftingStep
 		 */
-		public void sort(int shiftingStep) {
+		public void sort(int shiftingStep)
+		{
 			ArrayList sort = new ArrayList();
 			Hashtable sortTable= new Hashtable();
 			for (int i = 0; i < colors.length; i++) {
@@ -234,7 +242,8 @@ public class MedianCut {
 		 * 
 		 * @return
 		 */
-		Cube split() {
+		Cube split()
+		{
 			int cnt = 0, i = 0;
 			for (; i < colors.length; i++) {
 				if (cnt >= colors.length / 2)
@@ -254,7 +263,8 @@ public class MedianCut {
 		/**
 		 * Counts the colors.
 		 */
-		void countColor() {
+		void countColor()
+		{
 			 count = colors.length;
 //			count = 0;
 //			for (int i = 0; i < colors.length; i++) {
@@ -266,7 +276,8 @@ public class MedianCut {
 		/**
 		 * Returns the average.
 		 */
-		int getAverage() {
+		int getAverage() 
+		{
 			int a = 0;
 			int r = 0;
 			int g = 0;

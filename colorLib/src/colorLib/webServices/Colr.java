@@ -17,9 +17,9 @@ import colorLib.Swatch;
  * As the <a href="http://www.colr.org/api.html">API of Colr</a> is very limited, there are only three methods to use.
  * @author Andreas K�berle
  * @author Jan Vantomme
- * @example Colr
  */
-public class Colr extends WebService{
+public class Colr extends WebService
+{
 	
 	private final int DEFAULT = 0, LATEST = 1, RANDOM = 2;
 	
@@ -30,15 +30,10 @@ public class Colr extends WebService{
 		p=i_p;
 	}
 	
-	
-	
 	/**
 	 * Query the <a href="http://www.colr.org">Colr service</a> with a color and returns a string array with all related tags.
 	 * @param hex String: hex value of a color
 	 * @return String[]: string array with all tags associated  with this color
-	 * @related searchThemes ( )
-	 * @related searchColors ( )
-	 * @example Colr_searchTags
 	 */
 	
 	public String[] searchTags(final String hex){
@@ -93,9 +88,6 @@ public class Colr extends WebService{
 	 * return a ColrTheme holding all colors and all tags associated with this tag.
 	 * @param tag String: tag to query the service
 	 * @return ColrTheme: a ColrTheme holding all colors and all tags associated with this colors
-	 * @related searchTags ( )
-	 * @related searchThemes ( )
-	 * @example Colr
 	 */
 	public ColrTheme searchColors(String tag){
 		return searchColors(tag, null);
@@ -128,9 +120,6 @@ public class Colr extends WebService{
 	 * the tags associated with the scheme on Colr. 
 	 * @param tag
 	 * @return ColrTheme[]: array contains all theme matching the query
-	 * @related searchTags ( )
-	 * @related searchColors ( )
-	 * @example Colr_searchThemes
 	 */
 	public ColrTheme[] searchForThemes(final String tag){
 		return searchForThemes(tag, null, DEFAULT);

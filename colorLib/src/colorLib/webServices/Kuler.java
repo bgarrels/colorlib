@@ -32,7 +32,8 @@ import processing.xml.*;
  * @author andreask
  *
  */
-public class Kuler extends WebService{
+public class Kuler extends WebService
+{
 
 
 	private String key; // added this one to work with the new Kuler API
@@ -46,7 +47,8 @@ public class Kuler extends WebService{
 	 * @param parent
 	 *            PApplet: normally you will be using new Kuler(this);"
 	 */
-	public Kuler(final PApplet parent) {
+	public Kuler(final PApplet parent)
+	{
 		p = parent;
 	}
 
@@ -56,7 +58,8 @@ public class Kuler extends WebService{
 	 * 
 	 * @param key
 	 */
-	public void setKey(String key) {
+	public void setKey(String key)
+	{
 		this.key = key;
 	}
 
@@ -66,19 +69,17 @@ public class Kuler extends WebService{
 	 * As it isn't necessary to load an xml every time you start your sketch you can save it by using the filename parameter.
 	 * Once a result is saved it will be used every time you use the same filename parameter
 	 * 
-	 * @related getPopular ( )
-	 * @related getRecent ( )
-	 * @related getRandom ( )
-	 * @related search ( )
 	 * @return KulerTheme[], an array of all themes which match the query
 	 */
-	public KulerTheme[] getHighestRated() {
+	public KulerTheme[] getHighestRated()
+	{
 		return makePalettes("&listtype=rating", "get", null);
 	}
 	/**
 	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
 	 */
-	public KulerTheme[] getHighestRated(final String filename) {
+	public KulerTheme[] getHighestRated(final String filename)
+	{
 		return makePalettes("&listtype=rating", "get", filename);
 	}
 
@@ -89,14 +90,10 @@ public class Kuler extends WebService{
 	 * As it isn't necessary to load an xml every time you start your sketch you can save it by using the filename parameter.
 	 * Once a result is saved it will be used every time you use the same filename parameter
 	 * 
-	 * @related getHighestRated ( )
-	 * @related getRecent ( )
-	 * @related getRandom ( )
-	 * @related search ( )
 	 * @return KulerTheme[], an array of all themes which match the query
-	 * @example Kuler_popular
 	 */
-	public KulerTheme[] getPopular(final String filename) {
+	public KulerTheme[] getPopular(final String filename)
+	{
 		return makePalettes("&listType=popular&timeSpan=30", "get", filename);
 	}
 
@@ -104,13 +101,16 @@ public class Kuler extends WebService{
 	 * @param days
 	 *            int: Days
 	 */
-	public KulerTheme[] getPopular(final int days) {
+	public KulerTheme[] getPopular(final int days)
+	{
 		return makePalettes("&listType=popular&timeSpan=" + days, "get", null);
 	}
+	
 	/**
 	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
 	 */
-	public KulerTheme[] getPopular(final int days, final String filename) {
+	public KulerTheme[] getPopular(final int days, final String filename)
+	{
 		return makePalettes("&listType=popular&timeSpan=" + days, "get", filename);
 	}
 
@@ -120,33 +120,31 @@ public class Kuler extends WebService{
 	 * As it isn't necessary to load an xml every time you start your sketch you can save it by using the filename parameter.
 	 * Once a result is saved it will be used every time you use the same filename parameter
 	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
-	 * @related getHighestRated ( )
-	 * @related getPopular ( )
-	 * @related getRandom ( )
-	 * @related search ( )
 	 * @return KulerTheme[], an array of all themes which match the query
-	 * @example Kuler_recent
 	 */
 
-	public KulerTheme[] getLatest (final String filename) {
+	public KulerTheme[] getLatest (final String filename)
+	{
 		return makePalettes("&listType=recent", "get", filename);
 	}
 	
 	
 	/**
 	 * @deprecated As of release beta2, replaced by {@link #getLatest()}
-	 * @return
+	 * @return -
 	 */
-	public KulerTheme[] getRecent() {
+	public KulerTheme[] getRecent()
+	{
 		return getLatest(null);
 	}
 	
 	/**
 	 * @deprecated As of release beta2, replaced by {@link #getLatest()}
 	 * @param filename  Filename to save the result xml, respectively load the xml if it still exists
-	 * @return
+	 * @return -
 	 */
-	public KulerTheme[] getRecent(final String filename) {
+	public KulerTheme[] getRecent(final String filename)
+	{
 		return getLatest(filename);
 	}
 
@@ -154,15 +152,11 @@ public class Kuler extends WebService{
 	 * Get random colors as an array of <a
 	 * href="kulertheme_class_kulertheme.htm">KulerThemes</a>.
 	 * 
-	 * @related getHighestRated ( )
-	 * @related getPopular ( )
-	 * @related getRecent ( )
-	 * @related search ( )
 	 * @return KulerTheme[], an array of all themes which match the query
-	 * @example Kuler_random
 	 */
 	
-	public KulerTheme[] getRandom(final String filename) {
+	public KulerTheme[] getRandom(final String filename)
+	{
 		return makePalettes("&listType=random", "get", filename);
 	}
 
@@ -178,41 +172,41 @@ public class Kuler extends WebService{
 	 * 
 	 * @param searchQuery
 	 *            String: your query
-	 * @related getHighestRated ( )
-	 * @related getPopular ( )
-	 * @related getRecent ( )
-	 * @related getRandom ( )
 	 * @return KulerTheme[], an array of all themes which match the query
-	 * @example Kuler_search
 	 */
-	public KulerTheme[] search(final String searchQuery) {
+	public KulerTheme[] search(final String searchQuery)
+	{
 		return makePalettes("searchQuery=" + searchQuery, "search", null);
 	}
 
 	/**
-	 * @param query
+	 * @param searchQuery
 	 *            String: query that is use with a searchFilter
 	 * @param filter
 	 *            String: one of the following filters: "themeID", "userID",
 	 *            "email", "tag", "hex" and "title"
 	 */
-	public KulerTheme[] search(final String searchQuery, final String filter) {
+	public KulerTheme[] search(final String searchQuery, final String filter)
+	{
 		return makePalettes("&searchQuery=" + filter + ":" + searchQuery, "search", null);
 	}
 
 	/**
 	 * @param filename Filename to save the result xml, respectively load the xml if it still exists
-	 * @return
+	 * @return -
 	 */
-	public KulerTheme[] search(final String searchQuery, final String filter, String filename) {
+	public KulerTheme[] search(final String searchQuery, final String filter, String filename)
+	{
 		return makePalettes("&searchQuery=" + filter + ":" + searchQuery, "search", filename);
 	}
 	
-	public KulerTheme[] searchForThemes(String tag, String filename) {
+	public KulerTheme[] searchForThemes(String tag, String filename)
+	{
 		return makePalettes("&searchQuery=tag:" + tag , "search", filename);
 	}
 	
-	private KulerTheme[] makePalettes(final String querry, final String typ, String filename) {
+	private KulerTheme[] makePalettes(final String querry, final String typ, String filename)
+	{
 		String url = new StringBuffer(serverPage).append(typ).append(pageTyp).append("?itemsPerPage=").append(numResults).append("&startIndex=").append(resultOffset).append(querry).append(
 				"&key=" + key).toString();
 		XMLElement xml = getXML(url, filename);
@@ -257,9 +251,10 @@ public class Kuler extends WebService{
 	 * as an applet, you can set a path to a php or whatever page that's querry
 	 * the kuler service and response the xml to the applet.
 	 * 
-	 * @param serverPage
+	 * @param serverPath
 	 */
-	public void setserverPage(String serverPath, String pageTyp) {
+	public void setserverPage(String serverPath, String pageTyp)
+	{
 		this.serverPage = serverPath;
 		this.pageTyp = pageTyp;
 	}
