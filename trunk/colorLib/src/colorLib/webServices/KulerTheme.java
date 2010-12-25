@@ -8,9 +8,12 @@ import processing.core.PApplet;
 import colorLib.Palette;
 
 /**
- * @author Andreas K�berle
+ * @author Andreas K&ouml;berle
  * @author Jan Vantomme
  */
+
+// TODO: KulerTheme should extend Palette. Colr doesn't exist anymore.
+
 public class KulerTheme extends ColrTheme {
 	
 	private String themeID, themeTitle, authorLabel, authorID;

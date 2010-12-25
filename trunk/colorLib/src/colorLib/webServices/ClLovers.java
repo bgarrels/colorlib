@@ -5,7 +5,7 @@ import processing.core.PApplet;
 import processing.xml.*;
 
 /**
- * @author Andreas Koeberle
+ * @author Andreas K&ouml;berle
  * @author Jan Vantomme
  */
 

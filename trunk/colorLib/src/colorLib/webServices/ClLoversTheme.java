@@ -8,7 +8,7 @@ import processing.core.PApplet;
 import colorLib.Palette;
 
 /**
- * @author Andreas Koeberle
+ * @author Andreas K&ouml;berle
  * @author Jan Vantomme
  */
 public class ClLoversTheme extends Palette

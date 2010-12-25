@@ -14,7 +14,7 @@ import colorLib.calculation.MedianCut;
 
 /**
  * Creates a Palette object which will hold all your colors.
- * @author Andreas K&uml;berle
+ * @author Andreas K&ouml;berle
  * @author Jan Vantomme
  */
 
@@ -108,9 +108,8 @@ public class Palette
 	}
 
 	/**
-	 * @param i_filename
-	 *            String: an .cs or .act file located in the data folder of your
-	 *            sketch
+	 * Creates a Palette object from a .cs or .act file located in the data folder of your sketch.
+	 * @param i_filename String: The filename of the .cs or .act file you want to load. 
 	 */
 	public Palette(PApplet i_p, String i_filename)
 	{
@@ -175,7 +174,7 @@ public class Palette
 	}
 
 	/**
-	 * Returns the count of all swatches in the Palette
+	 * Returns the number swatches in the Palette.
 	 * 
 	 * @return int: count
 	 */
@@ -185,7 +184,7 @@ public class Palette
 	}
 
 	/**
-	 * Creates a 2 color palette with the passed color and it's complement on
+	 * Creates a 2 color Palette with the passed color and its complement on
 	 * the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
 	 * 
 	 * @param i_color
@@ -199,7 +198,7 @@ public class Palette
 	}
 
 	/**
-	 * Creates a 6 color palette with the passed color and it's complement on
+	 * Creates a 6 color Palette with the passed color and its complement on
 	 * the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel and 
 	 * 2 darker and softer contrasting colors of each complement.
 	 * 
@@ -235,7 +234,7 @@ public class Palette
 	}
 
 	/**
-	 * Creates a 3 color palette with the passed color and it's left and right complement on
+	 * Creates a 3 color Palette with the passed color and its left and right complement on
 	 * the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
 	 * @param i_color
 	 */
@@ -252,7 +251,7 @@ public class Palette
 	}
 
 	/**
-	 * Creates a 3 color palette that make up an triangle  on
+	 * Creates a 3 color palette that makes up a triangle on
 	 * the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel. 
 	 * The default angle of the triangle is 120 degrees, for an equilateral triangle, 
 	 * but you can pass your own in the range of 0-180.
@@ -279,7 +278,7 @@ public class Palette
 	}
 
 	/**
-	 * Creates a 4 color palette that make up an cross on
+	 * Creates a 4 color palette that makes up a cross on
 	 * the <a href="http://en.wikipedia.org/wiki/RYB">RYB</a> color wheel.
 	 * @param i_color
 	 */
@@ -294,7 +293,7 @@ public class Palette
 	}
 
 	/**
-	 * Decrease the brighness of all colors in the palette by the passed value.
+	 * Decrease the brightness of all colors in the Palette by the passed value.
 	 * By default its 10.
 	 */
 	public void darken()
@@ -311,7 +310,7 @@ public class Palette
 	}
 
 	/**
-	 * Increase the brighness of all colors in the palette by the passed value.
+	 * Increase the brightness of all colors in the Palette by the passed value.
 	 * By default its 10.
 	 * 
 	 */
@@ -331,7 +330,7 @@ public class Palette
 	}
 
 	/**
-	 * Increase the saturation of all colors in the palette by the passed value.
+	 * Increase the saturation of all colors in the Palette by the passed value.
 	 * By default its 10.
 	 */
 	public void saturate()
@@ -350,7 +349,7 @@ public class Palette
 	}
 
 	/**
-	 * Increase the saturation of all colors in the palette by the passed value.
+	 * Increase the saturation of all colors in the Palette by the passed value.
 	 * By default its 10.
 	 * 
 	 */
@@ -393,7 +392,7 @@ public class Palette
 	}
 
 	/**
-	 * Sorts the palette by hue starting with red end ends blue.
+	 * Sorts the Palette by hue starting with red end ends blue.
 	 */
 	public void sortByHue()
 	{
@@ -412,9 +411,9 @@ public class Palette
 	}
 
 	/**
-	 * Sorts the palette by saturation with element at last index containing the
-	 * most saturated item of the palette. This method based on toxis 
-	 * <a href="http://www.toxi.co.uk/blog/2006/04/colour-code-snippets.htm">color code snippets</a>.
+	 * Sorts the Palette by saturation with element at last index containing the
+	 * most saturated item of the palette. This method based on toxi's 
+	 * <a href="http://www.toxi.co.uk/blog/2006/04/colour-code-snippets.htm">colour code snippets</a>.
 	 */
 	public void sortBySaturation()
 	{
@@ -442,9 +441,9 @@ public class Palette
 
 
 	/**
-	 * Sorts the palette by luminance with element at last index containing the
-	 * "brightest" item of the palette.This method based on toxis 
-	 * <a href="http://www.toxi.co.uk/blog/2006/04/colour-code-snippets.htm">color code snippets</a>.
+	 * Sorts the Palette by luminance with element at last index containing the
+	 * "brightest" item of the Palette.This method based on toxi's 
+	 * <a href="http://www.toxi.co.uk/blog/2006/04/colour-code-snippets.htm">colour code snippets</a>.
 	 */
 	public void sortByLuminance()
 	{
@@ -464,9 +463,9 @@ public class Palette
 	}
 
 	/**
-	 * Sorts the palette by proximity to a colour with element at first index
-	 * containing the "closest" item of the palette.This method based on toxis 
-	 * <a href="http://www.toxi.co.uk/blog/2006/04/colour-code-snippets.htm">color code snippets</a>.
+	 * Sorts the Palette by proximity to a colour with element at first index
+	 * containing the "closest" item of the Palette.This method based on toxi's 
+	 * <a href="http://www.toxi.co.uk/blog/2006/04/colour-code-snippets.htm">coloor code snippets</a>.
 	 * 
 	 * @param i_color
 	 */
@@ -491,6 +490,7 @@ public class Palette
 				ht.put(key, al);
 			}
 		}
+		
 		sort(ht);
 	}
 	
@@ -512,9 +512,9 @@ public class Palette
 	}
 
 	/**
-	 * Interpolates all colors of the palette with passed color.
+	 * Interpolates all colors of the Palette with passed color.
 	 * 
-	 * @param i_color color: a color that all palette colors will interpolte with
+	 * @param i_color color: a color that all Palette colors will interpolate with
 	 * @param distance float: 
 	 */
 	public void interpolate(final int i_color, float distance)
@@ -541,9 +541,9 @@ public class Palette
 	}
 
 	/**
-	 * Returns the darkest color of the palette.
+	 * Returns the darkest color of the Palette.
 	 * 
-	 * @return color: darkest color of the palette
+	 * @return color: darkest color of the Palette
 	 */
 	public int getDarkest()
 	{
@@ -560,9 +560,9 @@ public class Palette
 	}
 
 	/**
-	 * Returns the lightest color of the palette.
+	 * Returns the lightest color of the Palette.
 	 * 
-	 * @return color: lightest color of the palette
+	 * @return color: lightest color of the Palette
 	 */
 	public int getLightest()
 	{
@@ -579,9 +579,9 @@ public class Palette
 	}
 
 	/**
-	 * Returns the average color of the palette.
+	 * Returns the average color of the Palette.
 	 * 
-	 * @return color: average color of the palette
+	 * @return color: average color of the Palette
 	 */
 	public int getAverage() {
 		int a = 0;
@@ -601,8 +601,7 @@ public class Palette
 	}
 
 	/**
-	 * Returns the swatch at the given position in the color array of the
-	 * palette.
+	 * Returns the swatch at the given position in the color array of the Palette.
 	 * 
 	 * @param position
 	 *            int, position
@@ -614,8 +613,7 @@ public class Palette
 	}
 
 	/**
-	 * Returns the color at the given position in the color array of the
-	 * palette.
+	 * Returns the color at the given position in the color array of the Palette.
 	 * 
 	 * @param position  int: position in the palette 
 	 * @return color
@@ -626,7 +624,7 @@ public class Palette
 	}
 
 	/**
-	 * Returns an array holding all the swatches of the palette.
+	 * Returns an array holding all the swatches of the Palette.
 	 * 
 	 * @return color Array
 	 */
@@ -638,7 +636,7 @@ public class Palette
 	}
 
 	/**
-	 * Returns an array holding all the color of the palette.
+	 * Returns an array holding all the color of the Palette.
 	 * 
 	 * @return color Array
 	 */
@@ -652,9 +650,9 @@ public class Palette
 	}
 
 	/**
-	 * Returns an array with the nearest hue to the palettes color as an array
+	 * Returns an array with the nearest hue to the Palettes color as an array
 	 * of the following strings: "red", "orange", "yellow", "lime",
-	 * "green","teal", "cyan", "azure", "blue", "indigo", "purple", "pink"
+	 * "green", "teal", "cyan", "azure", "blue", "indigo", "purple", "pink"
 	 * 
 	 * @return String[]: array with the nearest hues
 	 */
@@ -669,27 +667,30 @@ public class Palette
 
 
 	/**
-	 * Save the palette as an or .act file in your sketch folder
+	 * Save the Palette as an or .act file in your sketch folder.
 	 * 
 	 * @param i_name
 	 */
 	public void save(final String i_name)
 	{
 		byte[] bytes = new byte[768];
+		
 		for (int i = 0; i < swatches.length; i++) {
 			int color = swatches[i].getColor();
-			bytes[i*3]=(byte) ((color >> 16) & 0xff);
-			bytes[i*3+1]=(byte) ((color >> 8) & 0xff);
-			bytes[i*3+2]=(byte) (color & 0xff);
+			bytes[i*3]   = (byte) ((color >> 16) & 0xff);
+			bytes[i*3+1] = (byte) ((color >> 8) & 0xff);
+			bytes[i*3+2] = (byte) (color & 0xff);
 		}
+		
 		for (int i = swatches.length*3; i < 768; i++) {
-			bytes[i]=(byte) (0);
+			bytes[i] = (byte) (0);
 		}
+		
 		p.saveBytes(i_name+".act", bytes);
 	}
 
 	/**
-	 * Add one color at the end of your palette.
+	 * Add one color at the end of your Palette.
 	 * 
 	 * @param i_color
 	 */
@@ -699,8 +700,8 @@ public class Palette
 	}
 
 	/**
-	 * Add all passed colors at the end of your palette.
-	 * @param i_colors
+	 * Add all passed colors at the end of your Palette.
+	 * @param i_colors An array of colors.
 	 */
 	public void addColors(final int[] i_colors)
 	{
@@ -710,9 +711,9 @@ public class Palette
 	}
 
 	/**
-	 * Sets the color on the passed position on palette.
+	 * Sets the color on the passed position on Palette.
 	 * 
-	 * @param i_color
+	 * @param i_color 
 	 * @param i_position
 	 */
 	public void setColor(int i_color, int i_position)
@@ -726,7 +727,7 @@ public class Palette
 
 
 	/**
-	 * Delete all colors of the palette and fill the palette with the passed colors.
+	 * Deletes all colors of the Palette and fills the Palette with the passed colors.
 	 * @param i_colors
 	 */
 	public void setColors(int[] i_colors)
@@ -738,14 +739,16 @@ public class Palette
 	}
 
 	/**
-	 * Delete all duplicate colors within the palette.
+	 * Deletes all duplicate colors in the Palette.
 	 */
 	public void deleteDuplicate()
 	{
 		HashSet h = new HashSet();
+		
 		for (int i = 0; i < swatches.length; i++) {
 			h.add(new Integer(swatches[i].getColor()));
 		}
+		
 		swatches = new Swatch[h.size()];
 		Iterator iter = h.iterator();
 		int cnt = 0;
@@ -756,7 +759,7 @@ public class Palette
 	}
 
 	/**
-	 * Draw all colors
+	 * Draws all color swatches of the Palette to the screen.
 	 */
 	public void drawSwatches()
 	{
@@ -791,13 +794,14 @@ public class Palette
 	}
 
 	/**
-	 * Draws a color wheel with all colors of the palette.
+	 * Draws a color wheel with all color swatches of the Palette.
 	 */
 	public void drawWheel()
 	{
 		float swatchLength = PApplet.TWO_PI / swatches.length;
 		int fill = p.g.fillColor;
 		int stroke = p.g.strokeColor;
+		
 		for (int i = 0; i < swatches.length; i++) {
 			p.smooth();
 			p.noFill();
@@ -806,10 +810,10 @@ public class Palette
 			p.stroke(swatches[i].getColor());
 			p.arc(50, 55, 50, 50, swatchLength * i, swatchLength * (i + 1));
 		}
+		
 		p.fill(fill);
 		p.stroke(stroke);
 	}
-
 
 	private int setHSBColor(float h, float s, float b, float a)
 	{

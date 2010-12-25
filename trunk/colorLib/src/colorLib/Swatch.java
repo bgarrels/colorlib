@@ -7,7 +7,7 @@ import processing.core.*;
  * object holds all information on a color. All color transformations are done
  * on this
  * 
- * @author Andreas Kšberle
+ * @author Andreas K&ouml;berle
  * @author Jan Vantomme
  * 
  */

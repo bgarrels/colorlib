@@ -17,6 +17,8 @@ public abstract class WebService
 	protected boolean printXML = false;
 	protected int numResults, resultOffset;
 	
+	protected boolean debugMode = true;
+	
 	protected XMLElement getXML(String url, String filename)
 	{
 		XMLElement xml = null;
@@ -27,8 +29,12 @@ public abstract class WebService
 				// TODO Auto-generated catch block
 			}
 		}
+		
 		if (xml == null) {
-			p.println(url);
+			if (debugMode == true) {
+				p.println(url);
+			}
+			
 			xml = new XMLElement(p, url);
 			if (printXML) {
 				printXML(url.toString());
@@ -50,9 +56,11 @@ public abstract class WebService
 	
 	protected void printXML(String url)
 	{
-		String lines[] = p.loadStrings(url);
-		for (int i = 0; i < lines.length; i++) {
-			p.println(lines[i]);
+		if (debugMode == true) {
+			String lines[] = p.loadStrings(url);
+			for (int i = 0; i < lines.length; i++) {
+				p.println(lines[i]);
+			}
 		}
 	}
 	
