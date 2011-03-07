@@ -292,6 +292,54 @@ public class Palette
 	}
 
 	/**
+	 * Creates a 6 color palette with tinted values.
+	 * See http://en.wikipedia.org/wiki/Tints_and_shades
+	 * @param i_color
+	 */
+	public void makeTinted(final int i_color)
+	{
+		swatches = new Swatch[6];
+		swatches[0] = new Swatch(p, i_color);
+		for (int i = 1; i < 6; i++) {
+			int color;
+			color = p.lerpColor(i_color, p.color(255), i * 0.2f);
+			swatches[i] = new Swatch(p, color);	
+		}
+	}
+
+	/**
+	 * Creates a 6 color palette with shaded values.
+	 * See http://en.wikipedia.org/wiki/Tints_and_shades
+	 * @param i_color
+	 */
+	public void makeShaded(final int i_color)
+	{
+		swatches = new Swatch[6];
+		swatches[0] = new Swatch(p, i_color);
+		for (int i = 1; i < 6; i++) {
+			int color;
+			color = p.lerpColor(i_color, p.color(0), i * 0.2f);
+			swatches[i] = new Swatch(p, color);	
+		}
+	}
+
+	/**
+	 * Creates a 6 color palette with toned values.
+	 * See http://en.wikipedia.org/wiki/Tints_and_shades
+	 * @param i_color
+	 */
+	public void makeToned(final int i_color)
+	{
+		swatches = new Swatch[6];
+		swatches[0] = new Swatch(p, i_color);
+		for (int i = 1; i < 6; i++) {
+			int color;
+			color = p.lerpColor(i_color, p.color(128), i * 0.2f);
+			swatches[i] = new Swatch(p, color);	
+		}
+	}
+	
+	/**
 	 * Decrease the brightness of all colors in the Palette by the passed value.
 	 * By default its 10.
 	 */
@@ -762,8 +810,8 @@ public class Palette
 	 */
 	public void drawSwatches()
 	{
-		float paletteLength = 120f;
-		int   paletteHeight = 38;
+		float paletteLength = 120.0f;
+		int   paletteHeight = 30;
 		int fill = p.g.fillColor;
 		int stroke = p.g.strokeColor;
 		float swatchLength = paletteLength / swatches.length;
@@ -773,7 +821,7 @@ public class Palette
 			p.noStroke();
 			p.quad(swatchLength * i, 0, swatchLength * (i + 1), 0, swatchLength
 					* (i + 1), paletteHeight, swatchLength * i, paletteHeight);
-			p.line(swatchLength * i, 0, swatchLength * i, paletteHeight);
+		/*	p.line(swatchLength * i, 0, swatchLength * i, paletteHeight);
 			for (int j = 3, k = 0; j > -1; j--, k++) {
 				int c = swatches[i].getColor();
 				p.stroke(setHSBColor(p.hue(c), p.saturation(c), p.brightness(c)
@@ -786,8 +834,9 @@ public class Palette
 
 				p.line(swatchLength * i, paletteHeight - k, swatchLength
 						* (i + 1) - 1, paletteHeight - k);
-			}
+			} */
 		}
+		// restore original fill and stroke colors
 		p.fill(fill);
 		p.stroke(stroke);
 	}
