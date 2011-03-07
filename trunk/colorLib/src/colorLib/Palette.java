@@ -130,8 +130,7 @@ public class Palette
 		} 
 		*/
 		else {
-			throw new IllegalArgumentException(
-					"Only .cs and .act files are supported");
+			throw new IllegalArgumentException("Only .cs and .act files are supported");
 		}
 	}
 

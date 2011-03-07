@@ -10,10 +10,12 @@ public class ClLoversTest extends PApplet {
 	}
 
 	public void setup() {
-		size(1000, 1000);
+		size(1000, 600);
+		background(0);
+		smooth();
 		ClLovers cl = new ClLovers(this);
 		cl.setNumResults(50);
-		ClLoversTheme[] themes = cl.getPalettes("spring");
+		ClLoversTheme[] themes = cl.searchForThemes("spring");
 		for (int i = 0; i < themes.length; i++) {
 			pushMatrix();
 			 translate(10+(i%7)*130 , 10+floor(i/7)* 70);
