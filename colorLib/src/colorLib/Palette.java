@@ -671,6 +671,18 @@ public class Palette
 	}
 
 	/**
+	 * Returns the transparent color at the given position in the color array of the Palette.
+	 * 
+	 * @param position int: position in the Palette
+	 * @param alpha int: transparency, value between 0 and 100
+	 * @return color
+	 */
+	public int getTransparentColor(int position, int alpha)
+	{
+		return swatches[position].getTransparentColor(alpha);
+	}
+	
+	/**
 	 * Returns an array holding all the swatches of the Palette.
 	 * 
 	 * @return color Array
@@ -683,7 +695,7 @@ public class Palette
 	}
 
 	/**
-	 * Returns an array holding all the color of the Palette.
+	 * Returns an array holding all the colors of the Palette.
 	 * 
 	 * @return color Array
 	 */
@@ -695,7 +707,22 @@ public class Palette
 		}
 		return i_colors;
 	}
-
+	
+	/**
+	 * Returns an array holding all the colors of the Palette
+	 * 
+	 * @return color Array
+	 */
+	public int[] getTransparentColors(int alpha)
+	{
+		int[] i_colors = new int[swatches.length];
+		for (int i = 0; i < i_colors.length; i++) {
+			i_colors[i] = swatches[i].getTransparentColor(alpha);
+		}
+		return i_colors;
+		
+	}
+	
 	/**
 	 * Returns an array with the nearest hue to the Palettes color as an array
 	 * of the following strings: "red", "orange", "yellow", "lime",
@@ -821,20 +848,6 @@ public class Palette
 			p.noStroke();
 			p.quad(swatchLength * i, 0, swatchLength * (i + 1), 0, swatchLength
 					* (i + 1), paletteHeight, swatchLength * i, paletteHeight);
-		/*	p.line(swatchLength * i, 0, swatchLength * i, paletteHeight);
-			for (int j = 3, k = 0; j > -1; j--, k++) {
-				int c = swatches[i].getColor();
-				p.stroke(setHSBColor(p.hue(c), p.saturation(c), p.brightness(c)
-						+ 10 * k));
-
-				p.line(swatchLength * i, j, swatchLength * (i + 1) - 1, j);
-
-				p.stroke(setHSBColor(p.hue(c), p.saturation(c), p.brightness(c)
-						- 10 * j));
-
-				p.line(swatchLength * i, paletteHeight - k, swatchLength
-						* (i + 1) - 1, paletteHeight - k);
-			} */
 		}
 		// restore original fill and stroke colors
 		p.fill(fill);
