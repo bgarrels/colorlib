@@ -12,9 +12,9 @@ import colorLib.Palette;
  * @author Jan Vantomme
  */
 
-// TODO: KulerTheme should extend Palette. Colr doesn't exist anymore.
+// TODO: KulerTheme should extend Palette. Colr doesn't exist anymore?
 
-public class KulerTheme extends ColrTheme {
+public class KulerTheme extends Palette {
 	
 	private String themeID, themeTitle, authorLabel, authorID;
 
