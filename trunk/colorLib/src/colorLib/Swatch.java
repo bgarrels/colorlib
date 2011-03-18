@@ -205,6 +205,28 @@ public class Swatch
 	}
 
 	/**
+	 * Returns the transparent color of the swatch
+	 * 
+	 * @param alpha, Alpha value for the transparent color. Should be an integer between 0 and 100.
+	 * @return color, color
+	 */
+	public int getTransparentColor(int alpha)
+	{
+		int r = (c >> 16) & 0xff;
+		int g = (c >> 8) & 0xff;
+		int b = c & 0xff;
+		int a = alpha;
+		
+		int colorMode = p.g.colorMode;
+		p.colorMode(PApplet.RGB, 255, 255, 255, 100);
+		int transparentColor = p.color(r, g, b, a);
+		p.colorMode(colorMode);
+		
+		return transparentColor;
+	}
+	
+	
+	/**
 	 * Sets the color of the swatch
 	 * 
 	 * @param i_c
